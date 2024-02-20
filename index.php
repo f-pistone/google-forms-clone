@@ -1,8 +1,10 @@
 <?php
+include_once("./database/conn.php");
 session_start();
 if (empty($_SESSION['id_user'])) {
   header("Location: login.php");
 }
+$id_user = (int)$_SESSION['id_user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,71 +61,83 @@ if (empty($_SESSION['id_user'])) {
 
       <!-- LIST OF FORMS -->
       <ul class="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <li>
-          <!-- FORM -->
-          <div class="w-full cursor-pointer border rounded hover:border-purple-500">
-            <div class="border-b">
-              <img class="w-full rounded-t" src="./assets/images/form-image-fake.png" alt="Form Image">
-            </div>
-            <div class="p-3">
-              <h4 class="font-medium mb-2">Title</h4>
-              <div class="flex items-center gap-2">
-                <div>
-                  <img src="./assets/images/google-forms-logo.svg" class="w-[20px] aspect-square" alt="Form Icon">
-                </div>
-                <div>
-                  <span class="text-xs text-slate-600">
-                    Aperto 18:20
-                  </span>
-                </div>
-                <div class="ml-auto relative">
-                  <button type="button" class="flex justify-center items-center w-[30px] aspect-square text-xl text-slate-600 rounded-full hover:bg-slate-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
-                      <g fill="currentColor">
-                        <circle cx="10" cy="15" r="2" />
-                        <circle cx="10" cy="10" r="2" />
-                        <circle cx="10" cy="5" r="2" />
-                      </g>
-                    </svg>
-                  </button>
-                  <!-- OPTIONS MENU -->
-                  <div class="hidden absolute z-[9999] left-0 bottom-[30px] -translate-x-1/2 w-[250px] h-fit bg-white border rounded shadow">
-                    <ul>
-                      <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
-                        <span class="text-lg font-bold">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" d="M4 8h28m-4 13h16M18 42V8m18 34V21" />
-                          </svg>
-                        </span>
-                        <span>Rename</span>
-                      </li>
-                      <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
-                        <span class="text-lg font-bold">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                            <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                          </svg>
-                        </span>
-                        <span>Remove</span>
-                      </li>
-                      <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
-                        <span class="text-lg font-bold">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048">
-                            <path fill="currentColor" d="M2048 0v1664h-384v384H0V384h384V0zm-128 1536V128H512v256h256v128H128v1408h1408v-640h128v256zm-979-339l-90-90l594-595h-421V384h640v640h-128V603z" />
-                          </svg>
-                        </span>
-                        <span>Open in a new window</span>
-                      </li>
-                    </ul>
+        <?php
+        $sqlGetForms = "SELECT * FROM forms WHERE id_user = $id_user";
+        $queryGetForms = mysqli_query($conn, $sqlGetForms) or die("Error: get user's forms");
+        while ($rowGetForms = mysqli_fetch_assoc($queryGetForms)) {
+          $id_form = (int)$rowGetForms['id_form'];
+          $title_form = $rowGetForms['title_form'];
+          $image_form = $rowGetForms['image_form'];
+          $updated_at = $rowGetForms['updated_at'];
+        ?>
+          <li>
+            <!-- FORM -->
+            <div class="w-full cursor-pointer border rounded hover:border-purple-500">
+              <div class="border-b">
+                <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form ?>">
+              </div>
+              <div class="p-3">
+                <h4 class="font-medium mb-2"><?= $title_form ?></h4>
+                <div class="flex items-center gap-2">
+                  <div>
+                    <img src="./assets/images/google-forms-logo.svg" class="w-[20px] aspect-square" alt="Form Icon">
                   </div>
-                  <!-- END OPTIONS MENU -->
+                  <div>
+                    <span class="text-xs text-slate-600">
+                      <?= $updated_at ?>
+                    </span>
+                  </div>
+                  <div class="ml-auto relative">
+                    <button type="button" class="flex justify-center items-center w-[30px] aspect-square text-xl text-slate-600 rounded-full hover:bg-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+                        <g fill="currentColor">
+                          <circle cx="10" cy="15" r="2" />
+                          <circle cx="10" cy="10" r="2" />
+                          <circle cx="10" cy="5" r="2" />
+                        </g>
+                      </svg>
+                    </button>
+                    <!-- OPTIONS MENU -->
+                    <div class="hidden absolute z-[9999] left-0 bottom-[30px] -translate-x-1/2 w-[250px] h-fit bg-white border rounded shadow">
+                      <ul>
+                        <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
+                          <span class="text-lg font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+                              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" d="M4 8h28m-4 13h16M18 42V8m18 34V21" />
+                            </svg>
+                          </span>
+                          <span>Rename</span>
+                        </li>
+                        <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
+                          <span class="text-lg font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                              <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                            </svg>
+                          </span>
+                          <span>Remove</span>
+                        </li>
+                        <li class="p-3 flex items-center gap-3 hover:bg-slate-100">
+                          <span class="text-lg font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048">
+                              <path fill="currentColor" d="M2048 0v1664h-384v384H0V384h384V0zm-128 1536V128H512v256h256v128H128v1408h1408v-640h128v256zm-979-339l-90-90l594-595h-421V384h640v640h-128V603z" />
+                            </svg>
+                          </span>
+                          <span>Open in a new tab</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- END OPTIONS MENU -->
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- END FORM -->
-        </li>
+            <!-- END FORM -->
+          </li>
+        <?php
+        }
+        ?>
       </ul>
       <!-- END LIST OF FORMS -->
 
