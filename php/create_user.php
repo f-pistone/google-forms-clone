@@ -8,6 +8,15 @@ $email_user = addslashes($_POST['email_user']);
 $password_user = hash("sha256", $_POST['password_user']);
 $uniqid = uniqid("", true);
 
+$sqlCheckExistingUser = "SELECT email_user FROM users WHERE email_user = '$email_user'";
+$queryCheckExistingUser = mysqli_query($conn, $sqlCheckExistingUser) or die("Error: check existing user");
+$user_exist = (int)mysqli_num_rows($queryCheckExistingUser);
+
+if ($user_exist > 0) {
+  echo -1;
+  return;
+}
+
 $sqlCreateUser = "INSERT INTO 
           users 
             (first_name_user, last_name_user, email_user, password_user, uniqid) 
@@ -26,3 +35,4 @@ if (!empty($id_user) && $id_user > 0) {
 }
 
 echo $id_user;
+return;

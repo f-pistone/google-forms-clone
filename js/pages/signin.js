@@ -36,8 +36,12 @@ $(document).ready(function () {
         url: "php/create_user.php",
         data: $("#sign_in_form").serialize(),
         success: function (response) {
+          console.log(response);
           if (response > 0) {
             window.location.href = "index.php";
+          } else if (response == -1) {
+            $("#email_user").addClass("border-red-500");
+            console.log("Email already used");
           } else {
             console.log("Error");
           }
