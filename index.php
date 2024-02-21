@@ -164,7 +164,7 @@ $id_user = (int)$_SESSION['id_user'];
       <input type="hidden" id="id_form_to_rename" value="">
     </div>
     <div class="flex flex-wrap justify-end items-center gap-2">
-      <button type="button" id="close-rename-form-modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
+      <button type="button" id="close_rename_form_modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
         Back
       </button>
       <button type="button" id="rename_form_button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
@@ -182,7 +182,7 @@ $id_user = (int)$_SESSION['id_user'];
       <input type="hidden" id="id_form_to_remove" value="">
     </div>
     <div class="flex flex-wrap justify-end items-center gap-2">
-      <button type="button" id="close-remove-form-modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
+      <button type="button" id="close_remove_form_modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
         Back
       </button>
       <button type="button" id="remove_form_button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">

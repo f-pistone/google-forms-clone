@@ -20,7 +20,7 @@ $(document).ready(function () {
   });
 
   //Button to close the modal to rename the form
-  $("#close-rename-form-modal").on("click", function () {
+  $("#close_rename_form_modal").on("click", function () {
     document.getElementById("rename_form_modal").close();
     $("#id_form_to_rename").val("");
     $("#new_title_form").val("");
@@ -61,7 +61,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response == true) {
-          $("#close-rename-form-modal").click();
+          $("#close_rename_form_modal").click();
           Toastify({
             text: "Title changed",
             duration: 6000,
@@ -73,7 +73,7 @@ $(document).ready(function () {
             .find(".title-form")
             .text(new_title_form);
         } else {
-          $("#close-rename-form-modal").click();
+          $("#close_rename_form_modal").click();
           Toastify({
             text: "Error",
             duration: 6000,
@@ -97,7 +97,7 @@ $(document).ready(function () {
   });
 
   //Button to close the modal to remove the form
-  $("#close-remove-form-modal").on("click", function () {
+  $("#close_remove_form_modal").on("click", function () {
     document.getElementById("remove_form_modal").close();
     $("#id_form_to_remove").val("");
     $("#remove_title_form").text("");
@@ -115,7 +115,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response == true) {
-          $("#close-remove-form-modal").click();
+          $("#close_remove_form_modal").click();
           Toastify({
             text: "Form removed",
             duration: 6000,
@@ -127,7 +127,7 @@ $(document).ready(function () {
             $(`.form[data-id-form="${id_form}"]`).remove();
           });
         } else {
-          $("#close-remove-form-modal").click();
+          $("#close_remove_form_modal").click();
           Toastify({
             text: "Error",
             duration: 6000,
