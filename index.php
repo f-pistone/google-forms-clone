@@ -24,7 +24,7 @@ $id_user = (int)$_SESSION['id_user'];
       </div>
     </div>
     <div class="grow flex">
-      <input type="search" class="p-3 w-full rounded bg-slate-100 focus:outline-none focus:border focus:bg-white focus:shadow" placeholder="Search" value="">
+      <input type="text" id="search_forms" class="p-3 w-full rounded bg-slate-100 focus:outline-none focus:border focus:bg-white focus:shadow" placeholder="Search" value="">
     </div>
     <div class="shrink-0">
       <img class="w-[40px] aspect-square rounded-full object-contain" src="https://lh3.googleusercontent.com/-t8idYWqDDbg/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfklvc8tPxaawNFNx_MuXusN0UiODZQ/photo.jpg" alt="Profile Image">

@@ -139,4 +139,21 @@ $(document).ready(function () {
       },
     });
   });
+
+  //Research of the forms
+  $("#search_forms").on("keyup", function () {
+    const searched_value = $.trim($(this).val().toLowerCase());
+    const forms = $(".form");
+
+    for (let i = 0; i < forms.length; i++) {
+      let form_title = $.trim(
+        $(forms[i]).find(".title-form").text().toLowerCase()
+      );
+      if (form_title.includes(searched_value)) {
+        $(forms[i]).parent().show();
+      } else {
+        $(forms[i]).parent().hide();
+      }
+    }
+  });
 });
