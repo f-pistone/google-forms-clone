@@ -77,7 +77,7 @@ $id_user = (int)$_SESSION['id_user'];
                 <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form ?>">
               </div>
               <div class="p-3">
-                <h4 class="font-medium mb-2"><?= $title_form ?></h4>
+                <h4 class="font-medium mb-2" id="title_form"><?= $title_form ?></h4>
                 <div class="flex items-center gap-2">
                   <div>
                     <img src="./assets/images/google-forms-logo.svg" class="w-[20px] aspect-square" alt="Form Icon">
@@ -100,8 +100,8 @@ $id_user = (int)$_SESSION['id_user'];
                     <!-- OPTIONS MENU -->
                     <div class="options-menu hidden absolute z-[9999] left-0 bottom-[30px] -translate-x-1/2 w-[250px] h-fit bg-white border rounded shadow">
                       <ul>
-                        <li class="p-3 hover:bg-slate-100">
-                          <button type="button" class="flex items-center gap-3">
+                        <li class="hover:bg-slate-100">
+                          <button type="button" class="open-rename-form-modal w-full p-3 flex items-center gap-3">
                             <span class="text-lg font-bold">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" d="M4 8h28m-4 13h16M18 42V8m18 34V21" />
@@ -110,8 +110,8 @@ $id_user = (int)$_SESSION['id_user'];
                             <span>Rename</span>
                           </button>
                         </li>
-                        <li class="p-3 hover:bg-slate-100">
-                          <button type="button" class="flex items-center gap-3">
+                        <li class="hover:bg-slate-100">
+                          <button type="button" class="w-full p-3 flex items-center gap-3">
                             <span class="text-lg font-bold">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
@@ -122,8 +122,8 @@ $id_user = (int)$_SESSION['id_user'];
                             <span>Remove</span>
                           </button>
                         </li>
-                        <li class="p-3 hover:bg-slate-100">
-                          <div class="flex items-center gap-3">
+                        <li class="hover:bg-slate-100">
+                          <div class="w-full p-3 flex items-center gap-3">
                             <span class="text-lg font-bold">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048">
                                 <path fill="currentColor" d="M2048 0v1664h-384v384H0V384h384V0zm-128 1536V128H512v256h256v128H128v1408h1408v-640h128v256zm-979-339l-90-90l594-595h-421V384h640v640h-128V603z" />
@@ -152,6 +152,26 @@ $id_user = (int)$_SESSION['id_user'];
 
   </main>
   <!-- END MAIN -->
+
+  <!-- RENAME FORM MODAL -->
+  <dialog id="rename_form_modal" class="modal p-5 w-[400px] rounded shadow">
+    <div class="mb-5">
+      <h2 class="text-2xl mb-2">Rename</h2>
+      <h3 class="text-slate-600">Insert a new name for the element:</h3>
+    </div>
+    <div class="mb-5">
+      <input type="text" id="new_title_form" class="w-full px-2 py-1 text-sm border rounded hover:border-black focus:border-purple-500 focus:outline-none" value="">
+    </div>
+    <div class="text-right">
+      <button type="button" id="close-rename-form-modal" class="px-4 py-2 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
+        Back
+      </button>
+      <button type="button" class="px-4 py-2 text-white rounded bg-purple-500 hover:bg-blue-500">
+        OK
+      </button>
+    </div>
+  </dialog>
+  <!-- END RENAME FORM MODAL -->
 
   <!-- JS -->
   <script src="./js/pages/index.js"></script>
