@@ -46,6 +46,9 @@ $(document).ready(function () {
       success: function (response) {
         if (response == true) {
           console.log("Success");
+          $(`.form[data-id-form="${id_form}"]`)
+            .find(".title-form")
+            .text(new_title_form);
           $("#close-rename-form-modal").click();
         } else {
           console.log("Error");

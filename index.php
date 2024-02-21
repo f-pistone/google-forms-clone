@@ -77,7 +77,7 @@ $id_user = (int)$_SESSION['id_user'];
                 <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form ?>">
               </div>
               <div class="p-3">
-                <h4 class="title-form font-medium mb-2"><?= $title_form ?></h4>
+                <h4 class="title-form break-all font-medium mb-2"><?= $title_form ?></h4>
                 <div class="flex items-center gap-2">
                   <div>
                     <img src="./assets/images/google-forms-logo.svg" class="w-[20px] aspect-square" alt="Form Icon">
