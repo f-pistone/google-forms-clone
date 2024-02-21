@@ -98,7 +98,7 @@ $id_user = (int)$_SESSION['id_user'];
                       </svg>
                     </button>
                     <!-- OPTIONS MENU -->
-                    <div class="options-menu hidden absolute z-[9999] left-0 bottom-[30px] -translate-x-1/2 w-[250px] h-fit bg-white border rounded shadow">
+                    <div class="options-menu hidden absolute z-[9999] right-0 md:right-auto left-auto md:left-0 bottom-[30px] md:-translate-x-1/2 w-[250px] h-fit bg-white border rounded shadow">
                       <ul>
                         <li class="hover:bg-slate-100">
                           <button type="button" class="open-rename-form-modal w-full p-3 flex items-center gap-3">
@@ -162,8 +162,8 @@ $id_user = (int)$_SESSION['id_user'];
     <div class="mb-5">
       <input type="text" id="new_title_form" class="w-full px-2 py-1 text-sm border rounded hover:border-black focus:border-purple-500 focus:outline-none" value="">
     </div>
-    <div class="text-right">
-      <button type="button" id="close-rename-form-modal" class="px-10 py-1 mr-2 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
+    <div class="flex flex-wrap justify-end items-center gap-2">
+      <button type="button" id="close-rename-form-modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
         Back
       </button>
       <button type="button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
