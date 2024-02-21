@@ -24,6 +24,9 @@ $(document).ready(function () {
     document.getElementById("rename_form_modal").close();
     $("#id_form_to_rename").val("");
     $("#new_title_form").val("");
+    $("#rename_form_button").prop("disabled", false);
+    $("#rename_form_button").removeClass("!text-gray-400");
+    $("#rename_form_button").removeClass("!bg-slate-100");
   });
 
   //Check new title value
