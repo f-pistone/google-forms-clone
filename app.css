@@ -2,3 +2,13 @@
   max-width: 1000px;
   margin: 0px auto;
 }
+
+.modal::backdrop {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: black;
+  opacity: 0.6;
+}
