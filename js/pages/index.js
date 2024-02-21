@@ -26,13 +26,26 @@ $(document).ready(function () {
     $("#new_title_form").val("");
   });
 
-  //
+  //Check new title value
+  $("#new_title_form").on("keyup", function () {
+    const value = $(this).val();
+    if ($.trim(value) === "" || value === undefined) {
+      $("#rename_form_button").prop("disabled", true);
+      $("#rename_form_button").addClass("!text-gray-400");
+      $("#rename_form_button").addClass("!bg-slate-100");
+    } else {
+      $("#rename_form_button").prop("disabled", false);
+      $("#rename_form_button").removeClass("!text-gray-400");
+      $("#rename_form_button").removeClass("!bg-slate-100");
+    }
+  });
+
+  //Button to rename the form
   $("#rename_form_button").on("click", function () {
     const id_form = $("#id_form_to_rename").val();
     const new_title_form = $("#new_title_form").val();
 
     if ($.trim(new_title_form) === "" || new_title_form === undefined) {
-      console.log("Insert a valid title");
       return;
     }
 
