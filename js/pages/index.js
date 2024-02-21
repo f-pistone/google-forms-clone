@@ -61,7 +61,13 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response == true) {
-          console.log("Success");
+          Toastify({
+            text: "Title changed",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
           $(`.form[data-id-form="${id_form}"]`)
             .find(".title-form")
             .text(new_title_form);
