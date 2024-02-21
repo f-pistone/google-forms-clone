@@ -154,7 +154,7 @@ $id_user = (int)$_SESSION['id_user'];
   <!-- END MAIN -->
 
   <!-- RENAME FORM MODAL -->
-  <dialog id="rename_form_modal" class="modal p-5 w-[400px] rounded shadow">
+  <dialog id="rename_form_modal" class="modal p-5 w-[400px] rounded-lg shadow">
     <div class="mb-5">
       <h2 class="text-2xl mb-2">Rename</h2>
       <h3 class="text-slate-600">Insert a new name for the element:</h3>
@@ -163,10 +163,10 @@ $id_user = (int)$_SESSION['id_user'];
       <input type="text" id="new_title_form" class="w-full px-2 py-1 text-sm border rounded hover:border-black focus:border-purple-500 focus:outline-none" value="">
     </div>
     <div class="text-right">
-      <button type="button" id="close-rename-form-modal" class="px-4 py-2 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
+      <button type="button" id="close-rename-form-modal" class="px-10 py-1 mr-2 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
         Back
       </button>
-      <button type="button" class="px-4 py-2 text-white rounded bg-purple-500 hover:bg-blue-500">
+      <button type="button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
         OK
       </button>
     </div>
