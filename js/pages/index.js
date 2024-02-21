@@ -61,6 +61,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response == true) {
+          $("#close-rename-form-modal").click();
           Toastify({
             text: "Title changed",
             duration: 6000,
@@ -71,9 +72,15 @@ $(document).ready(function () {
           $(`.form[data-id-form="${id_form}"]`)
             .find(".title-form")
             .text(new_title_form);
-          $("#close-rename-form-modal").click();
         } else {
-          console.log("Error");
+          $("#close-rename-form-modal").click();
+          Toastify({
+            text: "Error",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
         }
       },
     });
@@ -81,7 +88,10 @@ $(document).ready(function () {
 
   //Button to open the modal to remove the form
   $("#forms_list").on("click", ".open-remove-form-modal", function () {
-    const title_form = $(".title-form").text();
+    const form = $(this).parents(".form");
+    const id_form = $(form).attr("data-id-form");
+    const title_form = $(form).find(".title-form").text();
+    $("#id_form_to_remove").val(id_form);
     $("#remove_title_form").text(title_form);
     document.getElementById("remove_form_modal").showModal();
   });
@@ -89,6 +99,44 @@ $(document).ready(function () {
   //Button to close the modal to remove the form
   $("#close-remove-form-modal").on("click", function () {
     document.getElementById("remove_form_modal").close();
+    $("#id_form_to_remove").val("");
     $("#remove_title_form").text("");
+  });
+
+  //Button to remove the form
+  $("#remove_form_button").on("click", function () {
+    const id_form = $("#id_form_to_remove").val();
+
+    $.ajax({
+      type: "POST",
+      url: "php/remove_form.php",
+      data: {
+        id_form: id_form,
+      },
+      success: function (response) {
+        if (response == true) {
+          $("#close-remove-form-modal").click();
+          Toastify({
+            text: "Form removed",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+          $(`.form[data-id-form="${id_form}"]`).fadeOut(800, function () {
+            $(`.form[data-id-form="${id_form}"]`).remove();
+          });
+        } else {
+          $("#close-remove-form-modal").click();
+          Toastify({
+            text: "Error",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 });
