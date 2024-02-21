@@ -62,7 +62,7 @@ $id_user = (int)$_SESSION['id_user'];
       <!-- LIST OF FORMS -->
       <ul id="forms_list" class="grid grid-cols-1 md:grid-cols-4 gap-5">
         <?php
-        $sqlGetForms = "SELECT * FROM forms WHERE id_user = $id_user";
+        $sqlGetForms = "SELECT * FROM forms WHERE id_user = $id_user ORDER BY updated_at DESC";
         $queryGetForms = mysqli_query($conn, $sqlGetForms) or die("Error: get user's forms");
         while ($rowGetForms = mysqli_fetch_assoc($queryGetForms)) {
           $id_form = (int)$rowGetForms['id_form'];
