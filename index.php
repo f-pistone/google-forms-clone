@@ -84,7 +84,7 @@ $id_user = (int)$_SESSION['id_user'];
                   </div>
                   <div>
                     <span class="text-xs text-slate-600">
-                      <?= $updated_at ?>
+                      <?= date("d/m/Y H:i", strtotime($updated_at)) ?>
                     </span>
                   </div>
                   <div class="ml-auto relative">
