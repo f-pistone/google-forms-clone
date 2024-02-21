@@ -41,19 +41,19 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
     </div>
     <div class="shrink-0 order-2 md:order-3 ml-auto md:ml-0 flex items-center gap-3">
       <div>
-        <button type="button" class="w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-slate-600 transition hover:bg-slate-100">
+        <button type="button" class="w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
             <path fill="currentColor" d="M245.48 125.57c-.34-.78-8.66-19.23-27.24-37.81C201 70.54 171.38 50 128 50S55 70.54 37.76 87.76c-18.58 18.58-26.9 37-27.24 37.81a6 6 0 0 0 0 4.88c.34.77 8.66 19.22 27.24 37.8C55 185.47 84.62 206 128 206s73-20.53 90.24-37.75c18.58-18.58 26.9-37 27.24-37.8a6 6 0 0 0 0-4.88M128 194c-31.38 0-58.78-11.42-81.45-33.93A134.77 134.77 0 0 1 22.69 128a134.56 134.56 0 0 1 23.86-32.06C69.22 73.42 96.62 62 128 62s58.78 11.42 81.45 33.94A134.56 134.56 0 0 1 233.31 128C226.94 140.21 195 194 128 194m0-112a46 46 0 1 0 46 46a46.06 46.06 0 0 0-46-46m0 80a34 34 0 1 1 34-34a34 34 0 0 1-34 34" />
           </svg>
         </button>
       </div>
       <div>
-        <button type="button" class="px-6 py-2 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
+        <button type="button" class="px-5 py-1 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
           Send
         </button>
       </div>
       <div class="relative">
-        <button type="button" class="open-options-menu w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-slate-600 transition hover:bg-slate-100">
+        <button type="button" class="open-options-menu w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
             <g fill="currentColor">
               <circle cx="10" cy="15" r="2" />
@@ -64,7 +64,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         </button>
         <div class="options-menu hidden absolute z-[9999] right-0 top-[50px] w-[250px] h-fit bg-white border rounded shadow">
           <ul>
-            <li class="hover:bg-slate-100">
+            <li class="hover:bg-gray-100">
               <button type="button" class="open-duplicate-form-modal w-full p-3 flex items-center gap-3">
                 <span class="text-lg font-bold">
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
@@ -74,7 +74,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                 <span>Duplicate</span>
               </button>
             </li>
-            <li class="hover:bg-slate-100">
+            <li class="hover:bg-gray-100">
               <button type="button" class="open-remove-form-modal w-full p-3 flex items-center gap-3">
                 <span class="text-lg font-bold">
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
