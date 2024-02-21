@@ -72,12 +72,12 @@ $id_user = (int)$_SESSION['id_user'];
         ?>
           <li>
             <!-- FORM -->
-            <div class="w-full cursor-pointer border rounded hover:border-purple-500">
+            <div class="form w-full cursor-pointer border rounded hover:border-purple-500" data-id-form="<?= $id_form ?>">
               <div class="border-b">
                 <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form ?>">
               </div>
               <div class="p-3">
-                <h4 class="font-medium mb-2" id="title_form"><?= $title_form ?></h4>
+                <h4 class="title-form font-medium mb-2"><?= $title_form ?></h4>
                 <div class="flex items-center gap-2">
                   <div>
                     <img src="./assets/images/google-forms-logo.svg" class="w-[20px] aspect-square" alt="Form Icon">
@@ -161,12 +161,13 @@ $id_user = (int)$_SESSION['id_user'];
     </div>
     <div class="mb-5">
       <input type="text" id="new_title_form" class="w-full px-2 py-1 text-sm border rounded hover:border-black focus:border-purple-500 focus:outline-none" value="">
+      <input type="hidden" id="id_form_to_rename" value="">
     </div>
     <div class="flex flex-wrap justify-end items-center gap-2">
       <button type="button" id="close-rename-form-modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-slate-100 hover:text-black">
         Back
       </button>
-      <button type="button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
+      <button type="button" id="rename_form_button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
         OK
       </button>
     </div>
