@@ -124,7 +124,7 @@ $(document).ready(function () {
             position: "left",
           }).showToast();
           $(`.form[data-id-form="${id_form}"]`).fadeOut(800, function () {
-            $(`.form[data-id-form="${id_form}"]`).remove();
+            $(`.form[data-id-form="${id_form}"]`).parent().remove();
           });
         } else {
           $("#close_remove_form_modal").click();
