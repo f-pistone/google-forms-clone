@@ -11,12 +11,6 @@ $(document).ready(function () {
     }
   });
 
-  //Toggle the active class for the form boxes
-  $(".form-box").on("click", function () {
-    $(".form-box").removeClass("active-form-box");
-    $(this).addClass("active-form-box");
-  });
-
   //Button to add a new question
   $("#add_question_button").on("click", function () {
     const last_question = $(".question").last();
@@ -25,12 +19,18 @@ $(document).ready(function () {
     if (last_question.length > 0) {
       $(last_question).after(new_question);
     } else {
-      $(".section").first().after(new_question);
+      $(".section").first().find(".section-info").after(new_question);
     }
   });
 
+  //Toggle the active class for the form boxes
+  $("#form").on("click", ".form-box", function () {
+    $(".form-box").removeClass("active-form-box");
+    $(this).addClass("active-form-box");
+  });
+
   //Change of the question's type
-  $(".type-question").on("change", function () {
+  $("#form").on("change", ".type-question", function () {
     const question = $(this).parents(".question");
     const new_type_question = $(this).val();
     let new_question_body = "";
