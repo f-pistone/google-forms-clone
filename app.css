@@ -13,7 +13,7 @@
   opacity: 0.6;
 }
 
-.active-box::after {
+.active-form-box::after {
   content: "";
   display: block;
   width: 6px;
