@@ -65,6 +65,13 @@ $(document).ready(function () {
       return;
     }
   });
+
+  //Duplicate question
+  $("#form").on("click", ".duplicate-question-button", function () {
+    const question = $(this).parents(".question");
+    const question_clone = $(question).clone();
+    $(question).after(question_clone);
+  });
 });
 
 //Create a new question
@@ -99,7 +106,7 @@ function createQuestion() {
     <!-- QUESTION FOOTER -->
     <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
       <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-        <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+        <button type="button" class="duplicate-question-button p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
             <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
           </svg>
