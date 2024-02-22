@@ -10,4 +10,10 @@ $(document).ready(function () {
       $(options_menu_to_open).addClass("hidden");
     }
   });
+
+  //Toggle the active class for the form boxes
+  $(".form-box").on("click", function () {
+    $(".form-box").removeClass("active-form-box");
+    $(this).addClass("active-form-box");
+  });
 });

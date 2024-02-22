@@ -127,7 +127,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
         <div class="section grid grid-cols-1 gap-3">
 
           <!-- SECTION INFORMATIONS -->
-          <div class="section-info relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
+          <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
             <div class="mb-2">
               <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
             </div>
@@ -138,7 +138,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
           <!-- END SECTION INFORMATIONS -->
 
           <!-- QUESTION SHORT ANSWER -->
-          <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
             <!-- QUESTION HEADER -->
             <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -193,7 +193,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
           <!-- END QUESTION SHORT ANSWER -->
 
           <!-- QUESTION LONG ANSWER -->
-          <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
             <!-- QUESTION HEADER -->
             <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -248,7 +248,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
           <!-- END QUESTION LONG ANSWER -->
 
           <!-- QUESTION MULTIPLE CHOISE -->
-          <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
             <!-- QUESTION HEADER -->
             <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -341,7 +341,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
           <!-- END QUESTION MULTIPLE CHOISE -->
 
           <!-- QUESTION CHECKBOX -->
-          <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
             <!-- QUESTION HEADER -->
             <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -434,7 +434,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
           <!-- END QUESTION CHECKBOX -->
 
           <!-- QUESTION LIST -->
-          <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
             <!-- QUESTION HEADER -->
             <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
