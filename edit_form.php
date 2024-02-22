@@ -45,8 +45,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
 
 <?php include_once("./components/head.php") ?>
 
-<body>
-
+<body class="bg-purple-100">
   <!-- HEADER -->
   <header class="fixed z-[999] bg-white w-full py-2 px-5 flex flex-wrap items-center gap-3 border-b">
     <a href="./index.php" class="shrink-0 order-1 block">
@@ -113,355 +112,196 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
   <!-- END HEADER -->
 
   <!-- MAIN -->
-  <main class="pt-[120px] md:pt-[80px] pb-5 px-1 bg-purple-100">
+  <main class="pt-[120px] md:pt-[80px] pb-10 px-1 relative">
     <div class="max-w-[800px] mx-auto my-0">
+      <!-- FORM -->
+      <div class="form relative">
 
-      <?php
-      while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
-        $title_section = $rowGetSections['title_section'];
-        $title_section_html = htmlspecialchars($title_section, ENT_QUOTES);
-        $description_section = $rowGetSections['description_section'];
-      ?>
+        <!-- MENU -->
+        <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
+          <ul class="flex flex-row md:flex-col justify-center md:justify-start items-center gap-2">
+            <li>
+              <button type="button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add question">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024">
+                  <path fill="currentColor" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0m0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01M736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32" />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56">
+                  <path fill="currentColor" d="M8.066 26.066h39.867c3.587 0 5.391-1.757 5.391-5.367v-8.953c0-3.586-1.804-5.32-5.39-5.32H8.065c-3.586 0-5.39 1.734-5.39 5.32V20.7c0 3.61 1.804 5.367 5.39 5.367m.282-3.539c-1.383 0-2.133-.726-2.133-2.18v-8.202c0-1.477.75-2.18 2.133-2.18h39.304c1.383 0 2.133.703 2.133 2.18v8.203c0 1.453-.75 2.18-2.133 2.18Zm-.282 27.047h39.867c3.587 0 5.391-1.734 5.391-5.343v-8.977c0-3.563-1.804-5.32-5.39-5.32H8.065c-3.586 0-5.39 1.757-5.39 5.32v8.977c0 3.609 1.804 5.343 5.39 5.343m.282-3.539c-1.383 0-2.133-.726-2.133-2.18v-8.203c0-1.476.75-2.18 2.133-2.18h39.304c1.383 0 2.133.704 2.133 2.18v8.203c0 1.454-.75 2.18-2.133 2.18Z" />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </menu>
+        <!-- END MENU -->
 
-        <!-- SECTION -->
-        <div class="section grid grid-cols-1 gap-3">
+        <?php
+        while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
+          $title_section = $rowGetSections['title_section'];
+          $title_section_html = htmlspecialchars($title_section, ENT_QUOTES);
+          $description_section = $rowGetSections['description_section'];
+        ?>
 
-          <!-- SECTION INFORMATIONS -->
-          <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
-            <div class="mb-2">
-              <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
-            </div>
-            <div>
-              <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
-            </div>
-          </div>
-          <!-- END SECTION INFORMATIONS -->
+          <!-- SECTION -->
+          <div class="section grid grid-cols-1 gap-3">
 
-          <!-- QUESTION SHORT ANSWER -->
-          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
-
-            <!-- QUESTION HEADER -->
-            <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
-              <div class="basis-full md:basis-6/12">
-                <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+            <!-- SECTION INFORMATIONS -->
+            <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
+              <div class="mb-2">
+                <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
               </div>
-              <div class="basis-full md:basis-5/12">
-                <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                  <?php
-                  foreach ($question_types as $question_type) {
-                    $id_question_type = (int)$question_type['id_question_type'];
-                    $name_question_type = $question_type['name_question_type'];
-
-                    echo "<option value='$id_question_type'>$name_question_type</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <!-- END QUESTION HEADER -->
-
-            <!-- QUESTION BODY -->
-            <div class="question-body mb-10">
-              <p class="border-dotted border-b border-gray-500 text-gray-500">Short answer</p>
-            </div>
-            <!-- END QUESTION BODY -->
-
-            <!-- QUESTION FOOTER -->
-            <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
-              <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                    <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
-                  </svg>
-                </button>
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                  </svg>
-                </button>
-              </div>
-              <div class="pl-2 flex items-center gap-2">
-                <span>Required</span>
-                <input class="switch" type="checkbox">
+              <div>
+                <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
               </div>
             </div>
-            <!-- END QUESTION FOOTER -->
+            <!-- END SECTION INFORMATIONS -->
 
-          </div>
-          <!-- END QUESTION SHORT ANSWER -->
+            <!-- QUESTION SHORT ANSWER -->
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
 
-          <!-- QUESTION LONG ANSWER -->
-          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+              <!-- QUESTION HEADER -->
+              <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+                <div class="basis-full md:basis-6/12">
+                  <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                </div>
+                <div class="basis-full md:basis-5/12">
+                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                    <?php
+                    foreach ($question_types as $question_type) {
+                      $id_question_type = (int)$question_type['id_question_type'];
+                      $name_question_type = $question_type['name_question_type'];
 
-            <!-- QUESTION HEADER -->
-            <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
-              <div class="basis-full md:basis-6/12">
-                <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                      echo "<option value='$id_question_type'>$name_question_type</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
               </div>
-              <div class="basis-full md:basis-5/12">
-                <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                  <?php
-                  foreach ($question_types as $question_type) {
-                    $id_question_type = (int)$question_type['id_question_type'];
-                    $name_question_type = $question_type['name_question_type'];
+              <!-- END QUESTION HEADER -->
 
-                    echo "<option value='$id_question_type'>$name_question_type</option>";
-                  }
-                  ?>
-                </select>
+              <!-- QUESTION BODY -->
+              <div class="question-body mb-10">
+                <p class="border-dotted border-b border-gray-500 text-gray-500">Short answer</p>
               </div>
-            </div>
-            <!-- END QUESTION HEADER -->
+              <!-- END QUESTION BODY -->
 
-            <!-- QUESTION BODY -->
-            <div class="question-body mb-10">
-              <p class="border-dotted border-b border-gray-500 text-gray-500">Long answer</p>
-            </div>
-            <!-- END QUESTION BODY -->
-
-            <!-- QUESTION FOOTER -->
-            <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
-              <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                    <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
-                  </svg>
-                </button>
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                  </svg>
-                </button>
-              </div>
-              <div class="pl-2 flex items-center gap-2">
-                <span>Required</span>
-                <input class="switch" type="checkbox">
-              </div>
-            </div>
-            <!-- END QUESTION FOOTER -->
-
-          </div>
-          <!-- END QUESTION LONG ANSWER -->
-
-          <!-- QUESTION MULTIPLE CHOISE -->
-          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
-
-            <!-- QUESTION HEADER -->
-            <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
-              <div class="basis-full md:basis-6/12">
-                <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
-              </div>
-              <div class="basis-full md:basis-5/12">
-                <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                  <?php
-                  foreach ($question_types as $question_type) {
-                    $id_question_type = (int)$question_type['id_question_type'];
-                    $name_question_type = $question_type['name_question_type'];
-
-                    echo "<option value='$id_question_type'>$name_question_type</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <!-- END QUESTION HEADER -->
-
-            <!-- QUESTION BODY -->
-            <div class="question-body mb-10">
-              <ul class="flex flex-col gap-1">
-                <!-- OPTION -->
-                <li class="h-[40px] flex items-center gap-3">
-                  <div class="shrink-0 text-xl text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+              <!-- QUESTION FOOTER -->
+              <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+                <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                      <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
                     </svg>
-                  </div>
-                  <div class="grow">
-                    <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
-                  </div>
-                  <div class="shrink-0">
-                    <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
-                        <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+                  </button>
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                      <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="pl-2 flex items-center gap-2">
+                  <span>Required</span>
+                  <input class="switch" type="checkbox">
+                </div>
+              </div>
+              <!-- END QUESTION FOOTER -->
+
+            </div>
+            <!-- END QUESTION SHORT ANSWER -->
+
+            <!-- QUESTION LONG ANSWER -->
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+
+              <!-- QUESTION HEADER -->
+              <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+                <div class="basis-full md:basis-6/12">
+                  <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                </div>
+                <div class="basis-full md:basis-5/12">
+                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                    <?php
+                    foreach ($question_types as $question_type) {
+                      $id_question_type = (int)$question_type['id_question_type'];
+                      $name_question_type = $question_type['name_question_type'];
+
+                      echo "<option value='$id_question_type'>$name_question_type</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <!-- END QUESTION HEADER -->
+
+              <!-- QUESTION BODY -->
+              <div class="question-body mb-10">
+                <p class="border-dotted border-b border-gray-500 text-gray-500">Long answer</p>
+              </div>
+              <!-- END QUESTION BODY -->
+
+              <!-- QUESTION FOOTER -->
+              <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+                <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                      <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                    </svg>
+                  </button>
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                      <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="pl-2 flex items-center gap-2">
+                  <span>Required</span>
+                  <input class="switch" type="checkbox">
+                </div>
+              </div>
+              <!-- END QUESTION FOOTER -->
+
+            </div>
+            <!-- END QUESTION LONG ANSWER -->
+
+            <!-- QUESTION MULTIPLE CHOISE -->
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+
+              <!-- QUESTION HEADER -->
+              <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+                <div class="basis-full md:basis-6/12">
+                  <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                </div>
+                <div class="basis-full md:basis-5/12">
+                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                    <?php
+                    foreach ($question_types as $question_type) {
+                      $id_question_type = (int)$question_type['id_question_type'];
+                      $name_question_type = $question_type['name_question_type'];
+
+                      echo "<option value='$id_question_type'>$name_question_type</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <!-- END QUESTION HEADER -->
+
+              <!-- QUESTION BODY -->
+              <div class="question-body mb-10">
+                <ul class="flex flex-col gap-1">
+                  <!-- OPTION -->
+                  <li class="h-[40px] flex items-center gap-3">
+                    <div class="shrink-0 text-xl text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
                       </svg>
-                    </button>
-                  </div>
-                </li>
-                <!-- END OPTION -->
-                <!-- ADD OPTION -->
-                <li class="h-[40px] flex items-center gap-3">
-                  <div class="text-xl text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
-                    </svg>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <button type="button" class="p-1 text-gray-500 hover:border-b">
-                      Add option
-                    </button>
-                    <span>or</span>
-                    <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
-                      add "Other"
-                    </button>
-                  </div>
-                </li>
-                <!-- END ADD OPTION -->
-              </ul>
-            </div>
-            <!-- END QUESTION BODY -->
-
-            <!-- QUESTION FOOTER -->
-            <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
-              <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                    <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
-                  </svg>
-                </button>
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                  </svg>
-                </button>
-              </div>
-              <div class="pl-2 flex items-center gap-2">
-                <span>Required</span>
-                <input class="switch" type="checkbox">
-              </div>
-            </div>
-            <!-- END QUESTION FOOTER -->
-
-          </div>
-          <!-- END QUESTION MULTIPLE CHOISE -->
-
-          <!-- QUESTION CHECKBOX -->
-          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
-
-            <!-- QUESTION HEADER -->
-            <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
-              <div class="basis-full md:basis-6/12">
-                <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
-              </div>
-              <div class="basis-full md:basis-5/12">
-                <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                  <?php
-                  foreach ($question_types as $question_type) {
-                    $id_question_type = (int)$question_type['id_question_type'];
-                    $name_question_type = $question_type['name_question_type'];
-
-                    echo "<option value='$id_question_type'>$name_question_type</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <!-- END QUESTION HEADER -->
-
-            <!-- QUESTION BODY -->
-            <div class="question-body mb-10">
-              <ul class="flex flex-col gap-1">
-                <!-- OPTION -->
-                <li class="h-[40px] flex items-center gap-3">
-                  <div class="shrink-0 text-xl text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
-                      <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
-                    </svg>
-                  </div>
-                  <div class="grow">
-                    <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
-                  </div>
-                  <div class="shrink-0">
-                    <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
-                        <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
-                      </svg>
-                    </button>
-                  </div>
-                </li>
-                <!-- END OPTION -->
-                <!-- ADD OPTION -->
-                <li class="h-[40px] flex items-center gap-3">
-                  <div class="text-xl text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
-                      <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
-                    </svg>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <button type="button" class="p-1 text-gray-500 hover:border-b">
-                      Add option
-                    </button>
-                    <span>or</span>
-                    <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
-                      add "Other"
-                    </button>
-                  </div>
-                </li>
-                <!-- END ADD OPTION -->
-              </ul>
-            </div>
-            <!-- END QUESTION BODY -->
-
-            <!-- QUESTION FOOTER -->
-            <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
-              <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                    <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
-                  </svg>
-                </button>
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                  </svg>
-                </button>
-              </div>
-              <div class="pl-2 flex items-center gap-2">
-                <span>Required</span>
-                <input class="switch" type="checkbox">
-              </div>
-            </div>
-            <!-- END QUESTION FOOTER -->
-
-          </div>
-          <!-- END QUESTION CHECKBOX -->
-
-          <!-- QUESTION LIST -->
-          <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
-
-            <!-- QUESTION HEADER -->
-            <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
-              <div class="basis-full md:basis-6/12">
-                <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
-              </div>
-              <div class="basis-full md:basis-5/12">
-                <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                  <?php
-                  foreach ($question_types as $question_type) {
-                    $id_question_type = (int)$question_type['id_question_type'];
-                    $name_question_type = $question_type['name_question_type'];
-
-                    echo "<option value='$id_question_type'>$name_question_type</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <!-- END QUESTION HEADER -->
-
-            <!-- QUESTION BODY -->
-            <div class="question-body mb-10">
-              <ol class="list-decimal pl-4 flex flex-col gap-1">
-                <!-- OPTION -->
-                <li class="pl-1">
-                  <div class="h-[40px] flex items-center gap-3">
+                    </div>
                     <div class="grow">
                       <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
                     </div>
@@ -472,12 +312,89 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                         </svg>
                       </button>
                     </div>
-                  </div>
-                </li>
-                <!-- END OPTION -->
-                <!-- OPTION -->
-                <li class="pl-1">
-                  <div class="h-[40px] flex items-center gap-3">
+                  </li>
+                  <!-- END OPTION -->
+                  <!-- ADD OPTION -->
+                  <li class="h-[40px] flex items-center gap-3">
+                    <div class="text-xl text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+                      </svg>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <button type="button" class="p-1 text-gray-500 hover:border-b">
+                        Add option
+                      </button>
+                      <span>or</span>
+                      <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+                        add "Other"
+                      </button>
+                    </div>
+                  </li>
+                  <!-- END ADD OPTION -->
+                </ul>
+              </div>
+              <!-- END QUESTION BODY -->
+
+              <!-- QUESTION FOOTER -->
+              <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+                <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                      <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                    </svg>
+                  </button>
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                      <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="pl-2 flex items-center gap-2">
+                  <span>Required</span>
+                  <input class="switch" type="checkbox">
+                </div>
+              </div>
+              <!-- END QUESTION FOOTER -->
+
+            </div>
+            <!-- END QUESTION MULTIPLE CHOISE -->
+
+            <!-- QUESTION CHECKBOX -->
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+
+              <!-- QUESTION HEADER -->
+              <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+                <div class="basis-full md:basis-6/12">
+                  <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                </div>
+                <div class="basis-full md:basis-5/12">
+                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                    <?php
+                    foreach ($question_types as $question_type) {
+                      $id_question_type = (int)$question_type['id_question_type'];
+                      $name_question_type = $question_type['name_question_type'];
+
+                      echo "<option value='$id_question_type'>$name_question_type</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <!-- END QUESTION HEADER -->
+
+              <!-- QUESTION BODY -->
+              <div class="question-body mb-10">
+                <ul class="flex flex-col gap-1">
+                  <!-- OPTION -->
+                  <li class="h-[40px] flex items-center gap-3">
+                    <div class="shrink-0 text-xl text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                        <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
+                      </svg>
+                    </div>
                     <div class="grow">
                       <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
                     </div>
@@ -488,55 +405,162 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                         </svg>
                       </button>
                     </div>
-                  </div>
-                </li>
-                <!-- END OPTION -->
-                <!-- ADD OPTION -->
-                <li class="pl-1">
-                  <div class="h-[40px] flex items-center gap-3">
-                    <button type="button" class="p-1 text-gray-500 hover:border-b">
-                      Add option
-                    </button>
-                  </div>
-                </li>
-                <!-- END ADD OPTION -->
-              </ol>
-            </div>
-            <!-- END QUESTION BODY -->
+                  </li>
+                  <!-- END OPTION -->
+                  <!-- ADD OPTION -->
+                  <li class="h-[40px] flex items-center gap-3">
+                    <div class="text-xl text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                        <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
+                      </svg>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <button type="button" class="p-1 text-gray-500 hover:border-b">
+                        Add option
+                      </button>
+                      <span>or</span>
+                      <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+                        add "Other"
+                      </button>
+                    </div>
+                  </li>
+                  <!-- END ADD OPTION -->
+                </ul>
+              </div>
+              <!-- END QUESTION BODY -->
 
-            <!-- QUESTION FOOTER -->
-            <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
-              <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                    <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
-                  </svg>
-                </button>
-                <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
-                  </svg>
-                </button>
+              <!-- QUESTION FOOTER -->
+              <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+                <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                      <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                    </svg>
+                  </button>
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                      <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="pl-2 flex items-center gap-2">
+                  <span>Required</span>
+                  <input class="switch" type="checkbox">
+                </div>
               </div>
-              <div class="pl-2 flex items-center gap-2">
-                <span>Required</span>
-                <input class="switch" type="checkbox">
-              </div>
+              <!-- END QUESTION FOOTER -->
+
             </div>
-            <!-- END QUESTION FOOTER -->
+            <!-- END QUESTION CHECKBOX -->
+
+            <!-- QUESTION LIST -->
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+
+              <!-- QUESTION HEADER -->
+              <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+                <div class="basis-full md:basis-6/12">
+                  <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+                </div>
+                <div class="basis-full md:basis-5/12">
+                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                    <?php
+                    foreach ($question_types as $question_type) {
+                      $id_question_type = (int)$question_type['id_question_type'];
+                      $name_question_type = $question_type['name_question_type'];
+
+                      echo "<option value='$id_question_type'>$name_question_type</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <!-- END QUESTION HEADER -->
+
+              <!-- QUESTION BODY -->
+              <div class="question-body mb-10">
+                <ol class="list-decimal pl-4 flex flex-col gap-1">
+                  <!-- OPTION -->
+                  <li class="pl-1">
+                    <div class="h-[40px] flex items-center gap-3">
+                      <div class="grow">
+                        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+                      </div>
+                      <div class="shrink-0">
+                        <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+                            <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- END OPTION -->
+                  <!-- OPTION -->
+                  <li class="pl-1">
+                    <div class="h-[40px] flex items-center gap-3">
+                      <div class="grow">
+                        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+                      </div>
+                      <div class="shrink-0">
+                        <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+                            <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- END OPTION -->
+                  <!-- ADD OPTION -->
+                  <li class="pl-1">
+                    <div class="h-[40px] flex items-center gap-3">
+                      <button type="button" class="p-1 text-gray-500 hover:border-b">
+                        Add option
+                      </button>
+                    </div>
+                  </li>
+                  <!-- END ADD OPTION -->
+                </ol>
+              </div>
+              <!-- END QUESTION BODY -->
+
+              <!-- QUESTION FOOTER -->
+              <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+                <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                      <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                    </svg>
+                  </button>
+                  <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                      <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="pl-2 flex items-center gap-2">
+                  <span>Required</span>
+                  <input class="switch" type="checkbox">
+                </div>
+              </div>
+              <!-- END QUESTION FOOTER -->
+
+            </div>
+            <!-- END QUESTION LIST -->
 
           </div>
-          <!-- END QUESTION LIST -->
+          <!-- END SECTION -->
 
-        </div>
-        <!-- END SECTION -->
+        <?php
+        }
+        ?>
 
-      <?php
-      }
-      ?>
-
+      </div>
+      <!-- FORM -->
     </div>
   </main>
   <!-- END MAIN -->
@@ -544,6 +568,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
   <!-- JS -->
   <script src="./js/pages/edit_form.js"></script>
   <!-- END JS -->
+
 </body>
 
 </html>
