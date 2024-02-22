@@ -34,8 +34,7 @@ $queryGetQuestionTypes = mysqli_query($conn, $sqlGetQuestionTypes) or die("Error
 while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
   $question_types[] = [
     'id_question_type' => (int)$rowGetQuestionTypes['id_question_type'],
-    'name_question_type' => $rowGetQuestionTypes['name_question_type'],
-    'icon_question_type' => $rowGetQuestionTypes['icon_question_type']
+    'name_question_type' => $rowGetQuestionTypes['name_question_type']
   ];
 }
 
@@ -121,7 +120,7 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
         <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
           <ul class="flex flex-row md:flex-col justify-center md:justify-start items-center gap-2">
             <li>
-              <button type="button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add question">
+              <button type="button" id="add_question_button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add question">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024">
                   <path fill="currentColor" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0m0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01M736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32" />
                 </svg>
