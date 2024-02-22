@@ -69,7 +69,9 @@ $(document).ready(function () {
   //Button to duplicate a question
   $("#form").on("click", ".duplicate-question-button", function () {
     const question = $(this).parents(".question");
+    const type_question_value = $(question).find(".type-question").val();
     const question_clone = $(question).clone();
+    $(question_clone).find(".type-question").val(type_question_value);
     $(question).after(question_clone);
   });
 
