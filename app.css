@@ -12,3 +12,17 @@
   background-color: black;
   opacity: 0.6;
 }
+
+.active-box::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 100%;
+  background-color: rgb(59 130 246);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+}

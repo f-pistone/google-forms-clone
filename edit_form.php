@@ -15,13 +15,17 @@ if ($user_owns_form === 0) {
   header("Location: index.php");
 }
 
+//Form informations
 $sqlGetForm = "SELECT * FROM forms WHERE id_form = $id_form";
 $queryGetForm = mysqli_query($conn, $sqlGetForm) or die("Error: get form");
 while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
   $title_form = $rowGetForm['title_form'];
   $title_form_html = htmlspecialchars($title_form, ENT_QUOTES);
-  $description_form = $rowGetForm['description_form'];
 }
+
+//Sections
+$sqlGetSections = "SELECT * FROM sections WHERE id_form = $id_form";
+$queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sections");
 
 ?>
 <!DOCTYPE html>
@@ -32,12 +36,12 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 <body>
 
   <!-- HEADER -->
-  <header class="fixed z-[99999] bg-white w-full py-2 px-5 flex flex-wrap items-center gap-3 border-b">
+  <header class="fixed z-[999] bg-white w-full py-2 px-5 flex flex-wrap items-center gap-3 border-b">
     <a href="./index.php" class="shrink-0 order-1 block">
       <img src="./assets/images/google-forms-logo.svg" class="w-[40px] aspect-square" alt="Logo">
     </a>
     <div class="grow order-3 md:order-2">
-      <input type="text" id="header_title_form" class="w-full md:w-[400px] text-lg focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>">
+      <input type="text" id="header_title_form" class="w-full md:w-[400px] text-lg transition focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>">
     </div>
     <div class="shrink-0 order-2 md:order-3 ml-auto md:ml-0 flex items-center gap-3">
       <div>
@@ -62,7 +66,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
             </g>
           </svg>
         </button>
-        <div class="options-menu hidden absolute z-[9999] right-0 top-[50px] w-[250px] h-fit bg-white border rounded shadow">
+        <div class="options-menu hidden absolute z-[999] right-0 top-[50px] w-[250px] h-fit bg-white border rounded shadow">
           <ul>
             <li class="hover:bg-gray-100">
               <button type="button" class="open-duplicate-form-modal w-full p-3 flex items-center gap-3">
@@ -98,7 +102,30 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
   <!-- MAIN -->
   <main class="h-screen pt-[120px] md:pt-[80px] bg-purple-100">
+    <div class="max-w-[800px] mx-auto my-0">
 
+      <?php
+      while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
+        $title_section = $rowGetSections['title_section'];
+        $title_section_html = htmlspecialchars($title_section, ENT_QUOTES);
+        $description_section = $rowGetSections['description_section'];
+
+      ?>
+        <!-- SECTION -->
+        <div class="section relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
+          <div class="mb-2">
+            <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
+          </div>
+          <div>
+            <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
+          </div>
+        </div>
+        <!-- END SECTION -->
+      <?php
+      }
+      ?>
+
+    </div>
   </main>
   <!-- END MAIN -->
 
