@@ -18,9 +18,9 @@ $(document).ready(function () {
   });
 
   //Button to add a new question
-  $("#add_question_button").on("click", async function () {
+  $("#add_question_button").on("click", function () {
     const last_question = $(".question").last();
-    const new_question = await createQuestion();
+    const new_question = createQuestion();
 
     if (last_question.length > 0) {
       $(last_question).after(new_question);
@@ -30,30 +30,8 @@ $(document).ready(function () {
   });
 });
 
-//Get the question types in the database
-async function getQuestionTypes() {
-  const question_types = await $.ajax({
-    type: "GET",
-    url: "php/get_question_types.php",
-  });
-  return question_types;
-}
-
-//Create the options for the select with the question types for the question
-async function createOptionsWithQuestionTypes() {
-  let options = "";
-  const question_types = await getQuestionTypes();
-  for (let i = 0; i < question_types.length; i++) {
-    let id_question_type = question_types[i].id_question_type;
-    let name_question_type = question_types[i].name_question_type;
-    options += `<option value="${id_question_type}">${name_question_type}</option>`;
-  }
-  return options;
-}
-
 //Create a new question
-async function createQuestion() {
-  let options_with_question_types = await createOptionsWithQuestionTypes();
+function createQuestion() {
   const new_question = `            
   <!-- QUESTION SHORT ANSWER -->
   <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
@@ -65,7 +43,11 @@ async function createQuestion() {
       </div>
       <div class="basis-full md:basis-5/12">
         <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-          ${options_with_question_types}
+          <option value="SHORT_ANSWER">Short answer</option>
+          <option value="LONG_ANSWER">Long answer</option>
+          <option value="MULTIPLE_CHOISE">Multiple choise</option>
+          <option value="CHECKBOX">Checkbox</option>
+          <option value="LIST">List</option>
         </select>
       </div>
     </div>

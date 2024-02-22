@@ -27,17 +27,6 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 $sqlGetSections = "SELECT * FROM sections WHERE id_form = $id_form";
 $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sections");
 
-//Question types
-$question_types = [];
-$sqlGetQuestionTypes = "SELECT * FROM question_types ORDER BY order_question_type ASC";
-$queryGetQuestionTypes = mysqli_query($conn, $sqlGetQuestionTypes) or die("Error: get question types");
-while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
-  $question_types[] = [
-    'id_question_type' => (int)$rowGetQuestionTypes['id_question_type'],
-    'name_question_type' => $rowGetQuestionTypes['name_question_type']
-  ];
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,14 +157,11 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                 </div>
                 <div class="basis-full md:basis-5/12">
                   <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                    <?php
-                    foreach ($question_types as $question_type) {
-                      $id_question_type = (int)$question_type['id_question_type'];
-                      $name_question_type = $question_type['name_question_type'];
-
-                      echo "<option value='$id_question_type'>$name_question_type</option>";
-                    }
-                    ?>
+                    <option value="SHORT_ANSWER">Short answer</option>
+                    <option value="LONG_ANSWER">Long answer</option>
+                    <option value="MULTIPLE_CHOISE">Multiple choise</option>
+                    <option value="CHECKBOX">Checkbox</option>
+                    <option value="LIST">List</option>
                   </select>
                 </div>
               </div>
@@ -223,14 +209,11 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                 </div>
                 <div class="basis-full md:basis-5/12">
                   <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                    <?php
-                    foreach ($question_types as $question_type) {
-                      $id_question_type = (int)$question_type['id_question_type'];
-                      $name_question_type = $question_type['name_question_type'];
-
-                      echo "<option value='$id_question_type'>$name_question_type</option>";
-                    }
-                    ?>
+                    <option value="SHORT_ANSWER">Short answer</option>
+                    <option value="LONG_ANSWER">Long answer</option>
+                    <option value="MULTIPLE_CHOISE">Multiple choise</option>
+                    <option value="CHECKBOX">Checkbox</option>
+                    <option value="LIST">List</option>
                   </select>
                 </div>
               </div>
@@ -278,14 +261,11 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                 </div>
                 <div class="basis-full md:basis-5/12">
                   <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                    <?php
-                    foreach ($question_types as $question_type) {
-                      $id_question_type = (int)$question_type['id_question_type'];
-                      $name_question_type = $question_type['name_question_type'];
-
-                      echo "<option value='$id_question_type'>$name_question_type</option>";
-                    }
-                    ?>
+                    <option value="SHORT_ANSWER">Short answer</option>
+                    <option value="LONG_ANSWER">Long answer</option>
+                    <option value="MULTIPLE_CHOISE">Multiple choise</option>
+                    <option value="CHECKBOX">Checkbox</option>
+                    <option value="LIST">List</option>
                   </select>
                 </div>
               </div>
@@ -371,14 +351,11 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                 </div>
                 <div class="basis-full md:basis-5/12">
                   <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                    <?php
-                    foreach ($question_types as $question_type) {
-                      $id_question_type = (int)$question_type['id_question_type'];
-                      $name_question_type = $question_type['name_question_type'];
-
-                      echo "<option value='$id_question_type'>$name_question_type</option>";
-                    }
-                    ?>
+                    <option value="SHORT_ANSWER">Short answer</option>
+                    <option value="LONG_ANSWER">Long answer</option>
+                    <option value="MULTIPLE_CHOISE">Multiple choise</option>
+                    <option value="CHECKBOX">Checkbox</option>
+                    <option value="LIST">List</option>
                   </select>
                 </div>
               </div>
@@ -464,14 +441,11 @@ while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
                 </div>
                 <div class="basis-full md:basis-5/12">
                   <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-                    <?php
-                    foreach ($question_types as $question_type) {
-                      $id_question_type = (int)$question_type['id_question_type'];
-                      $name_question_type = $question_type['name_question_type'];
-
-                      echo "<option value='$id_question_type'>$name_question_type</option>";
-                    }
-                    ?>
+                    <option value="SHORT_ANSWER">Short answer</option>
+                    <option value="LONG_ANSWER">Long answer</option>
+                    <option value="MULTIPLE_CHOISE">Multiple choise</option>
+                    <option value="CHECKBOX">Checkbox</option>
+                    <option value="LIST">List</option>
                   </select>
                 </div>
               </div>
