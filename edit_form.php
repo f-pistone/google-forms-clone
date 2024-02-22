@@ -156,7 +156,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                   <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
                 </div>
                 <div class="basis-full md:basis-5/12">
-                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                  <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
                     <option value="SHORT_ANSWER">Short answer</option>
                     <option value="LONG_ANSWER">Long answer</option>
                     <option value="MULTIPLE_CHOISE">Multiple choise</option>
@@ -208,7 +208,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                   <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
                 </div>
                 <div class="basis-full md:basis-5/12">
-                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                  <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
                     <option value="SHORT_ANSWER">Short answer</option>
                     <option value="LONG_ANSWER">Long answer</option>
                     <option value="MULTIPLE_CHOISE">Multiple choise</option>
@@ -260,7 +260,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                   <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
                 </div>
                 <div class="basis-full md:basis-5/12">
-                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                  <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
                     <option value="SHORT_ANSWER">Short answer</option>
                     <option value="LONG_ANSWER">Long answer</option>
                     <option value="MULTIPLE_CHOISE">Multiple choise</option>
@@ -350,7 +350,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                   <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
                 </div>
                 <div class="basis-full md:basis-5/12">
-                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                  <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
                     <option value="SHORT_ANSWER">Short answer</option>
                     <option value="LONG_ANSWER">Long answer</option>
                     <option value="MULTIPLE_CHOISE">Multiple choise</option>
@@ -440,7 +440,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                   <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
                 </div>
                 <div class="basis-full md:basis-5/12">
-                  <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                  <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
                     <option value="SHORT_ANSWER">Short answer</option>
                     <option value="LONG_ANSWER">Long answer</option>
                     <option value="MULTIPLE_CHOISE">Multiple choise</option>

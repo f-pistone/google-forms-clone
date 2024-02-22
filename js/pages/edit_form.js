@@ -28,6 +28,43 @@ $(document).ready(function () {
       $(".section").first().after(new_question);
     }
   });
+
+  //Change of the question's type
+  $(".type-question").on("change", function () {
+    const question = $(this).parents(".question");
+    const new_type_question = $(this).val();
+    let new_question_body = "";
+
+    if (new_type_question == "SHORT_ANSWER") {
+      new_question_body = createBodyShortAnswerQuestion();
+      $(question).find(".question-body").html(new_question_body);
+      return;
+    }
+
+    if (new_type_question == "LONG_ANSWER") {
+      new_question_body = createBodyLongAnswerQuestion();
+      $(question).find(".question-body").html(new_question_body);
+      return;
+    }
+
+    if (new_type_question == "MULTIPLE_CHOISE") {
+      new_question_body = createBodyMultipleChoiseAnswerQuestion();
+      $(question).find(".question-body").html(new_question_body);
+      return;
+    }
+
+    if (new_type_question == "CHECKBOX") {
+      new_question_body = createBodyCheckboxAnswerQuestion();
+      $(question).find(".question-body").html(new_question_body);
+      return;
+    }
+
+    if (new_type_question == "LIST") {
+      new_question_body = createBodyListAnswerQuestion();
+      $(question).find(".question-body").html(new_question_body);
+      return;
+    }
+  });
 });
 
 //Create a new question
@@ -42,8 +79,8 @@ function createQuestion() {
         <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
       </div>
       <div class="basis-full md:basis-5/12">
-        <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
-          <option value="SHORT_ANSWER">Short answer</option>
+        <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
+          <option value="SHORT_ANSWER" selected>Short answer</option>
           <option value="LONG_ANSWER">Long answer</option>
           <option value="MULTIPLE_CHOISE">Multiple choise</option>
           <option value="CHECKBOX">Checkbox</option>
@@ -86,4 +123,142 @@ function createQuestion() {
   <!-- END QUESTION SHORT ANSWER -->
   `;
   return new_question;
+}
+
+//Create the body for the question with a short answer
+function createBodyShortAnswerQuestion() {
+  const body = `<p class="border-dotted border-b border-gray-500 text-gray-500">Short answer</p>`;
+  return body;
+}
+
+//Create the body for the question with a long answer
+function createBodyLongAnswerQuestion() {
+  const body = `<p class="border-dotted border-b border-gray-500 text-gray-500">Long answer</p>`;
+  return body;
+}
+
+//Create the body for the question with a multiple choise answer
+function createBodyMultipleChoiseAnswerQuestion() {
+  const body = `
+  <ul class="flex flex-col gap-1">
+    <!-- OPTION -->
+    <li class="h-[40px] flex items-center gap-3">
+      <div class="shrink-0 text-xl text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+        </svg>
+      </div>
+      <div class="grow">
+        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+      </div>
+      <div class="shrink-0">
+        <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+            <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+          </svg>
+        </button>
+      </div>
+    </li>
+    <!-- END OPTION -->
+    <!-- ADD OPTION -->
+    <li class="h-[40px] flex items-center gap-3">
+      <div class="text-xl text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+        </svg>
+      </div>
+      <div class="flex items-center gap-1">
+        <button type="button" class="p-1 text-gray-500 hover:border-b">
+          Add option
+        </button>
+        <span>or</span>
+        <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+          add "Other"
+        </button>
+      </div>
+    </li>
+    <!-- END ADD OPTION -->
+  </ul>
+`;
+  return body;
+}
+
+//Create the body for the question with a checkbox answer
+function createBodyCheckboxAnswerQuestion() {
+  const body = `
+  <ul class="flex flex-col gap-1">
+    <!-- OPTION -->
+    <li class="h-[40px] flex items-center gap-3">
+      <div class="shrink-0 text-xl text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+          <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
+        </svg>
+      </div>
+      <div class="grow">
+        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+      </div>
+      <div class="shrink-0">
+        <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+            <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+          </svg>
+        </button>
+      </div>
+    </li>
+    <!-- END OPTION -->
+    <!-- ADD OPTION -->
+    <li class="h-[40px] flex items-center gap-3">
+      <div class="text-xl text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+          <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
+        </svg>
+      </div>
+      <div class="flex items-center gap-1">
+        <button type="button" class="p-1 text-gray-500 hover:border-b">
+          Add option
+        </button>
+        <span>or</span>
+        <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+          add "Other"
+        </button>
+      </div>
+    </li>
+    <!-- END ADD OPTION -->
+  </ul>
+  `;
+  return body;
+}
+
+//Create the body for the question with a list answer
+function createBodyListAnswerQuestion() {
+  const body = `
+  <ol class="list-decimal pl-4 flex flex-col gap-1">
+    <!-- OPTION -->
+    <li class="pl-1">
+      <div class="h-[40px] flex items-center gap-3">
+        <div class="grow">
+          <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+        </div>
+        <div class="shrink-0">
+          <button type="button" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+              <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </li>
+    <!-- END OPTION -->
+    <!-- ADD OPTION -->
+    <li class="pl-1">
+      <div class="h-[40px] flex items-center gap-3">
+        <button type="button" class="p-1 text-gray-500 hover:border-b">
+          Add option
+        </button>
+      </div>
+    </li>
+    <!-- END ADD OPTION -->
+  </ol>
+`;
+  return body;
 }
