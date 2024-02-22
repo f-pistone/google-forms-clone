@@ -156,4 +156,25 @@ $(document).ready(function () {
       }
     }
   });
+
+  //Button to create a new form
+  $("#create_new_form_button").on("click", function () {
+    $.ajax({
+      type: "POST",
+      url: "php/create_form.php",
+      success: function (response) {
+        if (response > 0) {
+          window.open(`./edit_form.php?id_form=${response}`, "_blank");
+        } else {
+          Toastify({
+            text: "Error",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
 });

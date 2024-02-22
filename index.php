@@ -41,7 +41,7 @@ $id_user = (int)$_SESSION['id_user'];
         <h1 class="px-1 py-3 text-lg">Create a new form</h1>
         <div class="flex gap-5">
           <!-- EMPTY FORM -->
-          <div class="w-[165px]">
+          <div id="create_new_form_button" class="w-[165px]">
             <div class="cursor-pointer">
               <img src="./assets/images/empty-form-plus.png" class="w-full border rounded hover:border-purple-500" alt="Empty Form">
             </div>
