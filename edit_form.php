@@ -27,6 +27,18 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 $sqlGetSections = "SELECT * FROM sections WHERE id_form = $id_form";
 $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sections");
 
+//Question types
+$question_types = [];
+$sqlGetQuestionTypes = "SELECT * FROM question_types ORDER BY order_question_type ASC";
+$queryGetQuestionTypes = mysqli_query($conn, $sqlGetQuestionTypes) or die("Error: get question types");
+while ($rowGetQuestionTypes = mysqli_fetch_assoc($queryGetQuestionTypes)) {
+  $question_types[] = [
+    'id_question_type' => (int)$rowGetQuestionTypes['id_question_type'],
+    'name_question_type' => $rowGetQuestionTypes['name_question_type'],
+    'icon_question_type' => $rowGetQuestionTypes['icon_question_type']
+  ];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,27 +115,84 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
   <!-- MAIN -->
   <main class="h-screen pt-[120px] md:pt-[80px] bg-purple-100">
     <div class="max-w-[800px] mx-auto my-0">
+      <div class="grid grid-cols-1 gap-3">
 
-      <?php
-      while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
-        $title_section = $rowGetSections['title_section'];
-        $title_section_html = htmlspecialchars($title_section, ENT_QUOTES);
-        $description_section = $rowGetSections['description_section'];
+        <?php
+        while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
+          $title_section = $rowGetSections['title_section'];
+          $title_section_html = htmlspecialchars($title_section, ENT_QUOTES);
+          $description_section = $rowGetSections['description_section'];
+        ?>
+          <!-- SECTION -->
+          <div class="section relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
+            <div class="mb-2">
+              <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
+            </div>
+            <div>
+              <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
+            </div>
+          </div>
+          <!-- END SECTION -->
+        <?php
+        }
+        ?>
 
-      ?>
-        <!-- SECTION -->
-        <div class="section relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
-          <div class="mb-2">
-            <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
+        <!-- QUESTION -->
+        <div class="question relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+
+          <!-- QUESTION HEADER -->
+          <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
+            <div class="basis-full md:basis-6/12">
+              <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+            </div>
+            <div class="basis-full md:basis-5/12">
+              <select class="p-4 w-full cursor-pointer border rounded focus:outline-none">
+                <?php
+                foreach ($question_types as $question_type) {
+                  $id_question_type = (int)$question_type['id_question_type'];
+                  $name_question_type = $question_type['name_question_type'];
+
+                  echo "<option value='$id_question_type'>$name_question_type</option>";
+                }
+                ?>
+              </select>
+            </div>
           </div>
-          <div>
-            <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
+          <!-- END QUESTION HEADER -->
+
+          <!-- QUESTION BODY -->
+          <div class="question-body mb-10">
+            <p class="border-dotted border-b border-gray-500 text-gray-500">Short answer</p>
           </div>
+          <!-- END QUESTION BODY -->
+
+          <!-- QUESTION FOOTER -->
+          <div class="question-footer pt-2 border-t border-gray-300 flex justify-end items-center gap-3">
+            <div class="pr-2 border-r border-gray-300 flex items-center gap-1">
+              <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                  <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                </svg>
+              </button>
+              <button type="button" class="p-3 w-[50px] aspect-square rounded-full flex justify-center items-center text-lg transition hover:bg-gray-100 focus:bg-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                  <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" />
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                </svg>
+              </button>
+            </div>
+            <div class="pl-2 flex items-center gap-2">
+              <span>Required</span>
+              <input class="switch" type="checkbox">
+            </div>
+          </div>
+          <!-- END QUESTION FOOTER -->
+
         </div>
-        <!-- END SECTION -->
-      <?php
-      }
-      ?>
+        <!-- END QUESTION -->
+
+      </div>
 
     </div>
   </main>
