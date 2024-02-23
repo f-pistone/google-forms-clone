@@ -92,16 +92,29 @@ $(document).ready(function () {
     const question = $(this).parents(".question");
     const type_question = $(question).find(".type-question").val();
     const add_options_menu = $(question).find(".add-options-menu");
+    const other_option = $(question).find(".other-option");
 
     if (type_question == "MULTIPLE_CHOISE") {
       const option = createOptionMultipleChoiseAnswerQuestion();
-      $(add_options_menu).before(option);
+
+      if (other_option.length > 0) {
+        $(other_option).before(option);
+      } else {
+        $(add_options_menu).before(option);
+      }
+
       return;
     }
 
     if (type_question == "CHECKBOX") {
       const option = createOptionCheckboxAnswerQuestion();
-      $(add_options_menu).before(option);
+
+      if (other_option.length > 0) {
+        $(other_option).before(option);
+      } else {
+        $(add_options_menu).before(option);
+      }
+
       return;
     }
 
