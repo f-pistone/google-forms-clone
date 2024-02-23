@@ -67,14 +67,19 @@ $id_user = (int)$_SESSION['id_user'];
         while ($rowGetForms = mysqli_fetch_assoc($queryGetForms)) {
           $id_form = (int)$rowGetForms['id_form'];
           $title_form = $rowGetForms['title_form'];
+          $title_form_html = htmlspecialchars($title_form, ENT_QUOTES);
           $image_form = $rowGetForms['image_form'];
           $updated_at = $rowGetForms['updated_at'];
+
+          if (strlen($title_form) > 20) {
+            $title_form = substr_replace($title_form, "...", 20);
+          }
         ?>
           <li>
             <!-- FORM -->
-            <div class="form w-full cursor-pointer border rounded hover:border-purple-500" data-id-form="<?= $id_form ?>">
+            <div class="form w-full cursor-pointer border rounded hover:border-purple-500" data-id-form="<?= $id_form ?>" data-title-form="<?= $title_form_html ?>">
               <div class="border-b">
-                <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form ?>">
+                <img class="w-full rounded-t" src="<?= $image_form ?>" alt="<?= $title_form_html ?>">
               </div>
               <div class="p-3">
                 <h4 class="title-form break-all font-medium mb-2"><?= $title_form ?></h4>

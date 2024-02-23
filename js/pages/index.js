@@ -13,7 +13,7 @@ $(document).ready(function () {
   $("#forms_list").on("click", ".open-rename-form-modal", function () {
     const form = $(this).parents(".form");
     const id_form = $(form).attr("data-id-form");
-    const title_form = $(form).find(".title-form").text();
+    const title_form = $(form).attr("data-title-form");
     $("#id_form_to_rename").val(id_form);
     $("#new_title_form").val(title_form);
     document.getElementById("rename_form_modal").showModal();
@@ -46,7 +46,8 @@ $(document).ready(function () {
   //Button to rename the form
   $("#rename_form_button").on("click", function () {
     const id_form = $("#id_form_to_rename").val();
-    const new_title_form = $("#new_title_form").val();
+    let new_title_form = $("#new_title_form").val();
+    const form = $(`.form[data-id-form="${id_form}"]`);
 
     if ($.trim(new_title_form) === "" || new_title_form === undefined) {
       return;
@@ -69,9 +70,12 @@ $(document).ready(function () {
             gravity: "bottom",
             position: "left",
           }).showToast();
-          $(`.form[data-id-form="${id_form}"]`)
-            .find(".title-form")
-            .text(new_title_form);
+
+          $(form).attr("data-title-form", new_title_form);
+          if (new_title_form.length > 20) {
+            new_title_form = new_title_form.slice(0, 20) + "...";
+          }
+          $(form).find(".title-form").text(new_title_form);
         } else {
           $("#close_rename_form_modal").click();
           Toastify({
@@ -147,7 +151,7 @@ $(document).ready(function () {
 
     for (let i = 0; i < forms.length; i++) {
       let form_title = $.trim(
-        $(forms[i]).find(".title-form").text().toLowerCase()
+        $(forms[i]).attr("data-title-form").toLowerCase()
       );
       if (form_title.includes(searched_value)) {
         $(forms[i]).parent().show();
