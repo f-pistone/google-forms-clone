@@ -305,7 +305,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                         Add option
                       </button>
                       <span>or</span>
-                      <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+                      <button type="button" class="add-other-option-button p-1 rounded text-blue-500 hover:bg-blue-100">
                         add "Other"
                       </button>
                     </div>
@@ -395,7 +395,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                         Add option
                       </button>
                       <span>or</span>
-                      <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+                      <button type="button" class="add-other-option-button p-1 rounded text-blue-500 hover:bg-blue-100">
                         add "Other"
                       </button>
                     </div>

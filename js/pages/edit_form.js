@@ -112,9 +112,47 @@ $(document).ready(function () {
     }
   });
 
+  //Button to add the other option for the question
+  $("#form").on("click", ".add-other-option-button", function () {
+    const question = $(this).parents(".question");
+    const type_question = $(question).find(".type-question").val();
+    const add_options_menu = $(question).find(".add-options-menu");
+    const other_option_exist = $(question).find(".other-option");
+
+    if (other_option_exist.length > 0) {
+      return;
+    }
+
+    if (type_question == "MULTIPLE_CHOISE") {
+      const option = createOtherOptionMultipleChoiseAnswerQuestion();
+      $(add_options_menu).before(option);
+      $(this).prev("span").hide();
+      $(this).hide();
+      return;
+    }
+
+    if (type_question == "CHECKBOX") {
+      const option = createOtherOptionCheckboxAnswerQuestion();
+      $(add_options_menu).before(option);
+      $(this).prev("span").hide();
+      $(this).hide();
+      return;
+    }
+  });
+
   //Button to remove an option of the question
   $("#form").on("click", ".remove-option-button", function () {
-    $(this).parents(".option").remove();
+    const option = $(this).parents(".option");
+
+    if ($(option).hasClass("other-option")) {
+      const add_other_option_button = $(this)
+        .parents(".question")
+        .find(".add-other-option-button");
+      $(add_other_option_button).prev("span").show();
+      $(add_other_option_button).show();
+    }
+
+    $(option).remove();
   });
 });
 
@@ -223,7 +261,7 @@ function createBodyMultipleChoiseAnswerQuestion() {
           Add option
         </button>
         <span>or</span>
-        <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+        <button type="button" class="add-other-option-button p-1 rounded text-blue-500 hover:bg-blue-100">
           add "Other"
         </button>
       </div>
@@ -269,7 +307,7 @@ function createBodyCheckboxAnswerQuestion() {
           Add option
         </button>
         <span>or</span>
-        <button type="button" class="p-1 rounded text-blue-500 hover:bg-blue-100">
+        <button type="button" class="add-other-option-button p-1 rounded text-blue-500 hover:bg-blue-100">
           add "Other"
         </button>
       </div>
@@ -387,4 +425,56 @@ function createOptionListAnswerQuestion() {
   <!-- END OPTION -->
   `;
   return option;
+}
+
+//Create the other option for the question with a multiple choise answer
+function createOtherOptionMultipleChoiseAnswerQuestion() {
+  const other_option = `                  
+  <!-- OTHER OPTION -->
+  <li class="option other-option h-[40px] flex items-center gap-3">
+    <div class="shrink-0 text-xl text-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+      </svg>
+    </div>
+    <div class="grow">
+      <input type="text" class="w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
+    </div>
+    <div class="shrink-0">
+      <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+          <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+        </svg>
+      </button>
+    </div>
+  </li>
+  <!-- END OTHER OPTION -->
+  `;
+  return other_option;
+}
+
+//Create the other option for the question with a checkbox answer
+function createOtherOptionCheckboxAnswerQuestion() {
+  const other_option = `                  
+  <!-- OTHER OPTION -->
+  <li class="option other-option h-[40px] flex items-center gap-3">
+    <div class="shrink-0 text-xl text-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+        <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
+      </svg>
+    </div>
+    <div class="grow">
+      <input type="text" class="w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
+    </div>
+    <div class="shrink-0">
+      <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+          <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z" />
+        </svg>
+      </button>
+    </div>
+  </li>
+  <!-- END OTHER OPTION -->
+  `;
+  return other_option;
 }
