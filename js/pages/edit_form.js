@@ -13,14 +13,23 @@ $(document).ready(function () {
 
   //Button to add a new question
   $("#add_question_button").on("click", function () {
-    const last_question = $(".question").last();
+    const last_section = $(".section").last();
+    const last_section_question = $(last_section).find(".question").last();
     const new_question = createQuestion();
 
-    if (last_question.length > 0) {
-      $(last_question).after(new_question);
+    if (last_section_question.length > 0) {
+      $(last_section_question).after(new_question);
     } else {
-      $(".section").first().find(".section-info").after(new_question);
+      $(last_section).find(".section-info").after(new_question);
     }
+  });
+
+  //Button to add a new section
+  $("#add_section_button").on("click", function () {
+    const last_section = $(".section").last();
+    const new_section = createSection();
+    $(last_section).after(new_section);
+    updateSectionsNumber();
   });
 
   //Toggle the active class for the form boxes
@@ -490,4 +499,51 @@ function createOtherOptionCheckboxAnswerQuestion() {
   <!-- END OTHER OPTION -->
   `;
   return other_option;
+}
+
+//Create a new section
+function createSection() {
+  const new_number_of_sections = parseInt($(".section").length) + 1;
+  const section = `
+  <!-- SECTION -->
+  <div class="section grid grid-cols-1 gap-3">
+
+    <!-- SECTION NUMBER -->
+    <div class="section-number p-2 w-fit text-white text-base bg-violet-700 rounded-t-md -mb-5 relative z-[3]">
+      <span>Section</span>
+      <span class="current-section-number">${new_number_of_sections}</span>
+      <span>of</span>
+      <span class="total-sections-number">${new_number_of_sections}</span>
+    </div>
+    <!-- END SECTION NUMBER -->
+
+    <!-- SECTION INFORMATIONS -->
+    <div class="section-info form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
+      <div class="mb-2">
+        <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="Section without a title">
+      </div>
+      <div>
+        <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"></textarea>
+      </div>
+    </div>
+    <!-- END SECTION INFORMATIONS -->
+
+  </div>
+  <!-- END SECTION -->
+  `;
+  return section;
+}
+
+//Update the box with the numbers of the sections
+function updateSectionsNumber() {
+  const sections = $(".section");
+  const total_sections = sections.length;
+
+  $(".total-sections-number").text(total_sections);
+
+  for (let i = 0; i < total_sections; i++) {
+    let section = $(sections[i]);
+    let number_section = i + 1;
+    $(section).find(".current-section-number").text(number_section);
+  }
 }

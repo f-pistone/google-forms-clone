@@ -103,7 +103,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
   <main class="pt-[120px] md:pt-[80px] pb-10 px-1 relative">
     <div class="max-w-[800px] mx-auto my-0">
       <!-- FORM -->
-      <div id="form" class="relative">
+      <div id="form" class="relative grid grid-cols-1 gap-10">
 
         <!-- MENU -->
         <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
@@ -116,7 +116,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
               </button>
             </li>
             <li>
-              <button type="button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add section">
+              <button type="button" id="add_section_button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add section">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56">
                   <path fill="currentColor" d="M8.066 26.066h39.867c3.587 0 5.391-1.757 5.391-5.367v-8.953c0-3.586-1.804-5.32-5.39-5.32H8.065c-3.586 0-5.39 1.734-5.39 5.32V20.7c0 3.61 1.804 5.367 5.39 5.367m.282-3.539c-1.383 0-2.133-.726-2.133-2.18v-8.202c0-1.477.75-2.18 2.133-2.18h39.304c1.383 0 2.133.703 2.133 2.18v8.203c0 1.453-.75 2.18-2.133 2.18Zm-.282 27.047h39.867c3.587 0 5.391-1.734 5.391-5.343v-8.977c0-3.563-1.804-5.32-5.39-5.32H8.065c-3.586 0-5.39 1.757-5.39 5.32v8.977c0 3.609 1.804 5.343 5.39 5.343m.282-3.539c-1.383 0-2.133-.726-2.133-2.18v-8.203c0-1.476.75-2.18 2.133-2.18h39.304c1.383 0 2.133.704 2.133 2.18v8.203c0 1.454-.75 2.18-2.133 2.18Z" />
                 </svg>
@@ -137,11 +137,13 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
           <div class="section grid grid-cols-1 gap-3">
 
             <!-- SECTION NUMBER -->
-            <div class="section-number hidden p-2 w-fit text-white text-base bg-violet-700 rounded-t-md -mb-5 relative z-[3]">
-
+            <div class="section-number p-2 w-fit text-white text-base bg-violet-700 rounded-t-md -mb-5 relative z-[3]">
+              <span>Section</span>
+              <span class="current-section-number">1</span>
+              <span>of</span>
+              <span class="total-sections-number">1</span>
             </div>
             <!-- END SECTION NUMBER -->
-
 
             <!-- SECTION INFORMATIONS -->
             <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
