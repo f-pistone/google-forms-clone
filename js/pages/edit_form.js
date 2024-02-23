@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  document.title = $("#header_title_form").val();
+  document.title = $("#header_title_form").val() + " - Google Forms Clone";
 
   //Button to open the options menu of the form
   $(".open-options-menu").on("click", function () {
