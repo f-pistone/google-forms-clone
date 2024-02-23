@@ -186,6 +186,16 @@ $(document).ready(function () {
 
     $(option).remove();
   });
+
+  //Button to open the modal to remove a section
+  $("#form").on("click", ".open-remove-section-modal", function () {
+    document.getElementById("remove_section_modal").showModal();
+  });
+
+  //Button to close the modal to remove a section
+  $("#close_remove_section_modal").on("click", function () {
+    document.getElementById("remove_section_modal").close();
+  });
 });
 
 //Create a new question

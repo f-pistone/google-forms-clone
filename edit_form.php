@@ -553,6 +553,26 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
   </main>
   <!-- END MAIN -->
 
+  <!-- REMOVE SECTION MODAL -->
+  <dialog id="remove_section_modal" class="modal p-5 w-[400px] rounded shadow">
+    <div class="mb-5">
+      <h2 class="text-xl font-medium mb-2">Delete the questions and the section?</h2>
+      <h3 class="text-gray-800">
+        If you delete a section, the questions and the answers that it contains will be deleted too.
+      </h3>
+    </div>
+    <div class="flex flex-wrap justify-end items-center gap-2">
+      <button type="button" id="close_remove_section_modal" class="px-5 py-2 text-black font-medium rounded focus:bg-gray-200">
+        BACK
+      </button>
+      <button type="button" id="remove_section_button" class="px-5 py-2 text-blue-500 font-medium rounded focus:bg-blue-200">
+        OK
+      </button>
+    </div>
+  </dialog>
+  <!-- END REMOVE SECTION MODAL -->
+
+
   <!-- JS -->
   <script src="./js/pages/edit_form.js"></script>
   <!-- END JS -->
