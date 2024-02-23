@@ -196,13 +196,39 @@ $(document).ready(function () {
   $("#close_remove_section_modal").on("click", function () {
     document.getElementById("remove_section_modal").close();
   });
+
+  //Questions when the drag starts
+  $("#form").on("dragstart", ".question", function () {
+    $(this).addClass("dragging");
+    $(this).addClass("opacity-50");
+  });
+
+  //Questios when the drag ends
+  $("#form").on("dragend", ".question", function () {
+    $(this).removeClass("dragging");
+    $(this).removeClass("opacity-50");
+  });
+
+  //Sections on drag
+  $("#form").on("dragover", ".section", function (e) {
+    e.preventDefault();
+
+    const after_element = getDragAfterElement(this, e.clientY);
+    const question_on_drag = $(".dragging");
+
+    if (after_element == undefined) {
+      $(this).append(question_on_drag);
+    } else {
+      $(after_element).before(question_on_drag);
+    }
+  });
 });
 
 //Create a new question
 function createQuestion() {
   const new_question = `            
   <!-- QUESTION SHORT ANSWER -->
-  <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+  <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
     <!-- QUESTION HEADER -->
     <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -588,4 +614,23 @@ function updateSectionsNumber() {
     let number_section = i + 1;
     $(section).find(".current-section-number").text(number_section);
   }
+}
+
+//Get the element where I want to drop the question
+function getDragAfterElement(section, y) {
+  const draggable_elements = [...$(section).find(".question:not(.dragging)")];
+  return draggable_elements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    {
+      offset: Number.NEGATIVE_INFINITY,
+    }
+  ).element;
 }

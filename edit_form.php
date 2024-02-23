@@ -179,7 +179,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
             <!-- END SECTION INFORMATIONS -->
 
             <!-- QUESTION SHORT ANSWER -->
-            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
               <!-- QUESTION HEADER -->
               <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -231,7 +231,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
             <!-- END QUESTION SHORT ANSWER -->
 
             <!-- QUESTION LONG ANSWER -->
-            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
               <!-- QUESTION HEADER -->
               <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -283,7 +283,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
             <!-- END QUESTION LONG ANSWER -->
 
             <!-- QUESTION MULTIPLE CHOISE -->
-            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
               <!-- QUESTION HEADER -->
               <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -373,7 +373,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
             <!-- END QUESTION MULTIPLE CHOISE -->
 
             <!-- QUESTION CHECKBOX -->
-            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
               <!-- QUESTION HEADER -->
               <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -463,7 +463,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
             <!-- END QUESTION CHECKBOX -->
 
             <!-- QUESTION LIST -->
-            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4">
+            <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
 
               <!-- QUESTION HEADER -->
               <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
