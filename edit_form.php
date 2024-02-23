@@ -136,6 +136,13 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
           <!-- SECTION -->
           <div class="section grid grid-cols-1 gap-3">
 
+            <!-- SECTION NUMBER -->
+            <div class="section-number hidden p-2 w-fit text-white text-base bg-violet-700 rounded-t-md -mb-5 relative z-[3]">
+
+            </div>
+            <!-- END SECTION NUMBER -->
+
+
             <!-- SECTION INFORMATIONS -->
             <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
               <div class="mb-2">
