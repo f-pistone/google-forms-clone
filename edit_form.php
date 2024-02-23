@@ -147,8 +147,30 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
 
             <!-- SECTION INFORMATIONS -->
             <div class="section-info form-box active-form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
-              <div class="mb-2">
-                <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
+              <div class="mb-2 flex items-center gap-5">
+                <div class="grow">
+                  <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="<?= $title_section ?>">
+                </div>
+                <div class="shrink-0 relative">
+                  <button type="button" class="open-options-section w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+                      <g fill="currentColor">
+                        <circle cx="10" cy="15" r="2" />
+                        <circle cx="10" cy="10" r="2" />
+                        <circle cx="10" cy="5" r="2" />
+                      </g>
+                    </svg>
+                  </button>
+                  <div class="options-section hidden absolute z-[99] left-[unset] md:left-0 right-0 md:right-[unset] top-[50px] w-[150px] h-fit bg-white border rounded shadow">
+                    <ul>
+                      <li class="hover:bg-gray-100">
+                        <button type="button" class="open-remove-section-modal w-full p-3 flex items-center gap-3">
+                          Remove
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               <div>
                 <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
