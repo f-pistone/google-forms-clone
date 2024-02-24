@@ -139,6 +139,7 @@ $(document).ready(function () {
         if (response == true) {
           $(`.section[data-id-section=${id_section}]`).remove();
           $("#close_remove_section_modal").click();
+          updateSectionsNumber();
           Toastify({
             text: "Section removed",
             duration: 6000,
