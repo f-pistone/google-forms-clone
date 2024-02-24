@@ -118,6 +118,31 @@ $(document).ready(function () {
     $(this).addClass("active-form-box");
   });
 
+  //Input to rename a section
+  $("#form").on("focusout", ".section-title", function () {
+    const id_section = $(this).parents(".section").attr("data-id-section");
+    const new_title_section = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "php/rename_section.php",
+      data: {
+        id_section: id_section,
+        new_title_section: new_title_section,
+      },
+      success: function (response) {
+        if (response != true) {
+          Toastify({
+            text: "Error: rename section",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Input to rename a question
   $("#form").on("focusout", ".question-name", function () {
     const id_question = $(this).parents(".question").attr("data-id-question");
@@ -755,7 +780,7 @@ function createSection(id_section) {
     <div class="section-info form-box relative p-7 rounded-md bg-white shadow before:content-[''] before:block before:w-full before:h-[10px] before:bg-violet-700 before:rounded-tl-md before:rounded-tr-md before:absolute before:left-0 before:top-0 before:z-[2]">
       <div class="mb-2 flex items-center gap-5">
         <div class="grow">
-          <input type="text" class="w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="Section without a title">
+          <input type="text" class="section-title w-full pb-3 text-3xl border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Title" value="Section without a title">
         </div>
         <div class="shrink-0 relative">
           <button type="button" class="open-options-section w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
