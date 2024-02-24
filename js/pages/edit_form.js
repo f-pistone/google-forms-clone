@@ -112,6 +112,53 @@ $(document).ready(function () {
     });
   });
 
+  //Button to remove a section
+  $("#remove_section_button").on("click", function () {
+    const number_of_sections = $(".section").length;
+    const id_section = $("#id_section_to_remove").val();
+
+    if (number_of_sections == 1) {
+      Toastify({
+        text: "Error: the form needs at least one section",
+        duration: 6000,
+        className: "bg-red-500 rounded",
+        gravity: "bottom",
+        position: "left",
+      }).showToast();
+      $("#close_remove_section_modal").click();
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "php/remove_section.php",
+      data: {
+        id_section: id_section,
+      },
+      success: function (response) {
+        if (response == true) {
+          $(`.section[data-id-section=${id_section}]`).remove();
+          $("#close_remove_section_modal").click();
+          Toastify({
+            text: "Section removed",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        } else {
+          Toastify({
+            text: "Error: remove section",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Toggle the active class for the form boxes
   $("#form").on("click", ".form-box", function () {
     $(".form-box").removeClass("active-form-box");
@@ -397,11 +444,16 @@ $(document).ready(function () {
 
   //Button to open the modal to remove a section
   $("#form").on("click", ".open-remove-section-modal", function () {
+    const id_section_to_remove = $(this)
+      .parents(".section")
+      .attr("data-id-section");
+    $("#id_section_to_remove").val(id_section_to_remove);
     document.getElementById("remove_section_modal").showModal();
   });
 
   //Button to close the modal to remove a section
   $("#close_remove_section_modal").on("click", function () {
+    $("#id_section_to_remove").val("");
     document.getElementById("remove_section_modal").close();
   });
 

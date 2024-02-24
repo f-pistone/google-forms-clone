@@ -199,6 +199,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
       <h3 class="text-gray-800">
         If you delete a section, the questions and the answers that it contains will be deleted too.
       </h3>
+      <input type="hidden" id="id_section_to_remove" value="">
     </div>
     <div class="flex flex-wrap justify-end items-center gap-2">
       <button type="button" id="close_remove_section_modal" class="px-5 py-2 text-black font-medium rounded focus:bg-gray-200">
