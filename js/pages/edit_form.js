@@ -143,6 +143,31 @@ $(document).ready(function () {
     });
   });
 
+  //Textarea to change the description of a section
+  $("#form").on("focusout", ".section-description", function () {
+    const id_section = $(this).parents(".section").attr("data-id-section");
+    const new_description_section = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "php/change_description_section.php",
+      data: {
+        id_section: id_section,
+        new_description_section: new_description_section,
+      },
+      success: function (response) {
+        if (response != true) {
+          Toastify({
+            text: "Error: change section's description",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Input to rename a question
   $("#form").on("focusout", ".question-name", function () {
     const id_question = $(this).parents(".question").attr("data-id-question");
@@ -804,7 +829,7 @@ function createSection(id_section) {
         </div>
       </div>
       <div>
-        <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"></textarea>
+        <textarea class="section-description w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"></textarea>
       </div>
     </div>
     <!-- END SECTION INFORMATIONS -->

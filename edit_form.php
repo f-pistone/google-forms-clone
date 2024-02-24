@@ -174,7 +174,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
                 </div>
               </div>
               <div>
-                <textarea class="w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
+                <textarea class="section-description w-full border-b focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Description"><?= $description_section ?></textarea>
               </div>
             </div>
             <!-- END SECTION INFORMATIONS -->
