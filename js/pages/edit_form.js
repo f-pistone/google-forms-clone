@@ -443,6 +443,12 @@ $(document).ready(function () {
     updateQuestionAnswer(question);
   });
 
+  //Update the question's option's value
+  $("#form").on("focusout", ".option-value", function () {
+    const question = $(this).parents(".question");
+    updateQuestionAnswer(question);
+  });
+
   //Button to open the modal to remove a section
   $("#form").on("click", ".open-remove-section-modal", function () {
     const id_section_to_remove = $(this)
