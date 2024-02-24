@@ -192,14 +192,36 @@ $(document).ready(function () {
 
   //Button to remove a question
   $("#form").on("click", ".remove-question-button", function () {
-    $(this).parents(".question").remove();
-    Toastify({
-      text: "Element removed",
-      duration: 6000,
-      className: "bg-zinc-800 rounded",
-      gravity: "bottom",
-      position: "left",
-    }).showToast();
+    const question = $(this).parents(".question");
+    const id_question = $(question).attr("data-id-question");
+
+    $.ajax({
+      type: "POST",
+      url: "php/remove_question.php",
+      data: {
+        id_question: id_question,
+      },
+      success: function (response) {
+        if (response == true) {
+          $(question).remove();
+          Toastify({
+            text: "Element removed",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        } else {
+          Toastify({
+            text: "Error: remove question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to add a new option for the question
