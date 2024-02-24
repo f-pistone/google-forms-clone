@@ -60,6 +60,7 @@ $(document).ready(function () {
   //Button to add a new question
   $("#add_question_button").on("click", function () {
     const last_section = $(".section").last();
+    const id_last_section = $(last_section).attr("data-id-section");
     const last_section_question = $(last_section).find(".question").last();
     const new_question = createQuestion();
 
@@ -68,6 +69,26 @@ $(document).ready(function () {
     } else {
       $(last_section).find(".section-info").after(new_question);
     }
+
+    $.ajax({
+      type: "POST",
+      url: "php/create_question.php",
+      data: {
+        id_section: id_last_section,
+      },
+      success: function (response) {
+        if (response > 0) {
+        } else {
+          Toastify({
+            text: "Error: create question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to add a new section
