@@ -1,6 +1,42 @@
 $(document).ready(function () {
   document.title = $("#header_title_form").val() + " - Google Forms Clone";
 
+  //Input to rename the form
+  $("#header_title_form").on("focusout", function () {
+    const input = $(this);
+    const current_title_form = $(input).attr("data-current-title-form");
+    const new_title_form = $(input).val();
+    const id_form = $("#form").attr("data-id-form");
+
+    if ($.trim(new_title_form) === "" || new_title_form === undefined) {
+      $(input).val(current_title_form);
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "php/rename_form.php",
+      data: {
+        id_form: id_form,
+        new_title_form: new_title_form,
+      },
+      success: function (response) {
+        if (response == true) {
+          $(input).attr("data-current-title-form", new_title_form);
+          document.title = new_title_form + " - Google Forms Clone";
+        } else {
+          Toastify({
+            text: "Error: rename form",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Button to open the options menu of the form
   $(".open-options-menu").on("click", function () {
     const options_menu_to_open = $(this).next(".options-menu");

@@ -40,7 +40,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
       <img src="./assets/images/google-forms-logo.svg" class="w-[40px] aspect-square" alt="Logo">
     </a>
     <div class="grow order-3 md:order-2">
-      <input type="text" id="header_title_form" class="w-full md:w-[400px] text-lg transition focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>">
+      <input type="text" id="header_title_form" class="w-full md:w-[400px] text-lg transition focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>" data-current-title-form="<?= $title_form_html ?>">
     </div>
     <div class="shrink-0 order-2 md:order-3 ml-auto md:ml-0 flex items-center gap-3">
       <div>
@@ -103,7 +103,7 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
   <main class="pt-[120px] md:pt-[80px] pb-10 px-1 relative">
     <div class="max-w-[800px] mx-auto my-0">
       <!-- FORM -->
-      <div id="form" class="relative grid grid-cols-1 gap-10">
+      <div id="form" class="relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
 
         <!-- MENU -->
         <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
@@ -572,11 +572,9 @@ $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sect
   </dialog>
   <!-- END REMOVE SECTION MODAL -->
 
-
   <!-- JS -->
   <script src="./js/pages/edit_form.js"></script>
   <!-- END JS -->
-
 </body>
 
 </html>
