@@ -194,11 +194,13 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response > 0) {
+          const section = $(question).parents(".section");
           const type_question_value = $(question).find(".type-question").val();
           const question_clone = $(question).clone();
           $(question_clone).find(".type-question").val(type_question_value);
           $(question_clone).attr("data-id-question", response);
           $(question).after(question_clone);
+          updateSectionOrderQuestions(section);
         } else {
           Toastify({
             text: "Error: duplicate question",
@@ -216,6 +218,7 @@ $(document).ready(function () {
   $("#form").on("click", ".remove-question-button", function () {
     const question = $(this).parents(".question");
     const id_question = $(question).attr("data-id-question");
+    const section = $(question).parents(".section");
 
     $.ajax({
       type: "POST",
@@ -226,6 +229,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response == true) {
           $(question).remove();
+          updateSectionOrderQuestions(section);
           Toastify({
             text: "Element removed",
             duration: 6000,
@@ -373,6 +377,9 @@ $(document).ready(function () {
 
   //Questions when the drag ends
   $("#form").on("dragend", ".question", function () {
+    const section = $(this).parents(".section");
+    updateSectionOrderQuestions(section);
+
     $(this).removeClass("dragging");
     $(this).removeClass("opacity-50");
   });
@@ -815,6 +822,26 @@ function updateQuestionAnswer(question) {
         }).showToast();
       }
     },
+  });
+}
+
+//Update the section's order of the questions
+function updateSectionOrderQuestions(section) {
+  const questions = $(section).find(".question");
+  const ids_questions = [];
+
+  for (let i = 0; i < questions.length; i++) {
+    let id_question = $(questions[i]).attr("data-id-question");
+    ids_questions.push(id_question);
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "php/reorder_questions.php",
+    data: {
+      ids_questions: JSON.stringify(ids_questions),
+    },
+    success: function (response) {},
   });
 }
 
