@@ -133,38 +133,51 @@ $(document).ready(function () {
   //Change of the question's type
   $("#form").on("change", ".type-question", function () {
     const question = $(this).parents(".question");
+    const id_question = $(question).attr("data-id-question");
     const new_type_question = $(this).val();
     let new_question_body = "";
 
     if (new_type_question == "SHORT_ANSWER") {
       new_question_body = createBodyShortAnswerQuestion();
-      $(question).find(".question-body").html(new_question_body);
-      return;
     }
 
     if (new_type_question == "LONG_ANSWER") {
       new_question_body = createBodyLongAnswerQuestion();
-      $(question).find(".question-body").html(new_question_body);
-      return;
     }
 
     if (new_type_question == "MULTIPLE_CHOISE") {
       new_question_body = createBodyMultipleChoiseAnswerQuestion();
-      $(question).find(".question-body").html(new_question_body);
-      return;
     }
 
     if (new_type_question == "CHECKBOX") {
       new_question_body = createBodyCheckboxAnswerQuestion();
-      $(question).find(".question-body").html(new_question_body);
-      return;
     }
 
     if (new_type_question == "LIST") {
       new_question_body = createBodyListAnswerQuestion();
-      $(question).find(".question-body").html(new_question_body);
-      return;
     }
+
+    $.ajax({
+      type: "POST",
+      url: "php/change_type_question.php",
+      data: {
+        id_question: id_question,
+        new_type_question: new_type_question,
+      },
+      success: function (response) {
+        if (response == true) {
+          $(question).find(".question-body").html(new_question_body);
+        } else {
+          Toastify({
+            text: "Error: change type question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to duplicate a question
