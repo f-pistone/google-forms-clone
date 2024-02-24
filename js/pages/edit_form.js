@@ -105,6 +105,31 @@ $(document).ready(function () {
     $(this).addClass("active-form-box");
   });
 
+  //Input to rename a question
+  $("#form").on("focusout", ".question-name", function () {
+    const id_question = $(this).parents(".question").attr("data-id-question");
+    const new_name_question = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "php/rename_question.php",
+      data: {
+        id_question: id_question,
+        new_name_question: new_name_question,
+      },
+      success: function (response) {
+        if (response != true) {
+          Toastify({
+            text: "Error: rename question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Change of the question's type
   $("#form").on("change", ".type-question", function () {
     const question = $(this).parents(".question");
@@ -260,7 +285,7 @@ $(document).ready(function () {
     $(this).addClass("opacity-50");
   });
 
-  //Questios when the drag ends
+  //Questions when the drag ends
   $("#form").on("dragend", ".question", function () {
     $(this).removeClass("dragging");
     $(this).removeClass("opacity-50");
@@ -290,7 +315,7 @@ function createQuestion(id_question) {
     <!-- QUESTION HEADER -->
     <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
       <div class="basis-full md:basis-6/12">
-        <input type="text" class="p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
+        <input type="text" class="question-name p-4 w-full bg-gray-100 border-b border-gray-500 focus:outline-none focus:border-b-2 focus:border-violet-800 transition" placeholder="Question" value="">
       </div>
       <div class="basis-full md:basis-5/12">
         <select class="type-question p-4 w-full cursor-pointer border rounded focus:outline-none">
