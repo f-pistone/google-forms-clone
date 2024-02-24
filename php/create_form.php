@@ -5,9 +5,10 @@ session_start();
 
 $id_user = (int)$_SESSION['id_user'];
 $title_form = "Form without a title";
+$image_form = "./assets/images/form-image-placeholder.png";
 $uniqid_form = uniqid("", true);
 
-$sqlCreateForm = "INSERT INTO forms (title_form, id_user, uniqid) VALUES ('$title_form', $id_user, '$uniqid_form')";
+$sqlCreateForm = "INSERT INTO forms (title_form, image_form, id_user, uniqid) VALUES ('$title_form', '$image_form', $id_user, '$uniqid_form')";
 $queryCreateForm = mysqli_query($conn, $sqlCreateForm) or die("Error: create form");
 
 $sqlGetIdForm = "SELECT id_form FROM forms WHERE uniqid = '$uniqid_form'";
