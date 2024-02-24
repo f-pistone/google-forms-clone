@@ -167,6 +167,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response == true) {
           $(question).find(".question-body").html(new_question_body);
+          updateQuestionAnswer(question);
         } else {
           Toastify({
             text: "Error: change type question",
@@ -208,34 +209,31 @@ $(document).ready(function () {
     const add_options_menu = $(question).find(".add-options-menu");
     const other_option = $(question).find(".other-option");
 
+    //Checking which option I need to create
     if (type_question == "MULTIPLE_CHOISE") {
       const option = createOptionMultipleChoiseAnswerQuestion();
-
       if (other_option.length > 0) {
         $(other_option).before(option);
       } else {
         $(add_options_menu).before(option);
       }
-
-      return;
+      updateQuestionAnswer(question);
     }
 
     if (type_question == "CHECKBOX") {
       const option = createOptionCheckboxAnswerQuestion();
-
       if (other_option.length > 0) {
         $(other_option).before(option);
       } else {
         $(add_options_menu).before(option);
       }
-
-      return;
+      updateQuestionAnswer(question);
     }
 
     if (type_question == "LIST") {
       const option = createOptionListAnswerQuestion();
       $(add_options_menu).before(option);
-      return;
+      updateQuestionAnswer(question);
     }
   });
 
@@ -255,6 +253,7 @@ $(document).ready(function () {
       $(add_options_menu).before(option);
       $(this).prev("span").hide();
       $(this).hide();
+      updateQuestionAnswer(question);
       return;
     }
 
@@ -263,23 +262,26 @@ $(document).ready(function () {
       $(add_options_menu).before(option);
       $(this).prev("span").hide();
       $(this).hide();
+      updateQuestionAnswer(question);
       return;
     }
   });
 
   //Button to remove an option of the question
   $("#form").on("click", ".remove-option-button", function () {
+    const question = $(this).parents(".question");
     const option = $(this).parents(".option");
 
     if ($(option).hasClass("other-option")) {
-      const add_other_option_button = $(this)
-        .parents(".question")
-        .find(".add-other-option-button");
+      const add_other_option_button = $(question).find(
+        ".add-other-option-button"
+      );
       $(add_other_option_button).prev("span").show();
       $(add_other_option_button).show();
     }
 
     $(option).remove();
+    updateQuestionAnswer(question);
   });
 
   //Button to open the modal to remove a section
@@ -401,7 +403,7 @@ function createBodyMultipleChoiseAnswerQuestion() {
         </svg>
       </div>
       <div class="grow">
-        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+        <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
       </div>
       <div class="shrink-0">
         <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -447,7 +449,7 @@ function createBodyCheckboxAnswerQuestion() {
         </svg>
       </div>
       <div class="grow">
-        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+        <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
       </div>
       <div class="shrink-0">
         <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -489,7 +491,7 @@ function createBodyListAnswerQuestion() {
     <li class="option pl-1">
       <div class="h-[40px] flex items-center gap-3">
         <div class="grow">
-          <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+          <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
         </div>
         <div class="shrink-0">
           <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -526,7 +528,7 @@ function createOptionMultipleChoiseAnswerQuestion() {
       </svg>
     </div>
     <div class="grow">
-      <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+      <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
     </div>
     <div class="shrink-0">
       <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -552,7 +554,7 @@ function createOptionCheckboxAnswerQuestion() {
       </svg>
     </div>
     <div class="grow">
-      <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+      <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
     </div>
     <div class="shrink-0">
       <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -574,7 +576,7 @@ function createOptionListAnswerQuestion() {
   <li class="option pl-1">
     <div class="h-[40px] flex items-center gap-3">
       <div class="grow">
-        <input type="text" class="w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
+        <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
       </div>
       <div class="shrink-0">
         <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -601,7 +603,7 @@ function createOtherOptionMultipleChoiseAnswerQuestion() {
       </svg>
     </div>
     <div class="grow">
-      <input type="text" class="w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
+      <input type="text" class="option-value w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
     </div>
     <div class="shrink-0">
       <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -627,7 +629,7 @@ function createOtherOptionCheckboxAnswerQuestion() {
       </svg>
     </div>
     <div class="grow">
-      <input type="text" class="w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
+      <input type="text" class="option-value w-full text-gray-500 hover:border-dotted hover:border-b hover:border-gray-500 disabled:bg-transparent" placeholder="Other" value="Other" disabled>
     </div>
     <div class="shrink-0">
       <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -709,6 +711,40 @@ function updateSectionsNumber() {
     let number_section = i + 1;
     $(section).find(".current-section-number").text(number_section);
   }
+}
+
+//Update the question's answer into the database
+function updateQuestionAnswer(question) {
+  //Getting all question's options value
+  const id_question = $(question).attr("data-id-question");
+  const options_value_el = $(question).find(".option-value");
+  const options_value = [];
+
+  for (let i = 0; i < options_value_el.length; i++) {
+    let option_value = $(options_value_el[i]).val();
+    options_value.push(option_value);
+  }
+
+  //Updating the question answer into the database
+  $.ajax({
+    type: "POST",
+    url: "php/update_question_answer.php",
+    data: {
+      id_question: id_question,
+      answer_question: JSON.stringify(options_value),
+    },
+    success: function (response) {
+      if (response != true) {
+        Toastify({
+          text: "Error: update question answer",
+          duration: 6000,
+          className: "bg-red-500 rounded",
+          gravity: "bottom",
+          position: "left",
+        }).showToast();
+      }
+    },
+  });
 }
 
 //Get the element where I want to drop the question
