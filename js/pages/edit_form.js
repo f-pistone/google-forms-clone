@@ -942,6 +942,7 @@ function updateQuestionAnswer(question) {
 
 //Update the section's order of the questions
 function updateSectionOrderQuestions(section) {
+  const id_section = $(section).attr("data-id-section");
   const questions = $(section).find(".question");
   const ids_questions = [];
 
@@ -955,6 +956,7 @@ function updateSectionOrderQuestions(section) {
     url: "php/reorder_questions.php",
     data: {
       ids_questions: JSON.stringify(ids_questions),
+      id_section: id_section,
     },
     success: function (response) {},
   });
