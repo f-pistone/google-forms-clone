@@ -294,6 +294,33 @@ $(document).ready(function () {
     document.getElementById("remove_section_modal").close();
   });
 
+  //Button to set the question as required
+  $("#form").on("click", ".question-required", function () {
+    const question = $(this).parents(".question");
+    const id_question = $(question).attr("data-id-question");
+    const required_question = $(this).is(":checked") ? 1 : 0;
+
+    $.ajax({
+      type: "POST",
+      url: "php/update_required_question.php",
+      data: {
+        id_question: id_question,
+        required_question: required_question,
+      },
+      success: function (response) {
+        if (response != true) {
+          Toastify({
+            text: "Error: update required question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Questions when the drag starts
   $("#form").on("dragstart", ".question", function () {
     $(this).addClass("dragging");
