@@ -62,13 +62,6 @@ $(document).ready(function () {
     const last_section = $(".section").last();
     const id_last_section = $(last_section).attr("data-id-section");
     const last_section_question = $(last_section).find(".question").last();
-    const new_question = createQuestion();
-
-    if (last_section_question.length > 0) {
-      $(last_section_question).after(new_question);
-    } else {
-      $(last_section).find(".section-info").after(new_question);
-    }
 
     $.ajax({
       type: "POST",
@@ -78,6 +71,13 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response > 0) {
+          const new_question = createQuestion(response);
+
+          if (last_section_question.length > 0) {
+            $(last_section_question).after(new_question);
+          } else {
+            $(last_section).find(".section-info").after(new_question);
+          }
         } else {
           Toastify({
             text: "Error: create question",
@@ -282,10 +282,10 @@ $(document).ready(function () {
 });
 
 //Create a new question
-function createQuestion() {
+function createQuestion(id_question) {
   const new_question = `            
   <!-- QUESTION SHORT ANSWER -->
-  <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true">
+  <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true" data-id-question="${id_question}">
 
     <!-- QUESTION HEADER -->
     <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
@@ -328,7 +328,7 @@ function createQuestion() {
       </div>
       <div class="pl-2 flex items-center gap-2">
         <span>Required</span>
-        <input class="switch" type="checkbox">
+        <input class="question-required switch" type="checkbox" value="1">
       </div>
     </div>
     <!-- END QUESTION FOOTER -->
