@@ -93,10 +93,23 @@ $(document).ready(function () {
 
   //Button to add a new section
   $("#add_section_button").on("click", function () {
-    const last_section = $(".section").last();
-    const new_section = createSection();
-    $(last_section).after(new_section);
-    updateSectionsNumber();
+    const id_form = $("#form").attr("data-id-form");
+
+    $.ajax({
+      type: "POST",
+      url: "php/create_section.php",
+      data: {
+        id_form: id_form,
+      },
+      success: function (response) {
+        if (response > 0) {
+          const last_section = $(".section").last();
+          const new_section = createSection(response);
+          $(last_section).after(new_section);
+          updateSectionsNumber();
+        }
+      },
+    });
   });
 
   //Toggle the active class for the form boxes
@@ -723,11 +736,11 @@ function createOtherOptionCheckboxAnswerQuestion() {
 }
 
 //Create a new section
-function createSection() {
+function createSection(id_section) {
   const new_number_of_sections = parseInt($(".section").length) + 1;
   const section = `
   <!-- SECTION -->
-  <div class="section grid grid-cols-1 gap-3">
+  <div class="section grid grid-cols-1 gap-3" data-id-section="${id_section}">
 
     <!-- SECTION NUMBER -->
     <div class="section-number p-2 w-fit text-white text-base bg-violet-700 rounded-t-md -mb-5 relative z-[3]">
