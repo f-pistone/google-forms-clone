@@ -184,10 +184,32 @@ $(document).ready(function () {
   //Button to duplicate a question
   $("#form").on("click", ".duplicate-question-button", function () {
     const question = $(this).parents(".question");
-    const type_question_value = $(question).find(".type-question").val();
-    const question_clone = $(question).clone();
-    $(question_clone).find(".type-question").val(type_question_value);
-    $(question).after(question_clone);
+    const id_question = $(question).attr("data-id-question");
+
+    $.ajax({
+      type: "POST",
+      url: "php/duplicate_question.php",
+      data: {
+        id_question_to_clone: id_question,
+      },
+      success: function (response) {
+        if (response > 0) {
+          const type_question_value = $(question).find(".type-question").val();
+          const question_clone = $(question).clone();
+          $(question_clone).find(".type-question").val(type_question_value);
+          $(question_clone).attr("data-id-question", response);
+          $(question).after(question_clone);
+        } else {
+          Toastify({
+            text: "Error: duplicate question",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to remove a question
