@@ -248,26 +248,6 @@ $(document).ready(function () {
     const new_type_question = $(this).val();
     let new_question_body = "";
 
-    if (new_type_question == "SHORT_ANSWER") {
-      new_question_body = createBodyShortAnswerQuestion();
-    }
-
-    if (new_type_question == "LONG_ANSWER") {
-      new_question_body = createBodyLongAnswerQuestion();
-    }
-
-    if (new_type_question == "MULTIPLE_CHOISE") {
-      new_question_body = createBodyMultipleChoiseAnswerQuestion();
-    }
-
-    if (new_type_question == "CHECKBOX") {
-      new_question_body = createBodyCheckboxAnswerQuestion();
-    }
-
-    if (new_type_question == "LIST") {
-      new_question_body = createBodyListAnswerQuestion();
-    }
-
     $.ajax({
       type: "POST",
       url: "php/change_type_question.php",
@@ -275,10 +255,69 @@ $(document).ready(function () {
         id_question: id_question,
         new_type_question: new_type_question,
       },
-      success: function (response) {
+      success: async function (response) {
         if (response == true) {
-          $(question).find(".question-body").html(new_question_body);
-          updateQuestionAnswer(question);
+          if (new_type_question == "SHORT_ANSWER") {
+            new_question_body = createBodyShortAnswerQuestion();
+            $(question).find(".question-body").html(new_question_body);
+          }
+
+          if (new_type_question == "LONG_ANSWER") {
+            new_question_body = createBodyLongAnswerQuestion();
+            $(question).find(".question-body").html(new_question_body);
+          }
+
+          if (new_type_question == "MULTIPLE_CHOISE") {
+            const remove_options = await removeOptionsQuestion(question);
+            const id_option = await createOptionQuestion(question);
+            if (id_option > 0) {
+              new_question_body =
+                createBodyMultipleChoiseAnswerQuestion(id_option);
+              $(question).find(".question-body").html(new_question_body);
+            } else {
+              Toastify({
+                text: "Error: add option",
+                duration: 6000,
+                className: "bg-red-500 rounded",
+                gravity: "bottom",
+                position: "left",
+              }).showToast();
+            }
+          }
+
+          if (new_type_question == "CHECKBOX") {
+            const remove_options = await removeOptionsQuestion(question);
+            const id_option = await createOptionQuestion(question);
+            if (id_option > 0) {
+              new_question_body = createBodyCheckboxAnswerQuestion(id_option);
+              $(question).find(".question-body").html(new_question_body);
+            } else {
+              Toastify({
+                text: "Error: add option",
+                duration: 6000,
+                className: "bg-red-500 rounded",
+                gravity: "bottom",
+                position: "left",
+              }).showToast();
+            }
+          }
+
+          if (new_type_question == "LIST") {
+            const remove_options = await removeOptionsQuestion(question);
+            const id_option = await createOptionQuestion(question);
+            if (id_option > 0) {
+              new_question_body = createBodyListAnswerQuestion(id_option);
+              $(question).find(".question-body").html(new_question_body);
+            } else {
+              Toastify({
+                text: "Error: add option",
+                duration: 6000,
+                className: "bg-red-500 rounded",
+                gravity: "bottom",
+                position: "left",
+              }).showToast();
+            }
+          }
         } else {
           Toastify({
             text: "Error: change type question",
@@ -304,12 +343,31 @@ $(document).ready(function () {
         id_question_to_clone: id_question,
       },
       success: function (response) {
-        if (response > 0) {
+        const id_question_clone = response.id_question;
+        const ids_options_clone = response.ids_options;
+
+        if (id_question_clone > 0) {
           const section = $(question).parents(".section");
           const type_question_value = $(question).find(".type-question").val();
           const question_clone = $(question).clone();
+
           $(question_clone).find(".type-question").val(type_question_value);
-          $(question_clone).attr("data-id-question", response);
+          $(question_clone).attr("data-id-question", id_question_clone);
+
+          if (
+            type_question_value == "MULTIPLE_CHOISE" ||
+            type_question_value == "CHECKBOX" ||
+            type_question_value == "LIST"
+          ) {
+            const question_clone_options = $(question_clone).find(".option");
+            for (let i = 0; i < question_clone_options.length; i++) {
+              $(question_clone_options[i]).attr(
+                "data-id-option",
+                ids_options_clone[i]
+              );
+            }
+          }
+
           $(question).after(question_clone);
           updateSectionOrderQuestions(section);
         } else {
@@ -362,42 +420,58 @@ $(document).ready(function () {
   });
 
   //Button to add a new option for the question
-  $("#form").on("click", ".add-option-button", function () {
+  $("#form").on("click", ".add-option-button", async function () {
     const question = $(this).parents(".question");
     const type_question = $(question).find(".type-question").val();
     const add_options_menu = $(question).find(".add-options-menu");
     const other_option = $(question).find(".other-option");
 
-    //Checking which option I need to create
-    if (type_question == "MULTIPLE_CHOISE") {
-      const option = createOptionMultipleChoiseAnswerQuestion();
-      if (other_option.length > 0) {
-        $(other_option).before(option);
-      } else {
-        $(add_options_menu).before(option);
-      }
-      updateQuestionAnswer(question);
+    if (
+      type_question != "MULTIPLE_CHOISE" &&
+      type_question != "CHECKBOX" &&
+      type_question != "LIST"
+    ) {
+      return;
     }
 
-    if (type_question == "CHECKBOX") {
-      const option = createOptionCheckboxAnswerQuestion();
-      if (other_option.length > 0) {
-        $(other_option).before(option);
-      } else {
+    const id_option = await createOptionQuestion(question);
+
+    if (id_option > 0) {
+      if (type_question == "MULTIPLE_CHOISE") {
+        const option = createOptionMultipleChoiseAnswerQuestion(id_option);
+        if (other_option.length > 0) {
+          $(other_option).before(option);
+        } else {
+          $(add_options_menu).before(option);
+        }
+      }
+
+      if (type_question == "CHECKBOX") {
+        const option = createOptionCheckboxAnswerQuestion(id_option);
+        if (other_option.length > 0) {
+          $(other_option).before(option);
+        } else {
+          $(add_options_menu).before(option);
+        }
+      }
+
+      if (type_question == "LIST") {
+        const option = createOptionListAnswerQuestion(id_option);
         $(add_options_menu).before(option);
       }
-      updateQuestionAnswer(question);
-    }
-
-    if (type_question == "LIST") {
-      const option = createOptionListAnswerQuestion();
-      $(add_options_menu).before(option);
-      updateQuestionAnswer(question);
+    } else {
+      Toastify({
+        text: "Error: add option",
+        duration: 6000,
+        className: "bg-red-500 rounded",
+        gravity: "bottom",
+        position: "left",
+      }).showToast();
     }
   });
 
   //Button to add the other option for the question
-  $("#form").on("click", ".add-other-option-button", function () {
+  $("#form").on("click", ".add-other-option-button", async function () {
     const question = $(this).parents(".question");
     const type_question = $(question).find(".type-question").val();
     const add_options_menu = $(question).find(".add-options-menu");
@@ -408,21 +482,41 @@ $(document).ready(function () {
     }
 
     if (type_question == "MULTIPLE_CHOISE") {
-      const option = createOtherOptionMultipleChoiseAnswerQuestion();
-      $(add_options_menu).before(option);
-      $(this).prev("span").hide();
-      $(this).hide();
-      updateQuestionAnswer(question);
-      return;
+      const id_option = await createOptionQuestion(question, 1);
+
+      if (id_option > 0) {
+        const option = createOtherOptionMultipleChoiseAnswerQuestion(id_option);
+        $(add_options_menu).before(option);
+        $(this).prev("span").hide();
+        $(this).hide();
+      } else {
+        Toastify({
+          text: "Error: add other option",
+          duration: 6000,
+          className: "bg-red-500 rounded",
+          gravity: "bottom",
+          position: "left",
+        }).showToast();
+      }
     }
 
     if (type_question == "CHECKBOX") {
-      const option = createOtherOptionCheckboxAnswerQuestion();
-      $(add_options_menu).before(option);
-      $(this).prev("span").hide();
-      $(this).hide();
-      updateQuestionAnswer(question);
-      return;
+      const id_option = await createOptionQuestion(question, 1);
+
+      if (id_option > 0) {
+        const option = createOtherOptionCheckboxAnswerQuestion(id_option);
+        $(add_options_menu).before(option);
+        $(this).prev("span").hide();
+        $(this).hide();
+      } else {
+        Toastify({
+          text: "Error: add option",
+          duration: 6000,
+          className: "bg-red-500 rounded",
+          gravity: "bottom",
+          position: "left",
+        }).showToast();
+      }
     }
   });
 
@@ -430,23 +524,61 @@ $(document).ready(function () {
   $("#form").on("click", ".remove-option-button", function () {
     const question = $(this).parents(".question");
     const option = $(this).parents(".option");
+    const id_option = $(option).attr("data-id-option");
 
-    if ($(option).hasClass("other-option")) {
-      const add_other_option_button = $(question).find(
-        ".add-other-option-button"
-      );
-      $(add_other_option_button).prev("span").show();
-      $(add_other_option_button).show();
-    }
+    $.ajax({
+      type: "POST",
+      url: "php/remove_option.php",
+      data: {
+        id_option: id_option,
+      },
+      success: function (response) {
+        if (response == true) {
+          if ($(option).hasClass("other-option")) {
+            const add_other_option_button = $(question).find(
+              ".add-other-option-button"
+            );
+            $(add_other_option_button).prev("span").show();
+            $(add_other_option_button).show();
+          }
 
-    $(option).remove();
-    updateQuestionAnswer(question);
+          $(option).remove();
+        } else {
+          Toastify({
+            text: "Error: remove option",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Update the question's option's value
   $("#form").on("focusout", ".option-value", function () {
-    const question = $(this).parents(".question");
-    updateQuestionAnswer(question);
+    const id_option = $(this).parents(".option").attr("data-id-option");
+    const new_name_option = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "php/rename_option.php",
+      data: {
+        id_option: id_option,
+        new_name_option: new_name_option,
+      },
+      success: function (response) {
+        if (response != true) {
+          Toastify({
+            text: "Error: rename option",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to open the modal to remove a section
@@ -592,11 +724,11 @@ function createBodyLongAnswerQuestion() {
 }
 
 //Create the body for the question with a multiple choise answer
-function createBodyMultipleChoiseAnswerQuestion() {
+function createBodyMultipleChoiseAnswerQuestion(id_option) {
   const body = `
   <ul class="flex flex-col gap-1">
     <!-- OPTION -->
-    <li class="option h-[40px] flex items-center gap-3">
+    <li class="option h-[40px] flex items-center gap-3" data-id-option=${id_option}>
       <div class="shrink-0 text-xl text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
@@ -638,11 +770,11 @@ function createBodyMultipleChoiseAnswerQuestion() {
 }
 
 //Create the body for the question with a checkbox answer
-function createBodyCheckboxAnswerQuestion() {
+function createBodyCheckboxAnswerQuestion(id_option) {
   const body = `
   <ul class="flex flex-col gap-1">
     <!-- OPTION -->
-    <li class="option h-[40px] flex items-center gap-3">
+    <li class="option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
       <div class="shrink-0 text-xl text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
           <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
@@ -684,11 +816,11 @@ function createBodyCheckboxAnswerQuestion() {
 }
 
 //Create the body for the question with a list answer
-function createBodyListAnswerQuestion() {
+function createBodyListAnswerQuestion(id_option) {
   const body = `
   <ol class="list-decimal pl-4 flex flex-col gap-1">
     <!-- OPTION -->
-    <li class="option pl-1">
+    <li class="option pl-1" data-id-option="${id_option}">
       <div class="h-[40px] flex items-center gap-3">
         <div class="grow">
           <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
@@ -718,10 +850,10 @@ function createBodyListAnswerQuestion() {
 }
 
 //Create the option for the question with a multiple choise answer
-function createOptionMultipleChoiseAnswerQuestion() {
+function createOptionMultipleChoiseAnswerQuestion(id_option) {
   const option = `                  
   <!-- OPTION -->
-  <li class="option h-[40px] flex items-center gap-3">
+  <li class="option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
@@ -744,10 +876,10 @@ function createOptionMultipleChoiseAnswerQuestion() {
 }
 
 //Create the option for the question with a checkbox answer
-function createOptionCheckboxAnswerQuestion() {
+function createOptionCheckboxAnswerQuestion(id_option) {
   const option = `
   <!-- OPTION -->
-  <li class="option h-[40px] flex items-center gap-3">
+  <li class="option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
         <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
@@ -770,10 +902,10 @@ function createOptionCheckboxAnswerQuestion() {
 }
 
 //Create the option for the question with a list answer
-function createOptionListAnswerQuestion() {
+function createOptionListAnswerQuestion(id_option) {
   const option = `
   <!-- OPTION -->
-  <li class="option pl-1">
+  <li class="option pl-1" data-id-option="${id_option}">
     <div class="h-[40px] flex items-center gap-3">
       <div class="grow">
         <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
@@ -793,10 +925,10 @@ function createOptionListAnswerQuestion() {
 }
 
 //Create the other option for the question with a multiple choise answer
-function createOtherOptionMultipleChoiseAnswerQuestion() {
+function createOtherOptionMultipleChoiseAnswerQuestion(id_option) {
   const other_option = `                  
   <!-- OTHER OPTION -->
-  <li class="option other-option h-[40px] flex items-center gap-3">
+  <li class="option other-option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
@@ -819,10 +951,10 @@ function createOtherOptionMultipleChoiseAnswerQuestion() {
 }
 
 //Create the other option for the question with a checkbox answer
-function createOtherOptionCheckboxAnswerQuestion() {
+function createOtherOptionCheckboxAnswerQuestion(id_option) {
   const other_option = `                  
   <!-- OTHER OPTION -->
-  <li class="option other-option h-[40px] flex items-center gap-3">
+  <li class="option other-option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
         <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
@@ -986,4 +1118,33 @@ function getDragAfterElement(section, y) {
       offset: Number.NEGATIVE_INFINITY,
     }
   ).element;
+}
+
+//Create new option in the database
+async function createOptionQuestion(question, other_option = 0) {
+  const id_question = $(question).attr("data-id-question");
+  const id_option = await $.ajax({
+    type: "POST",
+    url: "php/create_option.php",
+    data: {
+      id_question: id_question,
+      other_option: other_option,
+    },
+    success: function (response) {},
+  });
+  return id_option;
+}
+
+//Remove all the options of a question in the database
+async function removeOptionsQuestion(question) {
+  const id_question = $(question).attr("data-id-question");
+  const result = await $.ajax({
+    type: "POST",
+    url: "php/remove_options_question.php",
+    data: {
+      id_question: id_question,
+    },
+    success: function (response) {},
+  });
+  return result;
 }

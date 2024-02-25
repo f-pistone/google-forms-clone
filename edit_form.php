@@ -192,13 +192,9 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
               $name_question = $rowGetQuestions['name_question'];
               $name_question_html = htmlspecialchars($name_question, ENT_QUOTES);
               $type_question = $rowGetQuestions['type_question'];
-              $answer_question = explode(" | ", $rowGetQuestions['answer_question']);
               $required_question = ((int)$rowGetQuestions['required_question'] === 1) ? "checked" : "";
 
               $add_other_button_hidden = "";
-              if (in_array("Other", $answer_question)) {
-                $add_other_button_hidden = "hidden";
-              }
 
               $short_answer_selected = "";
               $long_answer_selected = "";
@@ -270,24 +266,36 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
                 <?php
                 if ($type_question == "MULTIPLE_CHOISE") {
+                  $sqlExistsOtherOption = "SELECT id_option FROM options WHERE id_question = $id_question AND other_option = 1";
+                  $queryExistsOtherOption = mysqli_query($conn, $sqlExistsOtherOption) or die("Error: check other option");
+                  $exists_other_option = mysqli_num_rows($queryExistsOtherOption);
+
+                  if ($exists_other_option > 0) {
+                    $add_other_button_hidden = "hidden";
+                  }
+
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
                 ?>
                   <!-- QUESTION BODY -->
                   <div class="question-body mb-10">
                     <ul class="flex flex-col gap-1">
                       <?php
-                      foreach ($answer_question as $answer) {
-                        $answer = htmlspecialchars($answer, ENT_QUOTES);
-                        if (trim($answer) != "Other") {
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = htmlspecialchars($rowGetOptions['name_option'], ENT_QUOTES);
+                        $other_option = (int)$rowGetOptions['other_option'];
+                        if ($other_option == 0) {
                       ?>
                           <!-- OPTION -->
-                          <li class="option h-[40px] flex items-center gap-3">
+                          <li class="option h-[40px] flex items-center gap-3" data-id-option="<?= $id_option ?>">
                             <div class="shrink-0 text-xl text-gray-400">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
                               </svg>
                             </div>
                             <div class="grow">
-                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $answer ?>">
+                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $name_option ?>">
                             </div>
                             <div class="shrink-0">
                               <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -302,7 +310,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                         } else {
                         ?>
                           <!-- OTHER OPTION -->
-                          <li class="option other-option h-[40px] flex items-center gap-3">
+                          <li class="option other-option h-[40px] flex items-center gap-3" data-id-option="<?= $id_option ?>">
                             <div class="shrink-0 text-xl text-gray-400">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
@@ -351,24 +359,36 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
                 <?php
                 if ($type_question == "CHECKBOX") {
+                  $sqlExistsOtherOption = "SELECT id_option FROM options WHERE id_question = $id_question AND other_option = 1";
+                  $queryExistsOtherOption = mysqli_query($conn, $sqlExistsOtherOption) or die("Error: check other option");
+                  $exists_other_option = mysqli_num_rows($queryExistsOtherOption);
+
+                  if ($exists_other_option > 0) {
+                    $add_other_button_hidden = "hidden";
+                  }
+
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
                 ?>
                   <!-- QUESTION BODY -->
                   <div class="question-body mb-10">
                     <ul class="flex flex-col gap-1">
                       <?php
-                      foreach ($answer_question as $answer) {
-                        $answer = htmlspecialchars($answer, ENT_QUOTES);
-                        if (trim($answer) != "Other") {
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = htmlspecialchars($rowGetOptions['name_option'], ENT_QUOTES);
+                        $other_option = (int)$rowGetOptions['other_option'];
+                        if ($other_option == 0) {
                       ?>
                           <!-- OPTION -->
-                          <li class="option h-[40px] flex items-center gap-3">
+                          <li class="option h-[40px] flex items-center gap-3" data-id-option="<?= $id_option ?>">
                             <div class="shrink-0 text-xl text-gray-400">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
                                 <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
                               </svg>
                             </div>
                             <div class="grow">
-                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $answer ?>">
+                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $name_option ?>">
                             </div>
                             <div class="shrink-0">
                               <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
@@ -383,7 +403,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                         } else {
                         ?>
                           <!-- OTHER OPTION -->
-                          <li class="option other-option h-[40px] flex items-center gap-3">
+                          <li class="option other-option h-[40px] flex items-center gap-3" data-id-option="<?= $id_option ?>">
                             <div class="shrink-0 text-xl text-gray-400">
                               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
                                 <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
@@ -432,19 +452,22 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
                 <?php
                 if ($type_question == "LIST") {
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
                 ?>
                   <!-- QUESTION BODY -->
                   <div class="question-body mb-10">
                     <ol class="list-decimal pl-4 flex flex-col gap-1">
                       <?php
-                      foreach ($answer_question as $answer) {
-                        $answer = htmlspecialchars($answer, ENT_QUOTES);
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = htmlspecialchars($rowGetOptions['name_option'], ENT_QUOTES);
                       ?>
                         <!-- OPTION -->
-                        <li class="option pl-1">
+                        <li class="option pl-1" data-id-option="<?= $id_option ?>">
                           <div class="h-[40px] flex items-center gap-3">
                             <div class="grow">
-                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $answer ?>">
+                              <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="<?= $name_option ?>">
                             </div>
                             <div class="shrink-0">
                               <button type="button" class="remove-option-button p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
