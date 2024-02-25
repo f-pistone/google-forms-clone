@@ -343,12 +343,31 @@ $(document).ready(function () {
         id_question_to_clone: id_question,
       },
       success: function (response) {
-        if (response > 0) {
+        const id_question_clone = response.id_question;
+        const ids_options_clone = response.ids_options;
+
+        if (id_question_clone > 0) {
           const section = $(question).parents(".section");
           const type_question_value = $(question).find(".type-question").val();
           const question_clone = $(question).clone();
+
           $(question_clone).find(".type-question").val(type_question_value);
-          $(question_clone).attr("data-id-question", response);
+          $(question_clone).attr("data-id-question", id_question_clone);
+
+          if (
+            type_question_value == "MULTIPLE_CHOISE" ||
+            type_question_value == "CHECKBOX" ||
+            type_question_value == "LIST"
+          ) {
+            const question_clone_options = $(question_clone).find(".option");
+            for (let i = 0; i < question_clone_options.length; i++) {
+              $(question_clone_options[i]).attr(
+                "data-id-option",
+                ids_options_clone[i]
+              );
+            }
+          }
+
           $(question).after(question_clone);
           updateSectionOrderQuestions(section);
         } else {
