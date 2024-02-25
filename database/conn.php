@@ -2,7 +2,7 @@
 $hostname = "localhost";
 $username = "root";
 $password = "";
-$database = "google-forms-clone";
+$database = "google_forms_clone";
 
 $conn = new mysqli($hostname, $username, $password, $database);
 
