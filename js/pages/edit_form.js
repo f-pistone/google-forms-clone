@@ -364,41 +364,67 @@ $(document).ready(function () {
   //Button to add a new option for the question
   $("#form").on("click", ".add-option-button", function () {
     const question = $(this).parents(".question");
+    const id_question = $(question).attr("data-id-question");
     const type_question = $(question).find(".type-question").val();
     const add_options_menu = $(question).find(".add-options-menu");
     const other_option = $(question).find(".other-option");
 
-    //Checking which option I need to create
-    if (type_question == "MULTIPLE_CHOISE") {
-      const option = createOptionMultipleChoiseAnswerQuestion();
-      if (other_option.length > 0) {
-        $(other_option).before(option);
-      } else {
-        $(add_options_menu).before(option);
-      }
-      updateQuestionAnswer(question);
+    if (
+      type_question != "MULTIPLE_CHOISE" &&
+      type_question != "CHECKBOX" &&
+      type_question != "LIST"
+    ) {
+      return;
     }
 
-    if (type_question == "CHECKBOX") {
-      const option = createOptionCheckboxAnswerQuestion();
-      if (other_option.length > 0) {
-        $(other_option).before(option);
-      } else {
-        $(add_options_menu).before(option);
-      }
-      updateQuestionAnswer(question);
-    }
+    $.ajax({
+      type: "POST",
+      url: "php/create_option.php",
+      data: {
+        id_question: id_question,
+        other_option: 0,
+      },
+      success: function (response) {
+        if (response > 0) {
+          if (type_question == "MULTIPLE_CHOISE") {
+            const option = createOptionMultipleChoiseAnswerQuestion(response);
+            if (other_option.length > 0) {
+              $(other_option).before(option);
+            } else {
+              $(add_options_menu).before(option);
+            }
+          }
 
-    if (type_question == "LIST") {
-      const option = createOptionListAnswerQuestion();
-      $(add_options_menu).before(option);
-      updateQuestionAnswer(question);
-    }
+          if (type_question == "CHECKBOX") {
+            const option = createOptionCheckboxAnswerQuestion(response);
+            if (other_option.length > 0) {
+              $(other_option).before(option);
+            } else {
+              $(add_options_menu).before(option);
+            }
+          }
+
+          if (type_question == "LIST") {
+            const option = createOptionListAnswerQuestion(response);
+            $(add_options_menu).before(option);
+          }
+        } else {
+          Toastify({
+            text: "Error: add option",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
   });
 
   //Button to add the other option for the question
   $("#form").on("click", ".add-other-option-button", function () {
     const question = $(this).parents(".question");
+    const id_question = $(question).attr("data-id-question");
     const type_question = $(question).find(".type-question").val();
     const add_options_menu = $(question).find(".add-options-menu");
     const other_option_exist = $(question).find(".other-option");
@@ -408,21 +434,58 @@ $(document).ready(function () {
     }
 
     if (type_question == "MULTIPLE_CHOISE") {
-      const option = createOtherOptionMultipleChoiseAnswerQuestion();
-      $(add_options_menu).before(option);
-      $(this).prev("span").hide();
-      $(this).hide();
-      updateQuestionAnswer(question);
-      return;
+      $.ajax({
+        type: "POST",
+        url: "php/create_option.php",
+        data: {
+          id_question: id_question,
+          other_option: 1,
+        },
+        success: function (response) {
+          if (response > 0) {
+            const option =
+              createOtherOptionMultipleChoiseAnswerQuestion(response);
+            $(add_options_menu).before(option);
+            $(this).prev("span").hide();
+            $(this).hide();
+          } else {
+            Toastify({
+              text: "Error: add option",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
+          }
+        },
+      });
     }
 
     if (type_question == "CHECKBOX") {
-      const option = createOtherOptionCheckboxAnswerQuestion();
-      $(add_options_menu).before(option);
-      $(this).prev("span").hide();
-      $(this).hide();
-      updateQuestionAnswer(question);
-      return;
+      $.ajax({
+        type: "POST",
+        url: "php/create_option.php",
+        data: {
+          id_question: id_question,
+          other_option: 1,
+        },
+        success: function (response) {
+          if (response > 0) {
+            const option = createOtherOptionCheckboxAnswerQuestion(response);
+            $(add_options_menu).before(option);
+            $(this).prev("span").hide();
+            $(this).hide();
+          } else {
+            Toastify({
+              text: "Error: add option",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
+          }
+        },
+      });
     }
   });
 
@@ -718,10 +781,10 @@ function createBodyListAnswerQuestion() {
 }
 
 //Create the option for the question with a multiple choise answer
-function createOptionMultipleChoiseAnswerQuestion() {
+function createOptionMultipleChoiseAnswerQuestion(id_option) {
   const option = `                  
   <!-- OPTION -->
-  <li class="option h-[40px] flex items-center gap-3">
+  <li class="option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
@@ -744,10 +807,10 @@ function createOptionMultipleChoiseAnswerQuestion() {
 }
 
 //Create the option for the question with a checkbox answer
-function createOptionCheckboxAnswerQuestion() {
+function createOptionCheckboxAnswerQuestion(id_option) {
   const option = `
   <!-- OPTION -->
-  <li class="option h-[40px] flex items-center gap-3">
+  <li class="option h-[40px] flex items-center gap-3" data-id-option="${id_option}">
     <div class="shrink-0 text-xl text-gray-400">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
         <path fill="currentColor" d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M6 26V6h20v20Z" />
@@ -770,10 +833,10 @@ function createOptionCheckboxAnswerQuestion() {
 }
 
 //Create the option for the question with a list answer
-function createOptionListAnswerQuestion() {
+function createOptionListAnswerQuestion(id_option) {
   const option = `
   <!-- OPTION -->
-  <li class="option pl-1">
+  <li class="option pl-1" data-id-option="${id_option}">
     <div class="h-[40px] flex items-center gap-3">
       <div class="grow">
         <input type="text" class="option-value w-full focus:outline-none focus:border-b-2 focus:border-violet-800 hover:border-b" placeholder="Option" value="Option">
@@ -986,4 +1049,19 @@ function getDragAfterElement(section, y) {
       offset: Number.NEGATIVE_INFINITY,
     }
   ).element;
+}
+
+//
+function addOptionQuestion(question) {
+  const id_question = $(question).attr("data-id-question");
+  $.ajax({
+    type: "POST",
+    url: "php/add_option.php",
+    data: {
+      id_question: id_question,
+      name_option: name_option,
+      other_option: other_option,
+    },
+    success: function (response) {},
+  });
 }
