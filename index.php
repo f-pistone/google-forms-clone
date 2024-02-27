@@ -56,14 +56,14 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
             </a>
           </div>
           <div class="mt-auto">
-            <button type="button" class="flex items-center gap-1 hover:underline">
+            <a href="./logout.php" class="flex items-center gap-1 hover:underline">
               <span class="text-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M19.285 12h-8.012m5.237 3.636L20 12l-3.49-3.636M13.455 7V4H4v16h9.455v-3" />
                 </svg>
               </span>
               <span>Logout</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
