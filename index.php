@@ -5,6 +5,14 @@ if (empty($_SESSION['id_user'])) {
   header("Location: login.php");
 }
 $id_user = (int)$_SESSION['id_user'];
+
+$sqlGetUser = "SELECT first_name_user, email_user FROM users WHERE id_user = $id_user";
+$queryGetUser = mysqli_query($conn, $sqlGetUser) or die("Error: get user");
+while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
+  $first_name_user = $rowGetUser['first_name_user'];
+  $email_user = $rowGetUser['email_user'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +34,40 @@ $id_user = (int)$_SESSION['id_user'];
     <div class="grow flex">
       <input type="text" id="search_forms" class="p-3 w-full rounded bg-gray-100 focus:outline-none focus:border focus:bg-white focus:shadow" placeholder="Search" value="">
     </div>
-    <div class="shrink-0">
-      <img class="w-[40px] aspect-square rounded-full object-contain" src="https://lh3.googleusercontent.com/-t8idYWqDDbg/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfklvc8tPxaawNFNx_MuXusN0UiODZQ/photo.jpg" alt="Profile Image">
+    <div class="shrink-0 relative">
+      <button type="button" class="w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200" id="open_profile_box_button">
+        <img class="w-full h-full rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+      </button>
+      <!-- PROFILE BOX -->
+      <div id="profile-box" class="hidden absolute z-[9999] right-0 w-screen md:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
+        <div class="flex items-center gap-2">
+          <span class="text-center break-all"><?= $email_user ?></span>
+        </div>
+        <div class="h-full flex flex-col items-center gap-3">
+          <div>
+            <img class="w-[80px] aspect-square rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+          </div>
+          <div>
+            <h2 class="text-2xl text-center break-all">Ciao <?= $first_name_user ?></h2>
+          </div>
+          <div>
+            <a href="./user_settings.php" target="_blank" class="inline-block px-7 py-2 text-blue-500 border border-gray-600 rounded-full hover:bg-blue-100">
+              Manage your account
+            </a>
+          </div>
+          <div class="mt-auto">
+            <button type="button" class="flex items-center gap-1 hover:underline">
+              <span class="text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M19.285 12h-8.012m5.237 3.636L20 12l-3.49-3.636M13.455 7V4H4v16h9.455v-3" />
+                </svg>
+              </span>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- END PROFILE BOX -->
     </div>
   </header>
   <!-- END HEADER -->
