@@ -10,7 +10,9 @@ $sqlGetUser = "SELECT first_name_user, last_name_user, email_user FROM users WHE
 $queryGetUser = mysqli_query($conn, $sqlGetUser) or die("Error: get user");
 while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
   $first_name_user = $rowGetUser['first_name_user'];
+  $first_name_user_html = htmlspecialchars($first_name_user, ENT_QUOTES);
   $last_name_user = $rowGetUser['last_name_user'];
+  $last_name_user_html = htmlspecialchars($last_name_user, ENT_QUOTES);
   $email_user = $rowGetUser['email_user'];
 }
 ?>
@@ -94,13 +96,13 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
           </div>
         </button>
 
-        <button type="button" class="p-5 w-full flex items-center gap-5 cursor-pointer text-left border-b hover:bg-gray-100">
+        <button type="button" id="open_change_name_user_modal" class="p-5 w-full flex items-center gap-5 cursor-pointer text-left border-b hover:bg-gray-100">
           <div class="grow flex flex-wrap items-center gap-1">
             <div class="w-full md:w-[150px]">
               <span class="text-sm text-gray-500 font-medium">Full name</span>
             </div>
             <div>
-              <span><?= $first_name_user . " " . $last_name_user ?></span>
+              <span id="name_user"><?= $first_name_user . " " . $last_name_user ?></span>
             </div>
           </div>
           <div>
@@ -153,6 +155,28 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
     </div>
   </main>
   <!-- END MAIN -->
+
+  <!-- CHANGE NAME USER MODAL -->
+  <dialog id="change_name_user_modal" class="modal p-5 w-[650px] rounded-lg shadow">
+    <div class="mb-5">
+      <label for="new_first_name_user" class="block mb-1">First name</label>
+      <input type="text" id="new_first_name_user" class="w-full p-3 border border-gray-400 rounded hover:border-black focus:border-blue-500 focus:outline-none" data-old-value="<?= $first_name_user_html ?>" value="<?= $first_name_user ?>">
+    </div>
+    <div class="mb-5">
+      <label for="new_last_name_user" class="block mb-1">Last name</label>
+      <input type="text" id="new_last_name_user" class="w-full p-3 border border-gray-400 rounded hover:border-black focus:border-blue-500 focus:outline-none" data-old-value="<?= $last_name_user_html ?>" value="<?= $last_name_user ?>">
+    </div>
+    <div class="flex flex-wrap justify-end items-center gap-2">
+      <button type="button" id="close_change_name_user_modal" class="px-5 py-2 text-blue-500 rounded-full hover:bg-blue-100 focus:bg-blue-200 transition">
+        Back
+      </button>
+      <button type="button" id="change_name_user_button" class="px-5 py-2 text-white rounded-full bg-blue-700 hover:bg-blue-600 hover:shadow-lg focus:bg-blue-500">
+        Save
+      </button>
+    </div>
+
+  </dialog>
+  <!-- END CHANGE NAME USER MODAL -->
 
   <!-- JS -->
   <script src="./js/pages/user_settings.js"></script>
