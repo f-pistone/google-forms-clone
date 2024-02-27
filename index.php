@@ -48,7 +48,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
             <img class="w-[80px] aspect-square rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
           </div>
           <div>
-            <h2 class="text-2xl text-center break-all">Ciao <?= $first_name_user ?></h2>
+            <h2 class="text-2xl text-center break-all">Hi <?= $first_name_user ?></h2>
           </div>
           <div>
             <a href="./user_settings.php" target="_blank" class="inline-block px-7 py-2 text-blue-500 border border-gray-600 rounded-full hover:bg-blue-100">
