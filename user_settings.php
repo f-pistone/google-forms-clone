@@ -6,7 +6,7 @@ if (empty($_SESSION['id_user'])) {
 }
 $id_user = (int)$_SESSION['id_user'];
 
-$sqlGetUser = "SELECT first_name_user, last_name_user, email_user FROM users WHERE id_user = $id_user";
+$sqlGetUser = "SELECT first_name_user, last_name_user, image_user, email_user FROM users WHERE id_user = $id_user";
 $queryGetUser = mysqli_query($conn, $sqlGetUser) or die("Error: get user");
 while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
   $first_name_user = $rowGetUser['first_name_user'];
@@ -15,6 +15,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
   $last_name_user_html = htmlspecialchars($last_name_user, ENT_QUOTES);
   $email_user = $rowGetUser['email_user'];
   $email_user_html = htmlspecialchars($email_user, ENT_QUOTES);
+  $image_user = (!empty($rowGetUser['image_user'])) ? "./" . $rowGetUser['image_user'] : "./assets/images/user-image-placeholder.jpg";
 }
 ?>
 
@@ -37,7 +38,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
     </div>
     <div class="shrink-0 relative">
       <button type="button" class="w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200" id="open_profile_box_button">
-        <img class="w-full h-full rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+        <img class="image-user w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
       </button>
       <!-- PROFILE BOX -->
       <div id="profile-box" class="hidden absolute z-[9999] right-0 w-screen md:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
@@ -46,7 +47,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
         </div>
         <div class="h-full flex flex-col items-center gap-3">
           <div>
-            <img class="w-[80px] aspect-square rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+            <img class="image-user w-[80px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
           </div>
           <div>
             <h2 class="text-2xl text-center break-all">Hi <?= $first_name_user ?></h2>
@@ -83,7 +84,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
           <h1 class="text-2xl">Informations</h1>
         </div>
 
-        <button type="button" class="p-5 w-full flex items-center gap-5 cursor-pointer text-left border-b hover:bg-gray-100">
+        <button type="button" id="open_change_image_user_modal" class="p-5 w-full flex items-center gap-5 cursor-pointer text-left border-b hover:bg-gray-100">
           <div class="grow flex flex-wrap items-center gap-1">
             <div class="w-full md:w-[150px]">
               <span class="text-sm text-gray-500 font-medium">Profile image</span>
@@ -92,8 +93,8 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
               <span class="text-gray-500">Add an image to customize your account</span>
             </div>
           </div>
-          <div class="shrink-0 w-[50px] aspect-square rounded-full">
-            <img class="w-full h-full rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="User Image">
+          <div class="shrink-0">
+            <img class="image-user w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="User Image">
           </div>
         </button>
 
@@ -196,6 +197,39 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
 
   </dialog>
   <!-- END CHANGE EMAIL USER MODAL -->
+
+  <!-- CHANGE IMAGE USER MODAL -->
+  <dialog id="change_image_user_modal" class="modal w-[400px] rounded-lg shadow">
+    <div class="p-2">
+      <button type="button" id="close_change_image_user_modal" class="p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-100 focus:bg-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+          <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="mb-5 px-5">
+      <label for="input_image_user" class="inline-block mb-1 text-xl">Profile image</label>
+    </div>
+    <div class="p-5 flex flex-col items-center gap-2">
+      <div class="mb-5 cursor-pointer" id="current_image_user">
+        <img class="image-user w-[300px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="User Image">
+      </div>
+      <div class="w-full">
+        <button type="button" id="open_input_image_user_button" class="p-2 w-full flex justify-center items-center gap-2 rounded border font-medium text-sm text-blue-500 bg-white hover:text-blue-600 hover:bg-slate-100 focus:bg-blue-100">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 8c0 .55.45 1 1 1s1-.45 1-1V6h2c.55 0 1-.45 1-1s-.45-1-1-1H5V2c0-.55-.45-1-1-1s-1 .45-1 1v2H1c-.55 0-1 .45-1 1s.45 1 1 1h2z" />
+              <circle cx="13" cy="14" r="3" fill="currentColor" />
+              <path fill="currentColor" d="M21 6h-3.17l-1.24-1.35A1.99 1.99 0 0 0 15.12 4h-6.4c.17.3.28.63.28 1c0 1.1-.9 2-2 2H6v1c0 1.1-.9 2-2 2c-.37 0-.7-.11-1-.28V20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-8 13c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5" />
+            </svg>
+          </span>
+          <span>Add a profile image</span>
+        </button>
+      </div>
+    </div>
+    <input type="file" id="input_image_user" accept="image/jpeg, image/png" class="hidden">
+  </dialog>
+  <!-- END CHANGE IMAGE USER MODAL -->
 
   <!-- JS -->
   <script src="./js/pages/user_settings.js"></script>

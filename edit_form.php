@@ -17,11 +17,12 @@ if ($user_owns_form === 0) {
 }
 
 //User informations
-$sqlGetUser = "SELECT first_name_user, email_user FROM users WHERE id_user = $id_user";
+$sqlGetUser = "SELECT first_name_user, email_user, image_user FROM users WHERE id_user = $id_user";
 $queryGetUser = mysqli_query($conn, $sqlGetUser) or die("Error: get user");
 while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
   $first_name_user = $rowGetUser['first_name_user'];
   $email_user = $rowGetUser['email_user'];
+  $image_user = (!empty($rowGetUser['image_user'])) ? "./" . $rowGetUser['image_user'] : "./assets/images/user-image-placeholder.jpg";
 }
 
 //Form informations
@@ -98,7 +99,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
       </div>
       <div class="relative">
         <button type="button" class="w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200" id="open_profile_box_button">
-          <img class="w-full h-full rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+          <img class="w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
         </button>
         <!-- PROFILE BOX -->
         <div id="profile-box" class="hidden absolute z-[9999] right-0 w-screen md:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
@@ -107,7 +108,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           </div>
           <div class="h-full flex flex-col items-center gap-3">
             <div>
-              <img class="w-[80px] aspect-square rounded-full object-contain" src="./assets/images/user-image-placeholder.png" alt="Profile Image">
+              <img class="w-[80px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
             </div>
             <div>
               <h2 class="text-2xl text-center break-all">Hi <?= $first_name_user ?></h2>
