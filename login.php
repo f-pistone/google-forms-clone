@@ -31,6 +31,7 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
           <label for="password_user" class="inline-block text-lg">Password</label>
           <div class="relative">
             <input type="password" class="py-2 pr-7 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="password_user" id="password_user" placeholder="Password" value="" required>
+            <span class="error-message hidden text-sm text-red-500">Insert your password</span>
             <button type="button" class="show-password absolute z-[999] right-0 top-1/2 -translate-y-1/2 text-xl text-gray-500">
               <span class="eye-closed">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -46,7 +47,6 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
               </span>
             </button>
           </div>
-          <span class="error-message hidden text-sm text-red-500">Insert your password</span>
         </div>
         <div class="text-right">
           <button type="button" id="log_in_button" class="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600">Log In</button>
