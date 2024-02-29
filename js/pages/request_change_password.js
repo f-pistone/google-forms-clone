@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "php/send_email_change_password.php",
+      url: "php/send_email_request_change_password.php",
       data: {
         email_user: email_user,
       },

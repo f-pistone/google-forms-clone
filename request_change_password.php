@@ -37,7 +37,7 @@
   </main>
 
   <!-- JS -->
-  <script src="./js/pages/change_password.js"></script>
+  <script src="./js/pages/request_change_password.js"></script>
   <!-- END JS -->
 </body>
 

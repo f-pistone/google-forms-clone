@@ -134,7 +134,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
           </div>
         </button>
 
-        <a href="./change_password.php" class="p-5 flex items-center gap-5 cursor-pointer hover:bg-gray-100">
+        <a href="./request_change_password.php" class="p-5 flex items-center gap-5 cursor-pointer hover:bg-gray-100">
           <div class="grow flex flex-wrap items-center gap-1">
             <div class="w-full md:w-[150px]">
               <span class="text-sm text-gray-500 font-medium">Password</span>
