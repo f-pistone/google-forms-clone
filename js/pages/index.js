@@ -89,7 +89,7 @@ $(document).ready(function () {
         } else {
           $("#close_rename_form_modal").click();
           Toastify({
-            text: "Error",
+            text: "Error: rename form",
             duration: 6000,
             className: "bg-red-500 rounded",
             gravity: "bottom",
@@ -143,7 +143,7 @@ $(document).ready(function () {
         } else {
           $("#close_remove_form_modal").click();
           Toastify({
-            text: "Error",
+            text: "Error: remove form",
             duration: 6000,
             className: "bg-red-500 rounded",
             gravity: "bottom",
@@ -181,7 +181,7 @@ $(document).ready(function () {
           window.open(`./edit_form.php?id_form=${response}`, "_blank");
         } else {
           Toastify({
-            text: "Error",
+            text: "Error: create form",
             duration: 6000,
             className: "bg-red-500 rounded",
             gravity: "bottom",

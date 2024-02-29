@@ -9,9 +9,11 @@ $(document).ready(function () {
       let value = $(inputs[i]).val();
       if ($.trim(value) === "" || value === undefined) {
         $(inputs[i]).next(".error-message").removeClass("hidden");
+        $(inputs[i]).addClass("!border-red-500");
         validation = 0;
       } else {
         $(inputs[i]).next(".error-message").addClass("hidden");
+        $(inputs[i]).removeClass("!border-red-500");
         validation++;
       }
     }
@@ -26,11 +28,23 @@ $(document).ready(function () {
           if (response > 0) {
             window.location.href = "index.php";
           } else if (response == -1) {
-            console.log("Data don't match");
+            Toastify({
+              text: "Error: the informations don't match",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
             $("#email_user").addClass("border-red-500");
             $("#password_user").addClass("border-red-500");
           } else {
-            console.log("Error");
+            Toastify({
+              text: "Error: login",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
           }
         },
       });

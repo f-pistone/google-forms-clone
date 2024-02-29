@@ -20,10 +20,16 @@ $(document).ready(function () {
 
     //Checking if the passwords are the same
     if (password_user !== confirm_password_user) {
+      Toastify({
+        text: "Error: the passwords must be the same",
+        duration: 6000,
+        className: "bg-red-500 rounded",
+        gravity: "bottom",
+        position: "left",
+      }).showToast();
       $("#password_user").addClass("border-red-500");
       $("#confirm_password_user").addClass("border-red-500");
       validation = 0;
-      alert("The passwords must to be the same.");
     } else {
       $("#password_user").removeClass("border-red-500");
       $("#confirm_password_user").removeClass("border-red-500");
@@ -40,10 +46,22 @@ $(document).ready(function () {
           if (response > 0) {
             window.location.href = "index.php";
           } else if (response == -1) {
+            Toastify({
+              text: "Error: email already used",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
             $("#email_user").addClass("border-red-500");
-            console.log("Email already used");
           } else {
-            console.log("Error");
+            Toastify({
+              text: "Error: create user",
+              duration: 6000,
+              className: "bg-red-500 rounded",
+              gravity: "bottom",
+              position: "left",
+            }).showToast();
           }
         },
       });
