@@ -1,4 +1,20 @@
 $(document).ready(function () {
+  //Button to show and hide the password
+  $(".show-password").on("click", function () {
+    const eye_opened = $(this).find(".eye-opened");
+    const eye_closed = $(this).find(".eye-closed");
+
+    if ($(eye_opened).hasClass("hidden")) {
+      $(eye_opened).removeClass("hidden");
+      $(eye_closed).addClass("hidden");
+      $(this).parent().find("input[type='password']").attr("type", "text");
+    } else {
+      $(eye_opened).addClass("hidden");
+      $(eye_closed).removeClass("hidden");
+      $(this).parent().find("input[type='text']").attr("type", "password");
+    }
+  });
+
   //Sign In Button
   $("#sign_in_button").on("click", function () {
     const inputs = $("#sign_in_form").find("input:required");
