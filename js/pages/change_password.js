@@ -31,6 +31,14 @@ $(document).ready(function () {
           }).showToast();
           $("#send_email_box").addClass("hidden");
           $("#success_email_box").removeClass("hidden");
+        } else if (response == -1) {
+          Toastify({
+            text: "Error: this email is not associated to any account",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
         } else {
           Toastify({
             text: "Error",
