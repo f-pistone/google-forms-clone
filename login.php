@@ -48,10 +48,15 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
             </button>
           </div>
         </div>
-        <div class="text-right">
-          <button type="button" id="log_in_button" class="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600">Log In</button>
-          <div class="mt-2">
-            <a href="./signin.php" class="text-sm underline hover:text-blue-500">New? Create a new account</a>
+        <div class="flex justify-between gap-2">
+          <div>
+            <a href="./request_change_password.php" class="text-sm">Forgot password?</a>
+          </div>
+          <div class="text-right">
+            <button type="button" id="log_in_button" class="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600">Log In</button>
+            <div class="mt-2">
+              <a href="./signin.php" class="text-sm underline hover:text-blue-500">New? Create a new account</a>
+            </div>
           </div>
         </div>
       </form>
