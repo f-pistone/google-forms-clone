@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  document.title = "Change Password";
+  document.title = "Request Change Password";
 
   //Button to send the email to change the password
   $("#send_email_button").on("click", function () {
