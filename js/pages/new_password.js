@@ -72,9 +72,25 @@ $(document).ready(function () {
             $("#change_password_form").addClass("hidden");
             $("#success_password_box").removeClass("hidden");
 
-            setTimeout(() => {
-              window.location.href = "./index.php";
-            }, 6000);
+            //Send email to confirm the changed password
+            $.ajax({
+              type: "POST",
+              url: "php/send_email_change_password_user.php",
+              data: {
+                email_user: $("#email_user").val(),
+              },
+              success: function (response) {
+                if (response != 1) {
+                  Toastify({
+                    text: "Error: send email to confirm the changed password",
+                    duration: 6000,
+                    className: "bg-red-500 rounded",
+                    gravity: "bottom",
+                    position: "left",
+                  }).showToast();
+                }
+              },
+            });
           } else if (response == -1) {
             Toastify({
               text: "Error: the informations are not valids",
