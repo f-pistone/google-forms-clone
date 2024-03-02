@@ -20,9 +20,7 @@ $sqlGetForm = "SELECT * FROM forms WHERE id_form = $id_form";
 $queryGetForm = mysqli_query($conn, $sqlGetForm) or die("Error: get form");
 while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
   $title_form = $rowGetForm['title_form'];
-  $title_form_html = htmlspecialchars($title_form, ENT_QUOTES);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +36,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         <!-- FORM INFORMATIONS -->
         <div class="form-info bg-white rounded-md border border-t-[10px] border-t-violet-800">
           <div class="px-7 py-3">
-            <h1 class="text-3xl"><?= $title_form ?></h1>
+            <h1 id="title_form" class="text-3xl"><?= $title_form ?></h1>
           </div>
           <div class="border-y px-7 py-5">
             <label for="email_person" class="block mb-1">Your email</label>
@@ -50,241 +48,263 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         </div>
         <!-- END FORM INFORMATIONS -->
 
-        <!-- SECTION -->
-        <section class="section grid grid-cols-1 gap-3" data-id-section="5">
+        <?php
 
-          <!-- SECTION INFORMATIONS -->
-          <div class="section-info bg-white rounded-md border">
-            <div class="bg-violet-800 px-7 py-3 rounded-t-md text-white text-lg">
-              <h2>Title</h2>
-            </div>
-            <div class="p-5">
-              <p>Description</p>
-            </div>
-          </div>
-          <!-- END SECTION INFORMATIONS -->
+        //Sections
+        $sqlGetSections = "SELECT * FROM sections WHERE id_form = $id_form ORDER BY order_section";
+        $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sections");
+        while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
+          $id_section = (int)$rowGetSections['id_section'];
+          $title_section = $rowGetSections['title_section'];
+          $description_section = $rowGetSections['description_section'];
+        ?>
 
-          <!-- SHORT ANSWER QUESTION -->
-          <div class="question p-5 bg-white rounded-md border" data-id-question="1" data-type-question="SHORT_ANSWER">
-            <div class="mb-5">
-              <h3 class="inline mr-1">Short answer</h3>
-              <span class="text-red-500">*</span>
-            </div>
-            <div>
-              <input type="text" class="answer w-full md:w-1/2 border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer" value="">
-            </div>
-            <div class="error-message mt-2 text-red-500 flex items-center gap-3">
-              <span class="text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
-                </svg>
-              </span>
-              <span class="text-xs">
-                This question is required
-              </span>
-            </div>
-          </div>
-          <!-- END SHORT ANSWER QUESTION -->
+          <!-- SECTION -->
+          <section class="section grid grid-cols-1 gap-3" data-id-section="<?= $id_section ?>">
 
-          <!-- LONG ANSWER QUESTION -->
-          <div class="question p-5 bg-white rounded-md border" data-id-question="2" data-type-question="LONG_ANSWER">
-            <div class="mb-5">
-              <h3 class="inline mr-1">Long answer</h3>
-              <span class="text-red-500">*</span>
-            </div>
-            <div>
-              <textarea class="answer w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer"></textarea>
-            </div>
-            <div class="error-message mt-2 text-red-500 flex items-center gap-3">
-              <span class="text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
-                </svg>
-              </span>
-              <span class="text-xs">
-                This question is required
-              </span>
-            </div>
-          </div>
-          <!-- END LONG ANSWER QUESTION -->
-
-          <!-- MULTIPLE CHOISE QUESTION -->
-          <div class="question p-5 bg-white rounded-md border" data-id-question="3" data-type-question="MULTIPLE_CHOISE">
-            <div class="mb-5">
-              <h3 class="inline mr-1">Multiple choise</h3>
-              <span class="text-red-500">*</span>
-            </div>
-            <div>
-              <ul class="flex flex-col gap-3">
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="radio" name="answer_3" class="answer w-[20px] h-[20px]" value="1">
-                    <span>Option 1 MC</span>
-                  </label>
-                </li>
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="radio" name="answer_3" class="answer w-[20px] h-[20px]" value="2">
-                    <span>Option 2 MC</span>
-                  </label>
-                </li>
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="radio" name="answer_3" class="answer w-[20px] h-[20px]" value="3">
-                    <span>Option 3 MC</span>
-                  </label>
-                </li>
-                <li class="flex items-center gap-2">
-                  <label class="flex items-center gap-2">
-                    <input type="radio" name="answer_3" class="other-option answer w-[20px] h-[20px]" value="4">
-                    <span>
-                      Other:
-                    </span>
-                  </label>
-                  <div class="grow">
-                    <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="error-message mt-2 text-red-500 flex items-center gap-3">
-              <span class="text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
-                </svg>
-              </span>
-              <span class="text-xs">
-                This question is required
-              </span>
-            </div>
-          </div>
-          <!-- END MULTIPLE CHOISE QUESTION -->
-
-          <!-- CHECKBOX QUESTION -->
-          <div class="question p-5 bg-white rounded-md border" data-id-question="4" data-type-question="CHECKBOX">
-            <div class="mb-5">
-              <h3 class="inline mr-1">Checkbox</h3>
-              <span class="text-red-500">*</span>
-            </div>
-            <div>
-              <ul class="flex flex-col gap-3">
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="checkbox" class="answer w-[20px] h-[20px]" value="4">
-                    <span>Option 1 CK</span>
-                  </label>
-                </li>
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="checkbox" class="answer w-[20px] h-[20px]" value="5">
-                    <span>Option 2 CK</span>
-                  </label>
-                </li>
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="checkbox" class="answer w-[20px] h-[20px]" value="6">
-                    <span>Option 3 CK</span>
-                  </label>
-                </li>
-                <li>
-                  <label class="flex items-center gap-2">
-                    <input type="checkbox" class="other-option answer w-[20px] h-[20px]" value="7">
-                    <div class="grow flex items-center gap-2">
-                      <span>
-                        Other:
-                      </span>
-                      <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
-                    </div>
-                  </label>
-                </li>
-              </ul>
-            </div>
-            <div class="error-message mt-2 text-red-500 flex items-center gap-3">
-              <span class="text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
-                </svg>
-              </span>
-              <span class="text-xs">
-                This question is required
-              </span>
-            </div>
-          </div>
-          <!-- END CHECKBOX QUESTION -->
-
-          <!-- LIST QUESTION -->
-          <div class="question p-5 bg-white rounded-md border" data-id-question="5" data-type-question="LIST">
-            <div class="mb-5">
-              <h3 class="inline mr-1">List</h3>
-              <span class="text-red-500">*</span>
-            </div>
-            <div>
-              <select class="answer border px-2 py-3 w-full cursor-pointer rounded focus:outline-none">
-                <option class="text-gray-500" value="" selected>Choose</option>
-                <option value="7">Option 1 L</option>
-                <option value="8">Option 2 L</option>
-                <option value="9">Option 3 L</option>
-              </select>
-            </div>
-            <div class="error-message mt-2 text-red-500 flex items-center gap-3">
-              <span class="text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
-                </svg>
-              </span>
-              <span class="text-xs">
-                This question is required
-              </span>
-            </div>
-          </div>
-          <!-- END LIST QUESTION -->
-
-        </section>
-        <!-- END SECTION -->
-
-        <!-- ACTIONS -->
-        <div class="flex flex-wrap items-center gap-10">
-
-          <!-- BUTTONS -->
-          <div class="flex flex-wrap items-center gap-2">
-            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-              Back
-            </button>
-            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-              Next
-            </button>
-            <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
-              Send
-            </button>
-          </div>
-          <!-- END BUTTONS -->
-
-          <!-- PROGRESS INFO  -->
-          <div class="flex flex-wrap items-center gap-2">
-
-            <!-- PROGRESS BAR  -->
-            <div>
-              <div class="rounded-md w-[185px] h-[10px] bg-gray-500">
-                <div class="rounded-md w-[50px] max-w-full h-full bg-blue-500">
-                </div>
+            <!-- SECTION INFORMATIONS -->
+            <div class="section-info bg-white rounded-md border">
+              <div class="bg-violet-800 px-7 py-3 rounded-t-md text-white text-lg">
+                <h2><?= $title_section ?></h2>
+              </div>
+              <div class="p-5">
+                <p><?= $description_section ?></p>
               </div>
             </div>
-            <!-- END PROGRESS BAR  -->
+            <!-- END SECTION INFORMATIONS -->
 
-            <!-- PAGE INFO -->
-            <div>
-              <span>Page</span>
-              <span>1</span>
-              <span>of</span>
-              <span>2</span>
+            <?php
+
+            //Questions
+            $sqlGetQuestions = "SELECT * FROM questions WHERE id_section = $id_section ORDER BY order_question ASC";
+            $queryGetQuestions = mysqli_query($conn, $sqlGetQuestions) or die("Error: get questions");
+            while ($rowGetQuestions = mysqli_fetch_assoc($queryGetQuestions)) {
+              $id_question = (int)$rowGetQuestions['id_question'];
+              $name_question = $rowGetQuestions['name_question'];
+              $type_question = $rowGetQuestions['type_question'];
+              $required_question = (int)$rowGetQuestions['required_question'];
+            ?>
+
+              <!-- QUESTION -->
+              <div class="question p-5 bg-white rounded-md border" data-id-question="<?= $id_question ?>" data-type-question="<?= $type_question ?>">
+                <div class="mb-5">
+                  <h3 class="inline mr-1"><?= $name_question ?></h3>
+                  <?php
+                  if ($required_question == 1) {
+                  ?>
+                    <span class="text-red-500">*</span>
+                  <?php
+                  }
+                  ?>
+                </div>
+
+                <?php
+                //Short answer
+                if ($type_question == "SHORT_ANSWER") {
+                ?>
+                  <div>
+                    <input type="text" class="answer w-full md:w-1/2 border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer" value="">
+                  </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                //Long answer
+                if ($type_question == "LONG_ANSWER") {
+                ?>
+                  <div>
+                    <textarea class="answer w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer"></textarea>
+                  </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                //Multiple Choise
+                if ($type_question == "MULTIPLE_CHOISE") {
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
+                ?>
+                  <div>
+                    <ul class="flex flex-col gap-3">
+                      <?php
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = $rowGetOptions['name_option'];
+                        $other_option = (int)$rowGetOptions['other_option'];
+
+                        if ($other_option == 0) {
+                      ?>
+                          <li>
+                            <label class="flex items-center gap-2">
+                              <input type="radio" name="answer_<?= $id_question ?>" class="answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <span><?= $name_option ?></span>
+                            </label>
+                          </li>
+                        <?php
+                        } else {
+                        ?>
+                          <li class="flex items-center gap-2">
+                            <label class="flex items-center gap-2">
+                              <input type="radio" name="answer_<?= $id_question ?>" class="other-option answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <span>
+                                Other:
+                              </span>
+                            </label>
+                            <div class="grow">
+                              <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
+                            </div>
+                          </li>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                //Checkbox
+                if ($type_question == "CHECKBOX") {
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
+                ?>
+                  <div>
+                    <ul class="flex flex-col gap-3">
+                      <?php
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = $rowGetOptions['name_option'];
+                        $other_option = (int)$rowGetOptions['other_option'];
+
+                        if ($other_option == 0) {
+                      ?>
+                          <li>
+                            <label class="flex items-center gap-2">
+                              <input type="checkbox" class="answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <span><?= $name_option ?></span>
+                            </label>
+                          </li>
+                        <?php
+                        } else {
+                        ?>
+                          <li>
+                            <label class="flex items-center gap-2">
+                              <input type="checkbox" class="other-option answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <div class="grow flex items-center gap-2">
+                                <span>
+                                  Other:
+                                </span>
+                                <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
+                              </div>
+                            </label>
+                          </li>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                //List
+                if ($type_question == "LIST") {
+                  $sqlGetOptions = "SELECT * FROM options WHERE id_question = $id_question";
+                  $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
+                ?>
+                  <div>
+                    <select class="answer border px-2 py-3 w-full cursor-pointer rounded focus:outline-none">
+                      <option class="text-gray-500" value="" selected>Choose</option>
+                      <?php
+                      while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
+                        $id_option = (int)$rowGetOptions['id_option'];
+                        $name_option = $rowGetOptions['name_option'];
+                      ?>
+                        <option value="<?= $id_option ?>"><?= $name_option ?></option>
+                      <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+                <?php
+                }
+                ?>
+
+                <?php
+                if ($required_question == 1) {
+                ?>
+                  <div class="error-message hidden mt-2 text-red-500 flex items-center gap-3">
+                    <span class="text-2xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9 3.75h.008v.008H12z" />
+                      </svg>
+                    </span>
+                    <span class="text-xs">
+                      This question is required
+                    </span>
+                  </div>
+                <?php
+                }
+                ?>
+              </div>
+              <!-- END QUESTION -->
+
+          </section>
+          <!-- END SECTION -->
+
+      <?php
+            } //end questions loop
+          } //end sections loop
+      ?>
+      <!-- ACTIONS -->
+      <div class="flex flex-wrap items-center gap-10">
+
+        <!-- BUTTONS -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+            Back
+          </button>
+          <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+            Next
+          </button>
+          <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
+            Send
+          </button>
+        </div>
+        <!-- END BUTTONS -->
+
+        <!-- PROGRESS INFO  -->
+        <div class="flex flex-wrap items-center gap-2">
+
+          <!-- PROGRESS BAR  -->
+          <div>
+            <div class="rounded-md w-[185px] h-[10px] bg-gray-500">
+              <div class="rounded-md w-[50px] max-w-full h-full bg-blue-500">
+              </div>
             </div>
-            <!-- END PAGE INFO -->
-
           </div>
-          <!-- END PROGRESS INFO  -->
+          <!-- END PROGRESS BAR  -->
+
+          <!-- PAGE INFO -->
+          <div>
+            <span>Page</span>
+            <span>1</span>
+            <span>of</span>
+            <span>2</span>
+          </div>
+          <!-- END PAGE INFO -->
 
         </div>
-        <!-- END ACTIONS -->
+        <!-- END PROGRESS INFO  -->
+
+      </div>
+      <!-- END ACTIONS -->
 
       </form>
     </div>

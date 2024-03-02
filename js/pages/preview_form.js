@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  document.title = $("#title_form").val();
+  document.title = $("#title_form").text();
 
   //
   $("#send_form_button").on("click", function () {
