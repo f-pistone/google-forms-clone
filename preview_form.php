@@ -255,56 +255,57 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
               </div>
               <!-- END QUESTION -->
 
+            <?php
+            }
+            ?>
           </section>
           <!-- END SECTION -->
+        <?php
+        }
+        ?>
+        <!-- ACTIONS -->
+        <div class="flex flex-wrap items-center gap-10">
 
-      <?php
-            } //end questions loop
-          } //end sections loop
-      ?>
-      <!-- ACTIONS -->
-      <div class="flex flex-wrap items-center gap-10">
+          <!-- BUTTONS -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+              Back
+            </button>
+            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+              Next
+            </button>
+            <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
+              Send
+            </button>
+          </div>
+          <!-- END BUTTONS -->
 
-        <!-- BUTTONS -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-            Back
-          </button>
-          <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-            Next
-          </button>
-          <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
-            Send
-          </button>
-        </div>
-        <!-- END BUTTONS -->
+          <!-- PROGRESS INFO  -->
+          <div class="flex flex-wrap items-center gap-2">
 
-        <!-- PROGRESS INFO  -->
-        <div class="flex flex-wrap items-center gap-2">
-
-          <!-- PROGRESS BAR  -->
-          <div>
-            <div class="rounded-md w-[185px] h-[10px] bg-gray-500">
-              <div class="rounded-md w-[50px] max-w-full h-full bg-blue-500">
+            <!-- PROGRESS BAR  -->
+            <div>
+              <div class="rounded-md w-[185px] h-[10px] bg-gray-500">
+                <div class="rounded-md w-[50px] max-w-full h-full bg-blue-500">
+                </div>
               </div>
             </div>
-          </div>
-          <!-- END PROGRESS BAR  -->
+            <!-- END PROGRESS BAR  -->
 
-          <!-- PAGE INFO -->
-          <div>
-            <span>Page</span>
-            <span>1</span>
-            <span>of</span>
-            <span>2</span>
+            <!-- PAGE INFO -->
+            <div>
+              <span>Page</span>
+              <span>1</span>
+              <span>of</span>
+              <span>2</span>
+            </div>
+            <!-- END PAGE INFO -->
+
           </div>
-          <!-- END PAGE INFO -->
+          <!-- END PROGRESS INFO  -->
 
         </div>
-        <!-- END PROGRESS INFO  -->
-
-      </div>
-      <!-- END ACTIONS -->
+        <!-- END ACTIONS -->
 
       </form>
     </div>
