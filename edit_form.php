@@ -263,7 +263,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
               }
             ?>
               <!-- QUESTION -->
-              <div class="question form-box relative p-7 rounded-md bg-white shadow flex flex-col gap-4" draggable="true" data-id-question="<?= $id_question ?>">
+              <div class="question form-box relative p-7 rounded-md bg-white shadow cursor-move flex flex-col gap-4" draggable="true" data-id-question="<?= $id_question ?>">
                 <!-- QUESTION HEADER -->
                 <div class="question-header flex flex-wrap justify-start md:justify-between items-center gap-5">
                   <div class="basis-full md:basis-6/12">
