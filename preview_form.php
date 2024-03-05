@@ -53,14 +53,24 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         //Sections
         $sqlGetSections = "SELECT * FROM sections WHERE id_form = $id_form ORDER BY order_section";
         $queryGetSections = mysqli_query($conn, $sqlGetSections) or die("Error: get sections");
+        $total_pages = (int)mysqli_num_rows($queryGetSections);
+        $index = 1;
+
         while ($rowGetSections = mysqli_fetch_assoc($queryGetSections)) {
           $id_section = (int)$rowGetSections['id_section'];
           $title_section = $rowGetSections['title_section'];
           $description_section = $rowGetSections['description_section'];
+
+          //If I'm printing the first section, I'm going to show it
+          if ($index == 1) {
+            $display_section = "block";
+          } else {
+            $display_section = "hidden";
+          }
         ?>
 
           <!-- SECTION -->
-          <section class="section grid grid-cols-1 gap-3" data-id-section="<?= $id_section ?>">
+          <section class="section <?= $display_section ?> grid grid-cols-1 gap-3" data-id-section="<?= $id_section ?>">
 
             <!-- SECTION INFORMATIONS -->
             <div class="section-info bg-white rounded-md border">
@@ -261,6 +271,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           </section>
           <!-- END SECTION -->
         <?php
+          $index++;
         }
         ?>
         <!-- ACTIONS -->
@@ -268,15 +279,27 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
           <!-- BUTTONS -->
           <div class="flex flex-wrap items-center gap-2">
-            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-              Back
-            </button>
-            <button type="button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
-              Next
-            </button>
-            <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
-              Send
-            </button>
+            <?php
+            if ($total_pages > 1) {
+            ?>
+              <button type="button" id="prev_step_button" class="hidden px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+                Back
+              </button>
+              <button type="button" id="next_step_button" class="px-6 py-1 bg-white text-violet-800 border rounded hover:bg-gray-100 focus:bg-violet-200">
+                Next
+              </button>
+              <button type="button" id="send_form_button" class="hidden px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
+                Send
+              </button>
+            <?php
+            } else {
+            ?>
+              <button type="button" id="send_form_button" class="px-6 py-1 bg-violet-800 text-white border rounded hover:bg-violet-700 focus:bg-violet-400">
+                Send
+              </button>
+            <?php
+            }
+            ?>
           </div>
           <!-- END BUTTONS -->
 
@@ -284,9 +307,16 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           <div class="flex flex-wrap items-center gap-2">
 
             <!-- PROGRESS BAR  -->
+            <?php
+            $current_progress_width = (100 / $total_pages) . "%";
+            $current_progress_bg = "bg-blue-500";
+            if ($total_pages == 1) {
+              $current_progress_bg = "bg-green-600";
+            }
+            ?>
             <div>
-              <div class="rounded-md w-[185px] h-[10px] bg-gray-500">
-                <div class="rounded-md w-[50px] max-w-full h-full bg-blue-500">
+              <div id="progress_bar" class="rounded-md w-[185px] h-[10px] bg-gray-500">
+                <div id="current_progress" class="rounded-md w-[<?= $current_progress_width ?>] max-w-full h-full <?= $current_progress_bg ?>">
                 </div>
               </div>
             </div>
@@ -295,9 +325,9 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
             <!-- PAGE INFO -->
             <div>
               <span>Page</span>
-              <span>1</span>
+              <span id="current_page">1</span>
               <span>of</span>
-              <span>2</span>
+              <span id="total_pages"><?= $total_pages ?></span>
             </div>
             <!-- END PAGE INFO -->
 
