@@ -1,18 +1,30 @@
 <?php
 include_once("../database/conn.php");
 
-$result = [];
+$content_result = [];
+$email_user_result = $_POST['email_user_result'];
 $id_form = (int)$_POST['id_form'];
+$id_user = null;
+$uniqid = uniqid("", true);
+
 $sections = $_POST['sections'];
 
 //Form's info
-$sqlGetFormInfo = "SELECT title_form FROM forms WHERE id_form = $id_form";
+$sqlGetFormInfo = " SELECT 
+                      forms.title_form, 
+                      users.id_user 
+                    FROM 
+                      forms 
+                        INNER JOIN 
+                      users ON users.id_user = forms.id_user
+                    WHERE id_form = $id_form";
 $queryGetFormInfo = mysqli_query($conn, $sqlGetFormInfo) or die("Error: get form's info");
 $rowGetFormInfo = mysqli_fetch_assoc($queryGetFormInfo);
 $title_form = $rowGetFormInfo['title_form'];
+$id_user = (int)$rowGetFormInfo['id_user'];
 
-$result['id_form'] = $id_form;
-$result['title_form'] = $title_form;
+$content_result['id_form'] = $id_form;
+$content_result['title_form'] = $title_form;
 
 //Sections
 foreach ($sections as $section) {
@@ -231,7 +243,7 @@ foreach ($sections as $section) {
   }
 
   //Save the result
-  $result['sections'][] = [
+  $content_result['sections'][] = [
     'id_section' => $id_section,
     'title_section' => $title_section,
     'description_section' => $description_section,
@@ -239,6 +251,21 @@ foreach ($sections as $section) {
   ];
 }
 
-header("Content-Type: application/json");
-echo json_encode($result);
+$content_result = json_encode($content_result);
+
+//Insert the result
+$sqlInsertResult = "INSERT INTO 
+                      results 
+                      (email_user_result, content_result, id_form, id_user, uniqid) 
+                    VALUES 
+                      ('$email_user_result', '$content_result', $id_form, $id_user, '$uniqid')";
+$queryInsertResult = mysqli_query($conn, $sqlInsertResult) or die("Error: insert result");
+
+//Get the result id
+$sqlGetIdResult = "SELECT id_result FROM results WHERE uniqid = '$uniqid'";
+$queryGetIdResult = mysqli_query($conn, $sqlGetIdResult) or die("Error: get result's id");
+$rowGetIdResult = mysqli_fetch_assoc($queryGetIdResult);
+$id_result = (int)$rowGetIdResult['id_result'];
+
+echo $id_result;
 return;

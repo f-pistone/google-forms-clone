@@ -267,13 +267,31 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "php/send_form.php",
+      url: "php/create_result.php",
       data: {
         email_user_result: email_user_result,
         id_form: id_form,
         sections: sections,
       },
-      success: function (response) {},
+      success: function (response) {
+        if (response > 0) {
+          Toastify({
+            text: "Result saved",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        } else {
+          Toastify({
+            text: "Error: create result",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
     });
   });
 });
