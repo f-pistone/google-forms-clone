@@ -29,11 +29,10 @@ if ($user_check == 0) {
           <h1 class="text-2xl">New password</h1>
           <h2 class="text-gray-500">Choose a new password</h2>
         </div>
-        <div>
+        <div class="input-area">
           <label for="password_user" class="block mb-1">Password</label>
           <div class="relative">
             <input type="password" id="password_user" name="new_password_user" class="w-full p-3 border border-gray-400 rounded hover:border-black focus:border-blue-500 focus:outline-none" placeholder="Password" value="" required>
-            <span class="error-message hidden text-sm text-red-500">Insert your password</span>
             <button type="button" class="show-password absolute z-[999] right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500">
               <span class="eye-closed">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -49,12 +48,12 @@ if ($user_check == 0) {
               </span>
             </button>
           </div>
+          <span class="error-message hidden text-sm text-red-500">Insert your password</span>
         </div>
-        <div>
+        <div class="input-area">
           <label for="confirm_password_user" class="block mb-1">Confirm Password</label>
           <div class="relative">
             <input type="password" id="confirm_password_user" class="w-full p-3 border border-gray-400 rounded hover:border-black focus:border-blue-500 focus:outline-none" placeholder="Confirm Password" value="" required>
-            <span class="error-message hidden text-sm text-red-500">Confirm your password</span>
             <button type="button" class="show-password absolute z-[999] right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500">
               <span class="eye-closed">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -70,6 +69,7 @@ if ($user_check == 0) {
               </span>
             </button>
           </div>
+          <span class="error-message hidden text-sm text-red-500">Confirm your password</span>
         </div>
         <div class="text-right">
           <button type="button" id="change_password_button" class="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600">

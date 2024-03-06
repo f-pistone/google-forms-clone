@@ -24,11 +24,17 @@ $(document).ready(function () {
     for (let i = 0; i < inputs.length; i++) {
       let value = $(inputs[i]).val();
       if ($.trim(value) === "" || value === undefined) {
-        $(inputs[i]).next(".error-message").removeClass("hidden");
+        $(inputs[i])
+          .parents(".input-area")
+          .find(".error-message")
+          .removeClass("hidden");
         $(inputs[i]).addClass("!border-red-500");
         validation = 0;
       } else {
-        $(inputs[i]).next(".error-message").addClass("hidden");
+        $(inputs[i])
+          .parents(".input-area")
+          .find(".error-message")
+          .addClass("hidden");
         $(inputs[i]).removeClass("!border-red-500");
         validation++;
       }

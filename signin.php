@@ -23,26 +23,25 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
             <h2 class="text-sm text-slate-600">Insert your informations</h2>
           </div>
         </div>
-        <div>
+        <div class="input-area">
           <label for="first_name_user" class="inline-block text-lg">First Name</label>
           <input type="text" class="py-2 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="first_name_user" id="first_name_user" placeholder="First Name" value="" required>
           <span class="error-message hidden text-sm text-red-500">Insert your first name</span>
         </div>
-        <div>
+        <div class="input-area">
           <label for="last_name_user" class="inline-block text-lg">Last Name</label>
           <input type="text" class="py-2 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="last_name_user" id="last_name_user" placeholder="Last Name" value="" required>
           <span class="error-message hidden text-sm text-red-500">Insert your last name</span>
         </div>
-        <div>
+        <div class="input-area">
           <label for="email_user" class="inline-block text-lg">Email</label>
           <input type="email" class="py-2 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="email_user" id="email_user" placeholder="Email" value="" required>
           <span class="error-message hidden text-sm text-red-500">Insert your email</span>
         </div>
-        <div>
+        <div class="input-area">
           <label for="password_user" class="inline-block text-lg">Password</label>
           <div class="relative">
             <input type="password" class="py-2 pr-7 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="password_user" id="password_user" placeholder="Password" value="" required>
-            <span class="error-message hidden text-sm text-red-500">Insert your password</span>
             <button type="button" class="show-password absolute z-[999] right-0 top-1/2 -translate-y-1/2 text-xl text-gray-500">
               <span class="eye-closed">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -58,12 +57,12 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
               </span>
             </button>
           </div>
+          <span class="error-message hidden text-sm text-red-500">Insert your password</span>
         </div>
-        <div>
+        <div class="input-area">
           <label for="confirm_password_user" class="inline-block text-lg">Confirm Password</label>
           <div class="relative">
             <input type="password" class="py-2 pr-7 w-full border-b hover:border-blue-500 focus:outline-none focus:border-blue-500 transition" name="confirm_password_user" id="confirm_password_user" placeholder="Confirm Password" value="" required>
-            <span class="error-message hidden text-sm text-red-500">Confirm your password</span>
             <button type="button" class="show-password absolute z-[999] right-0 top-1/2 -translate-y-1/2 text-xl text-gray-500">
               <span class="eye-closed">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
@@ -79,6 +78,7 @@ if (!empty($_SESSION['id_user']) && (int)$_SESSION['id_user'] > 0) {
               </span>
             </button>
           </div>
+          <span class="error-message hidden text-sm text-red-500">Confirm your password</span>
         </div>
         <div class="text-right">
           <button type="button" id="sign_in_button" class="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-600">Sign In</button>
