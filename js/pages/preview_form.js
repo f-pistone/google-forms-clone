@@ -132,11 +132,11 @@ $(document).ready(function () {
     const id_form = $("#form").attr("data-id-form");
     const sectionsEl = $(".section");
     const sections = [];
-    const email_user = $("#email_user").val();
+    const email_user_result = $("#email_user_result").val();
     const not_answered = checkNotAnsweredRequiredQuestions();
 
     //Check if the user inserted his email
-    if ($.trim(email_user) == "") {
+    if ($.trim(email_user_result) == "") {
       Toastify({
         text: "Error: you have insert your email to send the form",
         duration: 6000,
@@ -144,10 +144,10 @@ $(document).ready(function () {
         gravity: "bottom",
         position: "left",
       }).showToast();
-      $("#email_user").addClass("!border-red-500");
+      $("#email_user_result").addClass("!border-red-500");
       return;
     } else {
-      $("#email_user").removeClass("!border-red-500");
+      $("#email_user_result").removeClass("!border-red-500");
     }
 
     //Check if the user answered to all the required questions
@@ -269,6 +269,7 @@ $(document).ready(function () {
       type: "POST",
       url: "php/send_form.php",
       data: {
+        email_user_result: email_user_result,
         id_form: id_form,
         sections: sections,
       },
