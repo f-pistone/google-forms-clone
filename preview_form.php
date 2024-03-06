@@ -96,7 +96,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
             ?>
 
               <!-- QUESTION -->
-              <div class="question p-5 bg-white rounded-md border" data-id-question="<?= $id_question ?>" data-type-question="<?= $type_question ?>">
+              <div class="question <?= ($required_question == 1) ? "question-required" : "" ?> p-5 bg-white rounded-md border" data-id-question="<?= $id_question ?>" data-type-question="<?= $type_question ?>">
                 <div class="mb-5">
                   <h3 class="inline mr-1"><?= $name_question ?></h3>
                   <?php
@@ -113,7 +113,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                 if ($type_question == "SHORT_ANSWER") {
                 ?>
                   <div>
-                    <input type="text" class="answer w-full md:w-1/2 border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer" value="">
+                    <input type="text" class="answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-full md:w-1/2 border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer" value="">
                   </div>
                 <?php
                 }
@@ -124,7 +124,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                 if ($type_question == "LONG_ANSWER") {
                 ?>
                   <div>
-                    <textarea class="answer w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer"></textarea>
+                    <textarea class="answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Your answer"></textarea>
                   </div>
                 <?php
                 }
@@ -148,7 +148,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                       ?>
                           <li>
                             <label class="flex items-center gap-2">
-                              <input type="radio" name="answer_<?= $id_question ?>" class="answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <input type="radio" name="answer_<?= $id_question ?>" class="answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-[20px] h-[20px]" value="<?= $id_option ?>">
                               <span><?= $name_option ?></span>
                             </label>
                           </li>
@@ -157,13 +157,13 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                         ?>
                           <li class="flex items-center gap-2">
                             <label class="flex items-center gap-2">
-                              <input type="radio" name="answer_<?= $id_question ?>" class="other-option answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <input type="radio" name="answer_<?= $id_question ?>" class="other-option answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-[20px] h-[20px]" value="<?= $id_option ?>">
                               <span>
                                 Other:
                               </span>
                             </label>
                             <div class="grow">
-                              <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
+                              <input type="text" class="text-other-option <?= ($required_question == 1) ? "text-other-option-required" : "" ?> w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
                             </div>
                           </li>
                       <?php
@@ -172,6 +172,15 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                       ?>
                     </ul>
                   </div>
+                  <?php
+                  if ($required_question == 0) {
+                  ?>
+                    <div class="hidden mt-2 text-right">
+                      <button type="button" class="remove-selected p-1 text-sm font-medium text-gray-500 rounded transition hover:bg-gray-100 focus:bg-gray-200">Remove selected</button>
+                    </div>
+                  <?php
+                  }
+                  ?>
                 <?php
                 }
                 ?>
@@ -194,7 +203,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                       ?>
                           <li>
                             <label class="flex items-center gap-2">
-                              <input type="checkbox" class="answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <input type="checkbox" class="answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-[20px] h-[20px]" value="<?= $id_option ?>">
                               <span><?= $name_option ?></span>
                             </label>
                           </li>
@@ -203,12 +212,12 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                         ?>
                           <li>
                             <label class="flex items-center gap-2">
-                              <input type="checkbox" class="other-option answer w-[20px] h-[20px]" value="<?= $id_option ?>">
+                              <input type="checkbox" class="other-option answer <?= ($required_question == 1) ? "answer-required" : "" ?> w-[20px] h-[20px]" value="<?= $id_option ?>">
                               <div class="grow flex items-center gap-2">
                                 <span>
                                   Other:
                                 </span>
-                                <input type="text" class="text-other-option w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
+                                <input type="text" class="text-other-option <?= ($required_question == 1) ? "text-other-option-required" : "" ?> w-full border-b-2 focus:outline-none focus:border-violet-800 transition" value="">
                               </div>
                             </label>
                           </li>
@@ -218,6 +227,15 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                       ?>
                     </ul>
                   </div>
+                  <?php
+                  if ($required_question == 0) {
+                  ?>
+                    <div class="hidden mt-2 text-right">
+                      <button type="button" class="remove-selected p-1 text-sm font-medium text-gray-500 rounded transition hover:bg-gray-100 focus:bg-gray-200">Remove selected</button>
+                    </div>
+                  <?php
+                  }
+                  ?>
                 <?php
                 }
                 ?>
@@ -229,7 +247,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                   $queryGetOptions = mysqli_query($conn, $sqlGetOptions) or die("Error: get options");
                 ?>
                   <div>
-                    <select class="answer border px-2 py-3 w-full cursor-pointer rounded focus:outline-none">
+                    <select class="answer <?= ($required_question == 1) ? "answer-required" : "" ?> border px-2 py-3 w-full cursor-pointer rounded focus:outline-none">
                       <option class="text-gray-500" value="" selected>Choose</option>
                       <?php
                       while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {

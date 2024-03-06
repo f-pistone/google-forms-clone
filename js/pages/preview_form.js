@@ -1,6 +1,104 @@
 $(document).ready(function () {
   document.title = $("#title_form").text();
 
+  //Check the value of the required question's text input
+  $("#form").on(
+    "keyup focusout",
+    "input[type='text'].answer-required, textarea.answer-required",
+    function () {
+      const value = $(this).val();
+      const question = $(this).parents(".question");
+      if ($.trim(value) == "") {
+        $(this).addClass("!border-red-500");
+        $(question).addClass("!border-red-500");
+        $(question).find(".error-message").removeClass("hidden");
+      } else {
+        $(this).removeClass("!border-red-500");
+        $(question).removeClass("!border-red-500");
+        $(question).find(".error-message").addClass("hidden");
+      }
+    }
+  );
+
+  //Check the value of the required question's radio and checkbox input
+  $("#form").on(
+    "click",
+    "input[type='radio'].answer-required, input[type='checkbox'].answer-required",
+    function () {
+      const question = $(this).parents(".question");
+      const answers_checked = $(question).find(".answer:checked");
+      const other_option_checked = $(question).find(".other-option:checked");
+      const text_other_option = $(question)
+        .find(".text-other-option-required")
+        .val();
+
+      if (
+        answers_checked.length == 0 ||
+        (other_option_checked.length == 1 && $.trim(text_other_option) == "")
+      ) {
+        $(question).addClass("!border-red-500");
+        $(question).find(".error-message").removeClass("hidden");
+      } else {
+        $(question).removeClass("!border-red-500");
+        $(question).find(".error-message").addClass("hidden");
+      }
+    }
+  );
+
+  //Check the value of the required question's select
+  $("#form").on("change click", "select.answer-required", function () {
+    const value = $(this).val();
+    const question = $(this).parents(".question");
+    if ($.trim(value) == "") {
+      $(question).addClass("!border-red-500");
+      $(question).find(".error-message").removeClass("hidden");
+    } else {
+      $(question).removeClass("!border-red-500");
+      $(question).find(".error-message").addClass("hidden");
+    }
+  });
+
+  //Check the value of the required question's input other option
+  $("#form").on("keyup focusout", ".text-other-option-required", function () {
+    const value = $(this).val();
+    const question = $(this).parents(".question");
+    const answers_checked = $(question).find(".answer:checked");
+    const other_option_checked = $(question).find(".other-option:checked");
+
+    if (
+      other_option_checked.length == 1 &&
+      $.trim(value) == "" &&
+      answers_checked.length == 0
+    ) {
+      $(question).addClass("!border-red-500");
+      $(question).find(".error-message").removeClass("hidden");
+    } else {
+      $(question).removeClass("!border-red-500");
+      $(question).find(".error-message").addClass("hidden");
+    }
+
+    if (other_option_checked.length == 0 && $.trim(value) != "") {
+      $(question).find(".other-option").prop("checked", true);
+    }
+  });
+
+  //Show the remove selected button when you click on a radio or checkbox of a not required question
+  $("#form").on(
+    "click",
+    "input[type='radio'].answer, input[type='checkbox'].answer",
+    function () {
+      const question = $(this).parents(".question");
+      $(question).find(".remove-selected").parent().removeClass("hidden");
+    }
+  );
+
+  //Unchecked the answers of the not required question
+  $("#form").on("click", ".remove-selected", function () {
+    const question = $(this).parents(".question");
+    $(question).find(".answer").prop("checked", false);
+    $(this).parent().addClass("hidden");
+  });
+
   //Button to go at the next section
   $("#next_step_button").on("click", function () {
     const activeSection = $("#form").find(".section.block");
@@ -34,6 +132,19 @@ $(document).ready(function () {
     const id_form = $("#form").attr("data-id-form");
     const sectionsEl = $(".section");
     const sections = [];
+    const not_answered = checkNotAnsweredRequiredQuestions();
+
+    //Check if the user answered to all the required questions
+    if (not_answered > 0) {
+      Toastify({
+        text: "Error: you have to responde to all the required questions",
+        duration: 6000,
+        className: "bg-red-500 rounded",
+        gravity: "bottom",
+        position: "left",
+      }).showToast();
+      return;
+    }
 
     //Sections
     for (let i = 0; i < sectionsEl.length; i++) {
@@ -149,6 +260,69 @@ $(document).ready(function () {
     });
   });
 });
+
+//Check if the user answered to all the required questions
+function checkNotAnsweredRequiredQuestions() {
+  const questions = $("#form").find(".question-required");
+  let not_answered = 0;
+
+  //Questions
+  for (let i = 0; i < questions.length; i++) {
+    let question = $(questions[i]);
+    let type_question = $(question).attr("data-type-question");
+
+    //Short answer and Long answer
+    if (type_question == "SHORT_ANSWER" || type_question == "LONG_ANSWER") {
+      let value = $(question).find(".answer-required").val();
+      if ($.trim(value) == "") {
+        $(question).find(".answer-required").addClass("!border-red-500");
+        $(question).addClass("!border-red-500");
+        $(question).find(".error-message").removeClass("hidden");
+        not_answered++;
+      } else {
+        $(question).find(".answer-required").removeClass("!border-red-500");
+        $(question).removeClass("!border-red-500");
+        $(question).find(".error-message").addClass("hidden");
+      }
+    }
+
+    //Multiple choise and Checkbox
+    if (type_question == "MULTIPLE_CHOISE" || type_question == "CHECKBOX") {
+      let answers_checked = $(question).find(".answer:checked");
+      let other_option_checked = $(question).find(".other-option:checked");
+      let text_other_option = $(question)
+        .find(".text-other-option-required")
+        .val();
+
+      if (
+        answers_checked.length == 0 ||
+        (other_option_checked.length == 1 && $.trim(text_other_option) == "")
+      ) {
+        $(question).addClass("!border-red-500");
+        $(question).find(".error-message").removeClass("hidden");
+        not_answered++;
+      } else {
+        $(question).removeClass("!border-red-500");
+        $(question).find(".error-message").addClass("hidden");
+      }
+    }
+
+    //List
+    if (type_question == "LIST") {
+      let value = $(question).find(".answer-required").val();
+      if ($.trim(value) == "") {
+        $(question).addClass("!border-red-500");
+        $(question).find(".error-message").removeClass("hidden");
+        not_answered++;
+      } else {
+        $(question).removeClass("!border-red-500");
+        $(question).find(".error-message").addClass("hidden");
+      }
+    }
+
+    return not_answered;
+  }
+}
 
 //Update the form's status
 function updateFormStatus() {
