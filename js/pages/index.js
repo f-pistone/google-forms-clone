@@ -26,7 +26,8 @@ $(document).ready(function () {
   });
 
   //Button to open the modal to rename the form
-  $("#forms_list").on("click", ".open-rename-form-modal", function () {
+  $("#forms_list").on("click", ".open-rename-form-modal", function (e) {
+    e.stopPropagation();
     const form = $(this).parents(".form");
     const id_form = $(form).attr("data-id-form");
     const title_form = $(form).attr("data-title-form");
@@ -107,7 +108,8 @@ $(document).ready(function () {
   });
 
   //Button to open the modal to remove the form
-  $("#forms_list").on("click", ".open-remove-form-modal", function () {
+  $("#forms_list").on("click", ".open-remove-form-modal", function (e) {
+    e.stopPropagation();
     const form = $(this).parents(".form");
     const id_form = $(form).attr("data-id-form");
     const title_form = $(form).find(".title-form").text();
@@ -160,6 +162,11 @@ $(document).ready(function () {
     });
   });
 
+  //Anchor to open the edit form page
+  $("#forms_list").on("click", ".open-edit-form", function (e) {
+    e.stopPropagation();
+  });
+
   //Research of the forms
   $("#search_forms").on("keyup", function () {
     const searched_value = $.trim($(this).val().toLowerCase());
@@ -175,6 +182,12 @@ $(document).ready(function () {
         $(forms[i]).parent().hide();
       }
     }
+  });
+
+  //Open the edit form page when clicking on a form card
+  $("#forms_list").on("click", ".form", function () {
+    const id_form = $(this).attr("data-id-form");
+    window.open(`./edit_form.php?id_form=${id_form}`, "_blank");
   });
 
   //Button to create a new form
