@@ -1,6 +1,12 @@
 $(document).ready(function () {
+  //Close the profile box
+  $(document).on("click", function () {
+    $("#profile-box").addClass("hidden");
+  });
+
   //Button to open the profile box
-  $("#open_profile_box_button").on("click", function () {
+  $("#open_profile_box_button").on("click", function (e) {
+    e.stopPropagation();
     const profile_box = $("#profile-box");
     if ($(profile_box).hasClass("hidden")) {
       $(profile_box).removeClass("hidden");

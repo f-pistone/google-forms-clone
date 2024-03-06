@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  //Close the options menu
+  $(document).on("click", function () {
+    $(".options-menu").addClass("hidden");
+  });
+
   //Button to open the profile box
   $("#open_profile_box_button").on("click", function () {
     const profile_box = $("#profile-box");
@@ -10,7 +15,8 @@ $(document).ready(function () {
   });
 
   //Button to open the options menu of the form
-  $("#forms_list").on("click", ".open-options-menu", function () {
+  $("#forms_list").on("click", ".open-options-menu", function (e) {
+    e.stopPropagation();
     const options_menu_to_open = $(this).next(".options-menu");
     if ($(options_menu_to_open).hasClass("hidden")) {
       $(options_menu_to_open).removeClass("hidden");

@@ -1,6 +1,13 @@
 $(document).ready(function () {
   document.title = $("#header_title_form").val() + " - Google Forms Clone";
 
+  //Close the different menus and boxes
+  $(document).on("click", function () {
+    $(".options-menu").addClass("hidden");
+    $("#profile-box").addClass("hidden");
+    $(".options-section").addClass("hidden");
+  });
+
   //Input to rename the form
   $("#header_title_form").on("focusout", function () {
     const input = $(this);
@@ -38,7 +45,8 @@ $(document).ready(function () {
   });
 
   //Button to open the options menu of the form
-  $(".open-options-menu").on("click", function () {
+  $(".open-options-menu").on("click", function (e) {
+    e.stopPropagation();
     const options_menu_to_open = $(this).next(".options-menu");
     if ($(options_menu_to_open).hasClass("hidden")) {
       $(options_menu_to_open).removeClass("hidden");
@@ -48,7 +56,8 @@ $(document).ready(function () {
   });
 
   //Button to open the profile box
-  $("#open_profile_box_button").on("click", function () {
+  $("#open_profile_box_button").on("click", function (e) {
+    e.stopPropagation();
     const profile_box = $("#profile-box");
     if ($(profile_box).hasClass("hidden")) {
       $(profile_box).removeClass("hidden");
@@ -58,7 +67,8 @@ $(document).ready(function () {
   });
 
   //Button to open the options menu of the section
-  $("#form").on("click", ".open-options-section", function () {
+  $("#form").on("click", ".open-options-section", function (e) {
+    e.stopPropagation();
     const options_section_to_open = $(this).next(".options-section");
     if ($(options_section_to_open).hasClass("hidden")) {
       $(options_section_to_open).removeClass("hidden");
