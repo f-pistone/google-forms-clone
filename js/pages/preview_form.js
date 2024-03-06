@@ -132,7 +132,23 @@ $(document).ready(function () {
     const id_form = $("#form").attr("data-id-form");
     const sectionsEl = $(".section");
     const sections = [];
+    const email_user = $("#email_user").val();
     const not_answered = checkNotAnsweredRequiredQuestions();
+
+    //Check if the user inserted his email
+    if ($.trim(email_user) == "") {
+      Toastify({
+        text: "Error: you have insert your email to send the form",
+        duration: 6000,
+        className: "bg-red-500 rounded",
+        gravity: "bottom",
+        position: "left",
+      }).showToast();
+      $("#email_user").addClass("!border-red-500");
+      return;
+    } else {
+      $("#email_user").removeClass("!border-red-500");
+    }
 
     //Check if the user answered to all the required questions
     if (not_answered > 0) {

@@ -39,8 +39,8 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
             <h1 id="title_form" class="text-3xl"><?= $title_form ?></h1>
           </div>
           <div class="border-y px-7 py-5">
-            <label for="email_person" class="block mb-1">Your email</label>
-            <input type="email" id="email_person" class="w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Insert your email" value="" required>
+            <label for="email_user" class="block mb-1">Your email</label>
+            <input type="email" id="email_user" class="w-full border-b-2 focus:outline-none focus:border-violet-800 transition" placeholder="Insert your email" value="" required>
           </div>
           <div class="px-7 py-3">
             <h5 class="text-red-600">* Indicates a required question</h5>
