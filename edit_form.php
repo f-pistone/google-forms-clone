@@ -32,6 +32,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
   $title_form = $rowGetForm['title_form'];
   $title_form_html = htmlspecialchars($title_form, ENT_QUOTES);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,14 +155,14 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
   <!-- END HEADER -->
 
   <!-- MAIN -->
-  <main class="md:pt-[170px] lg:pt-[120px] pb-10 px-1 relative">
+  <main class="pt-[170px] md:pt-[120px] pb-10 px-1 relative">
     <div class="max-w-[800px] mx-auto my-0">
 
       <!-- TABS -->
       <div id="tabs">
 
         <!-- FORM -->
-        <div id="form" class="tab relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
+        <div id="form" class="tab hidden relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
 
           <!-- MENU -->
           <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
@@ -598,8 +599,63 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         <!-- FORM -->
 
         <!-- RESULTS -->
-        <div id="results" class="tab hidden">
-          Results
+        <div id="results" class="tab">
+
+          <?php
+          //Results
+          $sqlGetResults = "SELECT * FROM results WHERE id_form = $id_form ORDER BY created_at DESC";
+          $queryGetResults = mysqli_query($conn, $sqlGetResults) or die("Error: get results");
+          $total_results = (int)mysqli_num_rows($queryGetResults);
+          ?>
+
+          <!-- RESULTS INFORMATIONS -->
+          <div class="p-7 mb-3 rounded-md bg-white shadow">
+            <h1 class="text-3xl"><?= $total_results ?> results</h1>
+          </div>
+          <!-- END RESULTS INFORMATIONS -->
+
+          <!-- LIST OF RESULTS -->
+          <div class="p-7 rounded-md bg-white shadow overflow-y-auto">
+            <table class="w-full">
+              <thead class="border-b">
+                <tr>
+                  <th class="px-2 py-3">Email</th>
+                  <th class="px-2 py-3">Result</th>
+                  <th class="px-2 py-3">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                while ($rowGetResults = mysqli_fetch_assoc($queryGetResults)) {
+                  $email_user_result = $rowGetResults['email_user_result'];
+                  $created_at = date("d/m/Y", strtotime($rowGetResults['created_at']));
+                ?>
+
+                  <!-- RESULT -->
+                  <tr class="odd:bg-white even:bg-gray-100">
+                    <td class="p-2"><?= $email_user_result ?></td>
+                    <td class="p-2 text-center">
+                      <a class="inline-block text-3xl aspect-square">
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z" />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td class="p-2 text-center"><?= $created_at ?></td>
+                  </tr>
+                  <!-- END RESULT -->
+
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- END LIST OF RESULTS -->
+
+
         </div>
         <!-- END RESULTS -->
 
