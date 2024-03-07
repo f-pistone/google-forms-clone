@@ -284,6 +284,9 @@ $(document).ready(function () {
             position: "left",
           }).showToast();
 
+          $("#form").addClass("hidden");
+          $("#success_form").removeClass("hidden");
+
           //Send result email
           $.ajax({
             type: "POST",

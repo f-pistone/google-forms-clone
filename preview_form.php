@@ -31,6 +31,8 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 
   <main class="px-1 py-5">
     <div class="max-w-[650px] mx-auto my-0">
+
+      <!-- FORM -->
       <form id="form" class="grid grid-cols-1 gap-5" data-id-form="<?= $id_form ?>">
 
         <!-- FORM INFORMATIONS -->
@@ -356,6 +358,19 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         <!-- END ACTIONS -->
 
       </form>
+      <!-- END FORM -->
+
+      <!-- SUCCESS FORM -->
+      <div id="success_form" class="hidden bg-white rounded-md border border-t-[10px] border-t-violet-800">
+        <div class="px-7 py-3">
+          <h1 class="text-3xl"><?= $title_form ?></h1>
+        </div>
+        <div class="px-7 py-2">
+          <p>Your response has been saved.</p>
+        </div>
+      </div>
+      <!-- END SUCCESS FORM -->
+
     </div>
 
     <!-- EDIT BUTTON -->
