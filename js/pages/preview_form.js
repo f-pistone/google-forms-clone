@@ -265,6 +265,7 @@ $(document).ready(function () {
       });
     }
 
+    //Create result
     $.ajax({
       type: "POST",
       url: "php/create_result.php",
@@ -282,6 +283,17 @@ $(document).ready(function () {
             gravity: "bottom",
             position: "left",
           }).showToast();
+
+          //Send result email
+          $.ajax({
+            type: "POST",
+            url: "php/send_emails_result.php",
+            data: {
+              email_user_result: email_user_result,
+              id_form: id_form,
+            },
+            success: function (response) {},
+          });
         } else {
           Toastify({
             text: "Error: create result",
