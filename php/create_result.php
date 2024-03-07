@@ -87,7 +87,7 @@ foreach ($sections as $section) {
         $id_option_answer = (int)$question['answer']['id_option'];
         $name_option_answer = $question['answer']['name_option'];
       } else {
-        $id_option_answer = (int)$question['answer'];
+        $id_option_answer = (isset($question['answer'])) ? (int)$question['answer'] : null;
       }
 
       //Save the question
@@ -159,25 +159,27 @@ foreach ($sections as $section) {
         $other_option = (int)$rowGetOptions['other_option'];
 
         //Check the options that the user chose
-        foreach ($question['answer'] as $answer) {
-          if (isset($answer['other_option']) && $answer['other_option'] == 1) {
-            $id_option_answer = (int)$answer['id_option'];
-            $name_option_answer = $answer['name_option'];
-            if ($id_option == $id_option_answer) {
-              $final_answer[] = [
-                'id_option' => $id_option,
-                'name_option' => $name_option_answer,
-                'other_option' => $other_option
-              ];
-            }
-          } else {
-            $id_option_answer = (int)$answer;
-            if ($id_option == $id_option_answer) {
-              $final_answer[] = [
-                'id_option' => $id_option,
-                'name_option' => $name_option,
-                'other_option' => $other_option
-              ];
+        if (isset($question['answer'])) {
+          foreach ($question['answer'] as $answer) {
+            if (isset($answer['other_option']) && $answer['other_option'] == 1) {
+              $id_option_answer = (int)$answer['id_option'];
+              $name_option_answer = $answer['name_option'];
+              if ($id_option == $id_option_answer) {
+                $final_answer[] = [
+                  'id_option' => $id_option,
+                  'name_option' => $name_option_answer,
+                  'other_option' => $other_option
+                ];
+              }
+            } else {
+              $id_option_answer = (int)$answer;
+              if ($id_option == $id_option_answer) {
+                $final_answer[] = [
+                  'id_option' => $id_option,
+                  'name_option' => $name_option,
+                  'other_option' => $other_option
+                ];
+              }
             }
           }
         }
