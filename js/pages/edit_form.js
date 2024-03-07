@@ -66,6 +66,17 @@ $(document).ready(function () {
     }
   });
 
+  //Toggle the active class for the tabs
+  $(".tab-link").on("click", function () {
+    const id_active_tab = "#" + $(this).attr("data-tab");
+
+    $(".tab-link").removeClass("active-tab-link");
+    $(".tab").addClass("hidden");
+
+    $(this).addClass("active-tab-link");
+    $("#tabs").find(`${id_active_tab}.tab`).removeClass("hidden");
+  });
+
   //Button to open the options menu of the section
   $("#form").on("click", ".open-options-section", function (e) {
     e.stopPropagation();
