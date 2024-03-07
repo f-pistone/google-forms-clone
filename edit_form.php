@@ -162,7 +162,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
       <div id="tabs">
 
         <!-- FORM -->
-        <div id="form" class="tab hidden relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
+        <div id="form" class="tab relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
 
           <!-- MENU -->
           <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
@@ -599,7 +599,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         <!-- FORM -->
 
         <!-- RESULTS -->
-        <div id="results" class="tab">
+        <div id="results" class="tab hidden">
 
           <?php
           //Results
@@ -627,6 +627,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
               <tbody>
                 <?php
                 while ($rowGetResults = mysqli_fetch_assoc($queryGetResults)) {
+                  $id_result = (int)$rowGetResults['id_result'];
                   $email_user_result = $rowGetResults['email_user_result'];
                   $created_at = date("d/m/Y", strtotime($rowGetResults['created_at']));
                 ?>
@@ -635,13 +636,13 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                   <tr class="odd:bg-white even:bg-gray-100">
                     <td class="p-2"><?= $email_user_result ?></td>
                     <td class="p-2 text-center">
-                      <a class="inline-block text-3xl aspect-square">
+                      <button type="button" class="download-result inline-block text-3xl aspect-square" data-id-result="<?= $id_result ?>">
                         <span>
                           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                             <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z" />
                           </svg>
                         </span>
-                      </a>
+                      </button>
                     </td>
                     <td class="p-2 text-center"><?= $created_at ?></td>
                   </tr>
