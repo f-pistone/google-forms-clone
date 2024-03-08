@@ -294,6 +294,7 @@ $(document).ready(function () {
             data: {
               email_user_result: email_user_result,
               id_form: id_form,
+              id_result: response,
             },
             success: function (response) {},
           });

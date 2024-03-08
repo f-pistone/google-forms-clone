@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $mail = new PHPMailer(true);
+$id_result = (int)$_POST['id_result'];
 $email_user_result = $_POST['email_user_result'];
 $id_form = (int)$_POST['id_form'];
 $email_user = null;
@@ -84,6 +85,9 @@ try {
   $body .= "    <h1>Thanks to completed the form $title_form</h1>";
   $body .= "    <p>";
   $body .= "      Hi, we inform you that your result has been sent.";
+  $body .= "    </p>";
+  $body .= "    <p>";
+  $body .= "      You can download the pdf file with the result <a href='http://localhost/google-forms-clone/php/download_result_pdf.php?id_result=$id_result'>here</a>";
   $body .= "    </p>";
   $body .= "  </body>";
   $body .= "</html>";
