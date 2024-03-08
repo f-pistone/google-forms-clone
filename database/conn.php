@@ -1,8 +1,16 @@
 <?php
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "google_forms_clone";
+
+require './vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable("./");
+$dotenv->load();
+
+$hostname = $_ENV["DATABASE_HOSTNAME"];
+$username = $_ENV["DATABASE_USERNAME"];
+$password = $_ENV["DATABASE_PASSWORD"];
+$database = $_ENV["DATABASE_DATABASE"];
 
 $conn = new mysqli($hostname, $username, $password, $database);
 
