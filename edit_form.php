@@ -85,7 +85,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                 </button>
               </li>
               <li class="hover:bg-gray-100">
-                <button type="button" class="open-remove-form-modal w-full p-3 flex items-center gap-3">
+                <button type="button" id="open_remove_form_modal" class="w-full p-3 flex items-center gap-3">
                   <span class="text-lg font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
                       <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
@@ -666,6 +666,23 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
     </div>
   </main>
   <!-- END MAIN -->
+
+  <!-- REMOVE FORM MODAL -->
+  <dialog id="remove_form_modal" class="modal p-5 w-[800px] rounded-lg shadow">
+    <div class="mb-5">
+      <h2 class="text-2xl mb-2">Remove this element?</h2>
+      <h3 class="text-gray-600">The element <?= $title_form ?> will be removed.</h3>
+    </div>
+    <div class="flex flex-wrap justify-end items-center gap-2">
+      <button type="button" id="close_remove_form_modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-gray-100 hover:text-black">
+        Back
+      </button>
+      <button type="button" id="remove_form_button" data-id-form="<?= $id_form ?>" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
+        REMOVE
+      </button>
+    </div>
+  </dialog>
+  <!-- END REMOVE FORM MODAL -->
 
   <!-- REMOVE SECTION MODAL -->
   <dialog id="remove_section_modal" class="modal p-5 w-[400px] rounded shadow">

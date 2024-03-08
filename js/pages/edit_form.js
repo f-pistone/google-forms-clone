@@ -102,6 +102,51 @@ $(document).ready(function () {
     }
   });
 
+  //Button to open the modal to remove the form
+  $("#open_remove_form_modal").on("click", function () {
+    document.getElementById("remove_form_modal").showModal();
+  });
+
+  //Button to close the modal to remove the form
+  $("#close_remove_form_modal").on("click", function () {
+    document.getElementById("remove_form_modal").close();
+  });
+
+  //Button to remove the form
+  $("#remove_form_button").on("click", function () {
+    const id_form = $(this).attr("data-id-form");
+
+    $.ajax({
+      type: "POST",
+      url: "php/remove_form.php",
+      data: {
+        id_form: id_form,
+      },
+      success: function (response) {
+        if (response == true) {
+          $("#close_remove_form_modal").click();
+          Toastify({
+            text: "Form removed",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+          window.location.href = "./index.php";
+        } else {
+          $("#close_remove_form_modal").click();
+          Toastify({
+            text: "Error: remove form",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Button to add a new question
   $("#add_question_button").on("click", function () {
     const last_section = $(".section").last();
