@@ -44,6 +44,20 @@ $(document).ready(function () {
     });
   });
 
+  //Button to copy the link of the form
+  $("#share_form_button").on("click", function () {
+    const id_form = $(this).attr("data-id-form");
+    const link = `http://localhost/google-forms-clone/viewform.php?id_form=${id_form}`;
+    navigator.clipboard.writeText(link);
+    Toastify({
+      text: "Link copied",
+      duration: 6000,
+      className: "bg-zinc-800 rounded",
+      gravity: "bottom",
+      position: "left",
+    }).showToast();
+  });
+
   //Button to open the options menu of the form
   $(".open-options-menu").on("click", function (e) {
     e.stopPropagation();

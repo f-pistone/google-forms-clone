@@ -58,8 +58,8 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           </a>
         </div>
         <div>
-          <button type="button" class="px-5 py-1 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
-            Send
+          <button type="button" id="share_form_button" data-id-form="<?= $id_form ?>" class="px-5 py-1 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
+            Share
           </button>
         </div>
         <div class="relative">
