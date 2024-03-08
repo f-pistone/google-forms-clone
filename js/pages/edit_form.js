@@ -686,7 +686,10 @@ $(document).ready(function () {
   //Download of the result
   $("#results").on("click", ".download-result", function () {
     const id_result = $(this).attr("data-id-result");
-    window.location.href = `./php/download_result_pdf.php?id_result=${id_result}`;
+    window.open(
+      `./php/download_result_pdf.php?id_result=${id_result}`,
+      "_blank"
+    );
   });
 });
 
