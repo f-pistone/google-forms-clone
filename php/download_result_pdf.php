@@ -1,7 +1,6 @@
 <?php
 include_once("../database/conn.php");
-
-require "../vendor/autoload.php";
+require_once("../vendor/autoload.php");
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
