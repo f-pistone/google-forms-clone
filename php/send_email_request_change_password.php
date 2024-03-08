@@ -1,11 +1,9 @@
 <?php
 include_once("../database/conn.php");
+require_once('../vendor/autoload.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-require '../vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 $email_user = $_POST['email_user'];
@@ -28,12 +26,12 @@ try {
 
   $mail->isSMTP();
   $mail->isHTML(true);
-  $mail->Host = "smtp.gmail.com";
+  $mail->Host = $_ENV['MAIL_HOST'];
   $mail->SMTPAuth = true;
-  $mail->Username = "";
-  $mail->Password = "";
-  $mail->SMTPSecure = "ssl";
-  $mail->Port = 465;
+  $mail->Username = $_ENV['MAIL_USERNAME'];
+  $mail->Password = $_ENV['MAIL_PASSWORD'];
+  $mail->SMTPSecure = $_ENV['MAIL_SMTPSECURE'];
+  $mail->Port = $_ENV['MAIL_PORT'];
 
   $body = "";
   $body .= "<html>";
@@ -46,7 +44,7 @@ try {
   $body .= "  </body>";
   $body .= "</html>";
 
-  $mail->setFrom("", "Google Forms Clone");
+  $mail->setFrom($_ENV['MAIL_USERNAME'], "Google Forms Clone");
   $mail->addAddress($email_user);
 
   $mail->Subject = "Change password";
