@@ -133,7 +133,6 @@ $(document).ready(function () {
     const sectionsEl = $(".section");
     const sections = [];
     const email_user_result = $("#email_user_result").val();
-    const not_answered = checkNotAnsweredRequiredQuestions();
 
     //Check if the user inserted his email
     if ($.trim(email_user_result) == "") {
@@ -151,9 +150,10 @@ $(document).ready(function () {
     }
 
     //Check if the user answered to all the required questions
+    const not_answered = checkNotAnsweredRequiredQuestions();
     if (not_answered > 0) {
       Toastify({
-        text: "Error: you have to responde to all the required questions",
+        text: "Error: you have to responde to the all required questions",
         duration: 6000,
         className: "bg-red-500 rounded",
         gravity: "bottom",
@@ -369,9 +369,9 @@ function checkNotAnsweredRequiredQuestions() {
         $(question).find(".error-message").addClass("hidden");
       }
     }
-
-    return not_answered;
   }
+
+  return not_answered;
 }
 
 //Update the form's status
