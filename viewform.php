@@ -387,7 +387,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
   </main>
 
   <!-- JS -->
-  <script src="./js/pages/preview_form.js"></script>
+  <script src="./js/pages/viewform.js"></script>
   <!-- END JS -->
 </body>
 
