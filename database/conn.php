@@ -1,11 +1,5 @@
 <?php
-
-require "C:/xampp/htdocs/google-forms-clone/vendor/autoload.php";
-
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable("C:/xampp/htdocs/google-forms-clone");
-$dotenv->load();
+require_once("C:/xampp/htdocs/google-forms-clone/dotenv.php");
 
 $hostname = $_ENV["DATABASE_HOSTNAME"];
 $username = $_ENV["DATABASE_USERNAME"];
