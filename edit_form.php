@@ -75,7 +75,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           <div class="options-menu hidden absolute z-[999] right-0 top-[50px] w-[250px] h-fit bg-white border rounded shadow">
             <ul>
               <li class="hover:bg-gray-100">
-                <button type="button" class="open-duplicate-form-modal w-full p-3 flex items-center gap-3">
+                <button type="button" id="duplicate_form_button" class="w-full p-3 flex items-center gap-3">
                   <span class="text-lg font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
                       <path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />

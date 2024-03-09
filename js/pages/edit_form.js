@@ -102,6 +102,38 @@ $(document).ready(function () {
     }
   });
 
+  //Button to duplicate the form
+  $("#duplicate_form_button").on("click", function () {
+    const id_form = $("#form").attr("data-id-form");
+    $.ajax({
+      type: "POST",
+      url: "php/duplicate_form.php",
+      data: {
+        id_form_to_clone: id_form,
+      },
+      success: function (response) {
+        if (response > 0) {
+          Toastify({
+            text: "Form duplicated",
+            duration: 6000,
+            className: "bg-zinc-800 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+          window.open(`./edit_form.php?id_form=${response}`, "_blank");
+        } else {
+          Toastify({
+            text: "Error: duplicate form",
+            duration: 6000,
+            className: "bg-red-500 rounded",
+            gravity: "bottom",
+            position: "left",
+          }).showToast();
+        }
+      },
+    });
+  });
+
   //Button to open the modal to remove the form
   $("#open_remove_form_modal").on("click", function () {
     document.getElementById("remove_form_modal").showModal();
