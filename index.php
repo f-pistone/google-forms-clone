@@ -231,7 +231,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
       <button type="button" id="close_remove_form_modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-gray-100 hover:text-black">
         Back
       </button>
-      <button type="button" id="remove_form_button" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
+      <button type="button" id="remove_form_button" class="px-8 py-1 text-white rounded bg-purple-700 hover:bg-blue-500">
         REMOVE
       </button>
     </div>

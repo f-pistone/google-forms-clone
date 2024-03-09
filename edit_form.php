@@ -677,7 +677,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
       <button type="button" id="close_remove_form_modal" class="px-10 py-1 text-purple-500 border rounded hover:bg-gray-100 hover:text-black">
         Back
       </button>
-      <button type="button" id="remove_form_button" data-id-form="<?= $id_form ?>" class="px-8 py-1 text-white rounded bg-purple-500 hover:bg-blue-500">
+      <button type="button" id="remove_form_button" data-id-form="<?= $id_form ?>" class="px-8 py-1 text-white rounded bg-purple-700 hover:bg-blue-500">
         REMOVE
       </button>
     </div>
