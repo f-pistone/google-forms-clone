@@ -165,7 +165,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
         <div id="form" class="tab relative grid grid-cols-1 gap-10" data-id-form="<?= $id_form ?>">
 
           <!-- MENU -->
-          <menu class="menu w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed left-0 bottom-0 md:left-[unset] md:bottom-[unset] md:right-0 z-[999]">
+          <menu id="menu" class="w-full md:w-[50px] px-2 md:px-0 py-5 md:py-2 border rounded bg-white shadow-xl fixed md:absolute left-0 md:left-[unset] md:-right-14 bottom-0 md:bottom-[unset] z-[99] transition-all duration-[50ms]">
             <ul class="flex flex-row md:flex-col justify-center md:justify-start items-center gap-2">
               <li>
                 <button type="button" id="add_question_button" class="p-2 aspect-square rounded-full flex justify-center items-center text-xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200" title="Add question">

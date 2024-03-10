@@ -179,6 +179,25 @@ $(document).ready(function () {
     });
   });
 
+  //Position of the menu
+  $(window).on("scroll", function () {
+    if (this.innerWidth > 768) {
+      const current_window_position = this.scrollY;
+      $("#menu").css("top", current_window_position);
+    } else {
+      $("#menu").css("top", "unset");
+    }
+  });
+
+  $(window).on("resize", function () {
+    if (this.innerWidth > 768) {
+      const current_window_position = this.scrollY;
+      $("#menu").css("top", current_window_position);
+    } else {
+      $("#menu").css("top", "unset");
+    }
+  });
+
   //Button to add a new question
   $("#add_question_button").on("click", function () {
     const last_section = $(".section").last();
