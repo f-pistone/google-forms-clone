@@ -137,7 +137,7 @@ $(document).ready(function () {
     //Check if the user inserted his email
     if ($.trim(email_user_result) == "") {
       Toastify({
-        text: "Error: you have insert your email to send the form",
+        text: "Error: you have to insert your email to send the form",
         duration: 6000,
         className: "bg-red-500 rounded",
         gravity: "bottom",
