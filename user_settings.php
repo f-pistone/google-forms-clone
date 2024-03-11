@@ -41,7 +41,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
         <img class="image-user w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
       </button>
       <!-- PROFILE BOX -->
-      <div id="profile-box" class="hidden absolute z-[9999] right-0 w-screen md:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
+      <div id="profile-box" class="hidden fixed sm:absolute z-[9999] right-0 w-screen sm:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
         <div class="flex items-center gap-2">
           <span class="text-center break-all"><?= $email_user ?></span>
         </div>
@@ -52,7 +52,7 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
           <div>
             <h2 class="text-2xl text-center break-all">Hi <?= $first_name_user ?></h2>
           </div>
-          <div>
+          <div class="text-center">
             <a href="./user_settings.php" target="_blank" class="inline-block px-7 py-2 text-blue-500 border border-gray-600 rounded-full hover:bg-blue-100">
               Manage your account
             </a>
