@@ -37,13 +37,18 @@ while ($rowGetUser = mysqli_fetch_assoc($queryGetUser)) {
       </div>
     </div>
     <div class="shrink-0 relative">
-      <button type="button" class="w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200" id="open_profile_box_button">
+      <button type="button" class="open-profile-box-button w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200">
         <img class="image-user w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
       </button>
       <!-- PROFILE BOX -->
-      <div id="profile-box" class="hidden fixed sm:absolute z-[9999] right-0 w-screen sm:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
-        <div class="flex items-center gap-2">
+      <div id="profile-box" class="hidden fixed sm:absolute z-[9999] right-0 top-0 sm:top-[unset] w-screen sm:w-[435px] h-screen sm:h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
+        <div class="relative w-full flex justify-center items-center gap-2">
           <span class="text-center break-all"><?= $email_user ?></span>
+          <button type="button" class="open-profile-box-button absolute right-0 p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-200 focus:bg-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+              <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z"></path>
+            </svg>
+          </button>
         </div>
         <div class="h-full flex flex-col items-center gap-3">
           <div>

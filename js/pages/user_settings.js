@@ -5,13 +5,17 @@ $(document).ready(function () {
   });
 
   //Button to open the profile box
-  $("#open_profile_box_button").on("click", function (e) {
+  $(".open-profile-box-button").on("click", function (e) {
     e.stopPropagation();
     const profile_box = $("#profile-box");
     if ($(profile_box).hasClass("hidden")) {
       $(profile_box).removeClass("hidden");
+      if (window.innerWidth <= 640) {
+        $("body").addClass("overflow-hidden");
+      }
     } else {
       $(profile_box).addClass("hidden");
+      $("body").removeClass("overflow-hidden");
     }
   });
 
