@@ -4,8 +4,11 @@ $(document).ready(function () {
   //Close the different menus and boxes
   $(document).on("click", function () {
     $(".options-menu").addClass("hidden");
-    $("#profile-box").addClass("hidden");
     $(".options-section").addClass("hidden");
+    if (window.innerWidth > 640) {
+      $("#profile-box").addClass("hidden");
+      $("body").removeClass("overflow-hidden");
+    }
   });
 
   //Input to rename the form
@@ -45,7 +48,7 @@ $(document).ready(function () {
   });
 
   //Button to copy the link of the form
-  $("#share_form_button").on("click", function () {
+  $(".share-form-button").on("click", function () {
     const id_form = $(this).attr("data-id-form");
     const link = `http://localhost/google-forms-clone/viewform.php?id_form=${id_form}`;
     navigator.clipboard.writeText(link);
@@ -70,13 +73,17 @@ $(document).ready(function () {
   });
 
   //Button to open the profile box
-  $("#open_profile_box_button").on("click", function (e) {
+  $(".open-profile-box-button").on("click", function (e) {
     e.stopPropagation();
     const profile_box = $("#profile-box");
     if ($(profile_box).hasClass("hidden")) {
       $(profile_box).removeClass("hidden");
+      if (window.innerWidth <= 640) {
+        $("body").addClass("overflow-hidden");
+      }
     } else {
       $(profile_box).addClass("hidden");
+      $("body").removeClass("overflow-hidden");
     }
   });
 

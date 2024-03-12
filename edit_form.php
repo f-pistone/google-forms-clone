@@ -42,24 +42,33 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
 <body class="bg-purple-100">
   <!-- HEADER -->
   <header class="fixed z-[999] bg-white w-full pt-2 px-5 border-b">
-    <div class="flex flex-wrap items-center gap-3">
-      <a href="./index.php" class="shrink-0 order-1 block">
-        <img src="./assets/images/google-forms-logo.svg" class="w-[40px] aspect-square" alt="Logo">
-      </a>
-      <div class="grow order-3 md:order-2">
-        <input type="text" id="header_title_form" class="w-full md:w-[400px] text-lg transition focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>" data-current-title-form="<?= $title_form_html ?>">
-      </div>
-      <div class="shrink-0 order-2 md:order-3 ml-auto md:ml-0 flex items-center gap-3">
+    <div class="flex flex-wrap justify-between items-center gap-3">
+      <div class="shrink-0 flex items-center gap-3">
+        <a href="./index.php" class="block">
+          <img src="./assets/images/google-forms-logo.svg" class="w-[40px] aspect-square" alt="Logo">
+        </a>
         <div>
+          <input type="text" id="header_title_form" class="text-lg transition focus:outline-none focus:border-b-2 focus:border-black" value="<?= $title_form_html ?>" data-current-title-form="<?= $title_form_html ?>">
+        </div>
+      </div>
+      <div class="shrink-0 ml-auto sm:ml-0 flex items-center gap-3">
+        <div class="hidden sm:block">
           <a href="./viewform.php?id_form=<?= $id_form ?>" target="_blank" class="w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
               <path fill="currentColor" d="M245.48 125.57c-.34-.78-8.66-19.23-27.24-37.81C201 70.54 171.38 50 128 50S55 70.54 37.76 87.76c-18.58 18.58-26.9 37-27.24 37.81a6 6 0 0 0 0 4.88c.34.77 8.66 19.22 27.24 37.8C55 185.47 84.62 206 128 206s73-20.53 90.24-37.75c18.58-18.58 26.9-37 27.24-37.8a6 6 0 0 0 0-4.88M128 194c-31.38 0-58.78-11.42-81.45-33.93A134.77 134.77 0 0 1 22.69 128a134.56 134.56 0 0 1 23.86-32.06C69.22 73.42 96.62 62 128 62s58.78 11.42 81.45 33.94A134.56 134.56 0 0 1 233.31 128C226.94 140.21 195 194 128 194m0-112a46 46 0 1 0 46 46a46.06 46.06 0 0 0-46-46m0 80a34 34 0 1 1 34-34a34 34 0 0 1-34 34" />
             </svg>
           </a>
         </div>
-        <div>
-          <button type="button" id="share_form_button" data-id-form="<?= $id_form ?>" class="px-5 py-1 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
+        <div class="hidden sm:block">
+          <button type="button" data-id-form="<?= $id_form ?>" class="share-form-button px-5 py-1 text-white rounded bg-violet-800 hover:bg-violet-700 shadow">
             Share
+          </button>
+        </div>
+        <div class="block sm:hidden">
+          <button type="button" data-id-form="<?= $id_form ?>" class="share-form-button w-[50px] aspect-square rounded-full flex justify-center items-center text-2xl text-gray-600 transition hover:bg-gray-100 focus:bg-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 20V4l19 8zm2-3l11.85-5L5 7v3.5l6 1.5l-6 1.5zm0 0V7z" />
+            </svg>
           </button>
         </div>
         <div class="relative">
@@ -74,6 +83,16 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           </button>
           <div class="options-menu hidden absolute z-[999] right-0 top-[50px] w-[250px] h-fit bg-white border rounded shadow">
             <ul>
+              <li class="list-item sm:hidden hover:bg-gray-100">
+                <a href="./viewform.php?id_form=<?= $id_form ?>" target="_blank" class="w-full p-3 flex items-center gap-3">
+                  <span class="text-xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
+                      <path fill="currentColor" d="M245.48 125.57c-.34-.78-8.66-19.23-27.24-37.81C201 70.54 171.38 50 128 50S55 70.54 37.76 87.76c-18.58 18.58-26.9 37-27.24 37.81a6 6 0 0 0 0 4.88c.34.77 8.66 19.22 27.24 37.8C55 185.47 84.62 206 128 206s73-20.53 90.24-37.75c18.58-18.58 26.9-37 27.24-37.8a6 6 0 0 0 0-4.88M128 194c-31.38 0-58.78-11.42-81.45-33.93A134.77 134.77 0 0 1 22.69 128a134.56 134.56 0 0 1 23.86-32.06C69.22 73.42 96.62 62 128 62s58.78 11.42 81.45 33.94A134.56 134.56 0 0 1 233.31 128C226.94 140.21 195 194 128 194m0-112a46 46 0 1 0 46 46a46.06 46.06 0 0 0-46-46m0 80a34 34 0 1 1 34-34a34 34 0 0 1-34 34" />
+                    </svg>
+                  </span>
+                  <span>Preview</span>
+                </a>
+              </li>
               <li class="hover:bg-gray-100">
                 <button type="button" id="duplicate_form_button" class="w-full p-3 flex items-center gap-3">
                   <span class="text-lg font-bold">
@@ -100,13 +119,18 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           </div>
         </div>
         <div class="relative">
-          <button type="button" class="w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200" id="open_profile_box_button">
+          <button type="button" class="open-profile-box-button w-[50px] aspect-square rounded-full p-1 hover:bg-gray-100 focus:bg-gray-200">
             <img class="w-[50px] aspect-square border rounded-full object-contain" src="<?= $image_user ?>" alt="Profile Image">
           </button>
           <!-- PROFILE BOX -->
-          <div id="profile-box" class="hidden absolute z-[9999] right-0 w-screen md:w-[435px] h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
-            <div class="flex items-center gap-2">
+          <div id="profile-box" class="hidden fixed sm:absolute z-[9999] right-0 top-0 sm:top-[unset] w-screen sm:w-[435px] h-screen sm:h-[385px] p-4 bg-slate-100 border rounded-lg shadow-lg flex flex-col items-center gap-5">
+            <div class="relative w-full flex justify-center items-center gap-2">
               <span class="text-center break-all"><?= $email_user ?></span>
+              <button type="button" class="open-profile-box-button absolute right-0 p-3 aspect-square rounded-full flex justify-center items-center text-lg text-gray-500 transition hover:bg-gray-200 focus:bg-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40">
+                  <path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z"></path>
+                </svg>
+              </button>
             </div>
             <div class="h-full flex flex-col items-center gap-3">
               <div>
@@ -135,7 +159,6 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
           <!-- END PROFILE BOX -->
         </div>
       </div>
-
     </div>
     <div>
       <ul class="flex justify-center items-center gap-3">
