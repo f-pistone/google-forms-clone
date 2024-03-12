@@ -652,7 +652,7 @@ while ($rowGetForm = mysqli_fetch_assoc($queryGetForm)) {
                 while ($rowGetResults = mysqli_fetch_assoc($queryGetResults)) {
                   $id_result = (int)$rowGetResults['id_result'];
                   $email_user_result = $rowGetResults['email_user_result'];
-                  $created_at = date("d/m/Y", strtotime($rowGetResults['created_at']));
+                  $created_at = date("d/m/Y H:i", strtotime($rowGetResults['created_at']));
                 ?>
 
                   <!-- RESULT -->
