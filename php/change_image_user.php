@@ -35,7 +35,7 @@ $id_user = (int)$_SESSION['id_user'];
 $sqlGetOldImageUser = "SELECT image_user FROM users WHERE id_user = $id_user";
 $queryGetOldImageUser = mysqli_query($conn, $sqlGetOldImageUser) or die("Error: get old image user");
 $rowGetOldImageUser = mysqli_fetch_assoc($queryGetOldImageUser);
-$old_image_user = "../" . $rowGetOldImageUser['image_user'];
+$old_image_user = (!empty($rowGetOldImageUser['image_user'])) ? "../" . $rowGetOldImageUser['image_user'] : "";
 
 if (file_exists($old_image_user)) {
   unlink($old_image_user);
