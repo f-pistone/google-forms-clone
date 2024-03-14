@@ -20,9 +20,8 @@ $sqlGetFormInfo = " SELECT
                     WHERE id_form = $id_form";
 $queryGetFormInfo = mysqli_query($conn, $sqlGetFormInfo) or die("Error: get form's info");
 $rowGetFormInfo = mysqli_fetch_assoc($queryGetFormInfo);
-$title_form = $rowGetFormInfo['title_form'];
+$title_form = htmlentities($rowGetFormInfo['title_form']);
 $id_user = (int)$rowGetFormInfo['id_user'];
-
 $content_result['id_form'] = $id_form;
 $content_result['title_form'] = $title_form;
 
@@ -35,8 +34,8 @@ foreach ($sections as $section) {
   $sqlGetSectionInfo = "SELECT title_section, description_section FROM sections WHERE id_section = $id_section";
   $queryGetSectionInfo = mysqli_query($conn, $sqlGetSectionInfo) or die("Error: get section's info");
   $rowGetSectionInfo = mysqli_fetch_assoc($queryGetSectionInfo);
-  $title_section = $rowGetSectionInfo['title_section'];
-  $description_section = $rowGetSectionInfo['description_section'];
+  $title_section = htmlentities($rowGetSectionInfo['title_section']);
+  $description_section = htmlentities($rowGetSectionInfo['description_section']);
 
   //Questions
   foreach ($section['questions'] as $question) {
@@ -46,13 +45,13 @@ foreach ($sections as $section) {
     $sqlGetQuestionInfo = "SELECT name_question, type_question, required_question FROM questions WHERE id_question = $id_question";
     $queryGetQuestionInfo = mysqli_query($conn, $sqlGetQuestionInfo) or die("Error: get question's info");
     $rowGetQuestionInfo = mysqli_fetch_assoc($queryGetQuestionInfo);
-    $name_question = $rowGetQuestionInfo['name_question'];
+    $name_question = htmlentities($rowGetQuestionInfo['name_question']);
     $type_question = $rowGetQuestionInfo['type_question'];
     $required_question = (int)$rowGetQuestionInfo['required_question'];
 
     //Short answer
     if ($type_question == "SHORT_ANSWER") {
-      $final_answer = $question['answer'];
+      $final_answer = htmlentities($question['answer']);
       $questions[] = [
         'id_question' => $id_question,
         'name_question' => $name_question,
@@ -64,7 +63,7 @@ foreach ($sections as $section) {
 
     //Long answer
     if ($type_question == "LONG_ANSWER") {
-      $final_answer = $question['answer'];
+      $final_answer = htmlentities($question['answer']);
       $questions[] = [
         'id_question' => $id_question,
         'name_question' => $name_question,
@@ -85,7 +84,7 @@ foreach ($sections as $section) {
 
       if (isset($question['answer']['other_option'])) {
         $id_option_answer = (int)$question['answer']['id_option'];
-        $name_option_answer = $question['answer']['name_option'];
+        $name_option_answer = htmlentities($question['answer']['name_option']);
       } else {
         $id_option_answer = (isset($question['answer'])) ? (int)$question['answer'] : null;
       }
@@ -100,7 +99,7 @@ foreach ($sections as $section) {
 
       while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
         $id_option = (int)$rowGetOptions['id_option'];
-        $name_option = $rowGetOptions['name_option'];
+        $name_option = htmlentities($rowGetOptions['name_option']);
         $other_option = (int)$rowGetOptions['other_option'];
 
         //Check the option that the user chose
@@ -155,7 +154,7 @@ foreach ($sections as $section) {
 
       while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
         $id_option = (int)$rowGetOptions['id_option'];
-        $name_option = $rowGetOptions['name_option'];
+        $name_option = htmlentities($rowGetOptions['name_option']);
         $other_option = (int)$rowGetOptions['other_option'];
 
         //Check the options that the user chose
@@ -163,7 +162,7 @@ foreach ($sections as $section) {
           foreach ($question['answer'] as $answer) {
             if (isset($answer['other_option']) && $answer['other_option'] == 1) {
               $id_option_answer = (int)$answer['id_option'];
-              $name_option_answer = $answer['name_option'];
+              $name_option_answer = htmlentities($answer['name_option']);
               if ($id_option == $id_option_answer) {
                 $final_answer[] = [
                   'id_option' => $id_option,
@@ -219,7 +218,7 @@ foreach ($sections as $section) {
 
       while ($rowGetOptions = mysqli_fetch_assoc($queryGetOptions)) {
         $id_option = (int)$rowGetOptions['id_option'];
-        $name_option = $rowGetOptions['name_option'];
+        $name_option = htmlentities($rowGetOptions['name_option']);
 
         //Check the option that the user chose
         if ($id_option == $id_option_answer) {
