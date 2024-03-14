@@ -82,7 +82,7 @@ try {
   $body = "";
   $body .= "<html>";
   $body .= "  <body>";
-  $body .= "    <h1>Thanks to completed the form $title_form</h1>";
+  $body .= "    <h1>Thank you for completing the form $title_form</h1>";
   $body .= "    <p>";
   $body .= "      Hi, we inform you that your result has been sent.";
   $body .= "    </p>";
@@ -95,7 +95,7 @@ try {
   $mail->setFrom($_ENV['MAIL_USERNAME'], "Google Forms Clone");
   $mail->addAddress($email_user_result);
 
-  $mail->Subject = "Thanks to completed the form $title_form";
+  $mail->Subject = "Thank you for completing the form $title_form";
   $mail->Body = $body;
 
   $mail->send();
